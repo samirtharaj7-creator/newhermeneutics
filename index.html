@@ -71,9 +71,53 @@
       }
     </style>
     <script type="module" crossorigin src="./assets/index-e932b6a7.js?v=general-application-spacepets-vertical-list-1"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@400;500;600;700&family=Literata:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/global-shell.css" />
   </head>
   <body>
+    <header class="mbe-global-shell" data-tool="hermeneutics" data-embedded="true">
+      <div class="mbe-shell-wrap">
+        <a class="mbe-brand-lockup" href="https://mybibleexplorer.com" aria-label="My Bible Explorer home">
+          <img class="mbe-brand-logo" src="/assets/my-bible-explorer-logo.png" alt="My Bible Explorer" />
+        </a>
+        <div class="mbe-site-context" aria-label="Current site">
+          <a class="mbe-back-home" href="https://mybibleexplorer.com">Back to My Bible Explorer</a>
+          <span class="mbe-current-site">Hermeneutics Guide</span>
+        </div>
+        <nav class="mbe-global-nav" aria-label="My Bible Explorer">
+          <a href="/">Home</a>
+          <details class="mbe-library-menu">
+            <summary class="mbe-library-toggle">Library</summary>
+            <div class="mbe-library-panel">
+              <div class="mbe-library-grid">
+            <a class="mbe-library-item" href="https://hermeneutics.mybibleexplorer.com" aria-current="page"><span class="mbe-library-name">Hermeneutics</span><span class="mbe-library-desc">Learn to read Scripture faithfully</span></a>
+            <a class="mbe-library-item" href="https://psalms.mybibleexplorer.com"><span class="mbe-library-name">Psalms</span><span class="mbe-library-desc">Worship, lament, praise, and prayer</span></a>
+            <a class="mbe-library-item" href="https://daniel.mybibleexplorer.com"><span class="mbe-library-name">Daniel</span><span class="mbe-library-desc">Prophecy and providence</span></a>
+            <a class="mbe-library-item" href="https://revelation.mybibleexplorer.com/revelation/1/"><span class="mbe-library-name">Revelation</span><span class="mbe-library-desc">Symbols, judgment, and final hope</span></a>
+            <a class="mbe-library-item" href="https://sanctuary.mybibleexplorer.com/#map"><span class="mbe-library-name">Sanctuary</span><span class="mbe-library-desc">A blueprint of salvation</span></a>
+            <a class="mbe-library-item" href="https://lastdayevents.mybibleexplorer.com/index.html"><span class="mbe-library-name">Last Day Events</span><span class="mbe-library-desc">Earth's final chapter</span></a>
+            <a class="mbe-library-item" href="https://apologetics.mybibleexplorer.com"><span class="mbe-library-name">Apologetics</span><span class="mbe-library-desc">Answers for honest questions</span></a>
+              </div>
+            </div>
+          </details>
+          <a href="https://mybibleexplorer.com/#donate">Give</a>
+          <a href="mailto:admin@mybibleexplorer.com">Contact</a>
+        </nav>
+      </div>
+    </header>
+
     <div id="root"></div>
-    
+    <footer class="mbe-global-footer" data-tool="hermeneutics">
+      <div class="mbe-shell-wrap mbe-footer-wrap">
+        <a class="mbe-footer-brand" href="https://mybibleexplorer.com">My Bible Explorer</a>
+        <span>Know the Word. Live the Word.</span>
+        <span>To contact, email <a class="mbe-footer-link" href="mailto:admin@mybibleexplorer.com">admin@mybibleexplorer.com</a></span>
+        <a class="mbe-footer-link" href="https://mybibleexplorer.com/#donate">Give</a>
+        <span>&copy; <span data-mbe-year></span> My Bible Explorer</span>
+      </div>
+    </footer>
+    <script>document.querySelectorAll('[data-mbe-year]').forEach((node) => { node.textContent = new Date().getFullYear(); });</script>
   </body>
 </html>
