@@ -9,7 +9,8 @@
   --mbe-rule:#e5e0d6;
   --mbe-muted:#5f6673;
   --mbe-ivory:#f7f3e8;
-  --mbe-max:1080px;
+  --mbe-max:1180px;
+  --mbe-header-height:112px;
   --mbe-accent:var(--mbe-gold);
   --mbe-accent-dark:var(--mbe-gold-dark);
   --mbe-font-display:"Cormorant Garamond",Georgia,serif;
@@ -23,7 +24,7 @@
 .mbe-global-shell[data-tool="hermeneutics"],
 .mbe-global-footer[data-tool="hermeneutics"]{--mbe-accent:#6b54b3;--mbe-accent-dark:#4b3b87;}
 .mbe-global-shell[data-tool="psalms"],
-.mbe-global-footer[data-tool="psalms"]{--mbe-accent:#c9a44c;--mbe-accent-dark:#2f7d7a;}
+.mbe-global-footer[data-tool="psalms"]{--mbe-accent:#2f7d7a;--mbe-accent-dark:#9b7628;}
 .mbe-global-shell[data-tool="daniel"],
 .mbe-global-footer[data-tool="daniel"]{--mbe-accent:#c9a44c;--mbe-accent-dark:#5a7049;}
 .mbe-global-shell[data-tool="revelation"],
@@ -32,23 +33,19 @@
 .mbe-global-footer[data-tool="sanctuary"]{--mbe-accent:#c9a44c;--mbe-accent-dark:#36432f;}
 .mbe-global-shell[data-tool="last-day-events"],
 .mbe-global-footer[data-tool="last-day-events"]{--mbe-accent:#3f5f86;--mbe-accent-dark:#283a54;}
-.mbe-global-shell[data-tool="apologetics"],
-.mbe-global-footer[data-tool="apologetics"]{--mbe-accent:#c1564f;--mbe-accent-dark:#8a2f3a;}
+
+body.mbe-unified-page{--mbe-local-accent:var(--mbe-accent);}
 
 .mbe-global-shell{
   position:sticky;
   top:0;
-  z-index:80;
-  background:rgba(255,255,255,.94);
+  z-index:1000;
+  background:rgba(255,255,255,.96);
   border-bottom:1px solid var(--mbe-rule);
-  backdrop-filter:blur(10px);
+  box-shadow:0 18px 40px -36px rgba(11,31,58,.55);
+  backdrop-filter:blur(16px);
   font-family:var(--mbe-font-ui);
   color:var(--mbe-ink);
-}
-
-.mbe-global-shell[data-embedded="true"]{
-  position:relative;
-  top:auto;
 }
 
 .mbe-shell-wrap{
@@ -57,7 +54,7 @@
   padding:0 28px;
 }
 
-.mbe-global-shell .mbe-shell-wrap{
+.mbe-shell-main{
   min-height:76px;
   display:grid;
   grid-template-columns:auto minmax(120px,1fr) auto;
@@ -75,7 +72,7 @@
 
 .mbe-brand-logo{
   display:block;
-  width:clamp(176px,19vw,232px);
+  width:clamp(170px,18vw,228px);
   height:auto;
 }
 
@@ -88,8 +85,8 @@
 
 .mbe-back-home{
   color:var(--mbe-muted);
-  font-size:.72rem;
-  font-weight:600;
+  font-size:.7rem;
+  font-weight:700;
   letter-spacing:.14em;
   line-height:1.2;
   text-decoration:none;
@@ -101,9 +98,9 @@
 .mbe-current-site{
   color:var(--mbe-ink);
   font-family:var(--mbe-font-display);
-  font-size:1.22rem;
-  font-weight:600;
-  line-height:1.1;
+  font-size:1.24rem;
+  font-weight:700;
+  line-height:1.08;
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
@@ -121,18 +118,14 @@
 }
 
 .mbe-global-nav{
-  position:static;
-  top:auto;
-  z-index:auto;
   display:flex;
   align-items:center;
   gap:18px;
   justify-content:flex-end;
   background:transparent;
   border:0;
-  backdrop-filter:none;
   font-size:.88rem;
-  font-weight:600;
+  font-weight:700;
 }
 
 .mbe-global-nav a,
@@ -140,25 +133,15 @@
   color:var(--mbe-muted);
   text-decoration:none;
   transition:color .18s ease;
+  white-space:nowrap;
 }
 
 .mbe-global-nav a:hover,
 .mbe-library-menu[open] .mbe-library-toggle,
 .mbe-library-toggle:hover{color:var(--mbe-accent-dark);}
 
-.mbe-global-nav a[aria-current="page"]{
-  color:var(--mbe-ink);
-}
-
-.mbe-library-menu{
-  position:relative;
-}
-
-.mbe-library-toggle{
-  list-style:none;
-  cursor:pointer;
-}
-
+.mbe-library-menu{position:relative;}
+.mbe-library-toggle{list-style:none;cursor:pointer;}
 .mbe-library-toggle::-webkit-details-marker{display:none;}
 
 .mbe-library-toggle::after{
@@ -180,7 +163,7 @@
   position:absolute;
   right:0;
   top:calc(100% + 18px);
-  width:min(560px,calc(100vw - 32px));
+  width:min(540px,calc(100vw - 32px));
   padding:12px;
   border:1px solid var(--mbe-rule);
   border-radius:8px;
@@ -209,179 +192,158 @@
   gap:2px;
   padding:11px 12px;
   border-radius:6px;
+  color:var(--mbe-ink);
   text-decoration:none;
 }
 
-.mbe-library-item:hover{
-  background:var(--mbe-soft);
+.mbe-library-item:hover{background:var(--mbe-soft);}
+.mbe-library-item[aria-current="page"]{background:rgba(201,164,76,.13);}
+.mbe-library-name{font-family:var(--mbe-font-display);font-size:1.02rem;font-weight:700;line-height:1.1;}
+.mbe-library-desc{color:var(--mbe-muted);font-size:.78rem;font-weight:500;line-height:1.35;}
+
+.mbe-tool-row{
+  border-top:1px solid rgba(229,224,214,.78);
+  min-height:36px;
+  display:flex;
+  align-items:center;
 }
 
-.mbe-library-item[aria-current="page"]{
-  background:rgba(201,164,76,.13);
-  box-shadow:inset 3px 0 0 var(--mbe-accent);
+.mbe-tool-nav{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  overflow-x:auto;
+  padding:8px 0;
+  scrollbar-width:none;
 }
 
-.mbe-library-name{
-  color:var(--mbe-ink);
-  font-weight:700;
-  line-height:1.2;
-}
+.mbe-tool-nav::-webkit-scrollbar{display:none;}
 
-.mbe-library-desc{
+.mbe-tool-link{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:28px;
+  padding:6px 12px;
+  border:1px solid transparent;
+  border-radius:999px;
+  background:transparent;
   color:var(--mbe-muted);
-  font-size:.74rem;
-  font-weight:500;
-  line-height:1.35;
+  font:700 .72rem/1 var(--mbe-font-ui);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  text-decoration:none;
+  cursor:pointer;
+  transition:background .18s ease,border-color .18s ease,color .18s ease;
+}
+
+.mbe-tool-link:hover,
+.mbe-tool-link.active,
+.mbe-tool-link[aria-current="page"]{
+  border-color:rgba(201,164,76,.44);
+  background:rgba(201,164,76,.12);
+  color:var(--mbe-accent-dark);
 }
 
 .mbe-global-footer{
   background:var(--mbe-navy);
   color:#c8ced8;
   font-family:var(--mbe-font-ui);
-  font-size:.86rem;
 }
 
 .mbe-footer-wrap{
+  min-height:96px;
   display:flex;
+  flex-wrap:wrap;
   align-items:center;
   justify-content:space-between;
-  gap:18px;
-  flex-wrap:wrap;
-  padding-top:46px;
-  padding-bottom:46px;
+  gap:14px 22px;
+  font-size:.9rem;
 }
 
 .mbe-footer-brand{
-  color:var(--mbe-ivory);
+  color:#fff;
   font-family:var(--mbe-font-display);
-  font-size:1.08rem;
-  font-style:italic;
-  font-weight:600;
-  border-bottom:0;
-  text-decoration:none;
-}
-
-.mbe-global-footer .mbe-footer-link{
-  color:var(--mbe-ivory);
-  text-decoration:none;
-  border-bottom:1px solid rgba(247,243,232,.38);
-}
-
-.mbe-global-footer .mbe-footer-link:hover{
-  color:#fff;
-  border-bottom-color:#fff;
-}
-
-.mbe-shell-button{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:.5rem;
-  min-height:44px;
-  padding:12px 20px;
-  border:1px solid var(--mbe-navy);
-  border-radius:3px;
-  background:var(--mbe-navy);
-  color:#fff;
-  font-family:var(--mbe-font-ui);
-  font-size:.94rem;
+  font-size:1.45rem;
   font-weight:700;
   text-decoration:none;
 }
 
-.mbe-shell-button:hover{
-  border-color:var(--mbe-accent-dark);
-  background:var(--mbe-accent-dark);
+.mbe-footer-link{color:var(--mbe-gold);text-decoration:none;font-weight:700;}
+.mbe-footer-link:hover{text-decoration:underline;}
+
+body[data-mbe-tool="daniel"] header.sticky,
+body[data-mbe-tool="revelation"] .reader-header,
+body[data-mbe-tool="revelation"] > div.fixed.top-0,
+body[data-mbe-tool="hermeneutics"] #root header:first-of-type,
+body[data-mbe-tool="psalms"] .atlas-top-strip,
+body[data-mbe-tool="sanctuary"] .app-shell > .site-header,
+body[data-mbe-tool="last-day-events"] > .site-header,
+body[data-mbe-tool="last-day-events"] > .site-footer{
+  display:none!important;
 }
 
-.mbe-shell-link{
-  color:var(--mbe-accent-dark);
-  font-weight:700;
-  text-decoration:none;
-  border-bottom:1px solid rgba(201,164,76,.5);
+body[data-mbe-tool="daniel"] main,
+body[data-mbe-tool="revelation"] main,
+body[data-mbe-tool="hermeneutics"] #root,
+body[data-mbe-tool="psalms"] .atlas-page,
+body[data-mbe-tool="sanctuary"] .app-shell,
+body[data-mbe-tool="last-day-events"] main{
+  font-family:var(--mbe-font-reading);
 }
 
-.mbe-shell-link:hover{
-  color:var(--mbe-navy);
-  border-bottom-color:var(--mbe-navy);
+body[data-mbe-tool="daniel"] main h1,
+body[data-mbe-tool="daniel"] main h2,
+body[data-mbe-tool="daniel"] main h3,
+body[data-mbe-tool="revelation"] main h1,
+body[data-mbe-tool="revelation"] main h2,
+body[data-mbe-tool="revelation"] main h3,
+body[data-mbe-tool="last-day-events"] main h1,
+body[data-mbe-tool="last-day-events"] main h2,
+body[data-mbe-tool="last-day-events"] main h3,
+body[data-mbe-tool="sanctuary"] main h1,
+body[data-mbe-tool="sanctuary"] main h2,
+body[data-mbe-tool="sanctuary"] main h3{
+  font-family:var(--mbe-font-display);
 }
 
-.mbe-shell-card{
-  border:1px solid var(--mbe-rule);
-  border-radius:8px;
-  background:var(--mbe-bg);
-  box-shadow:0 16px 36px -30px rgba(11,31,58,.45);
+body[data-mbe-tool="daniel"] .text-primary,
+body[data-mbe-tool="revelation"] .text-primary{color:var(--mbe-accent-dark)!important;}
+
+body[data-mbe-tool="daniel"] .bg-primary,
+body[data-mbe-tool="revelation"] .bg-primary{background-color:var(--mbe-accent-dark)!important;}
+
+body[data-mbe-tool="psalms"] .atlas-page{
+  height:calc(100vh - var(--mbe-header-height));
+  background:linear-gradient(180deg,#fff,#f6f8f7);
 }
 
-.mbe-shell-form{
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-  font-family:var(--mbe-font-ui);
+body[data-mbe-tool="psalms"] .atlas-main{scroll-padding-top:24px;}
+body[data-mbe-tool="psalms"] .atlas-brand-title{font-family:var(--mbe-font-display);}
+
+body[data-mbe-tool="sanctuary"] .app-shell,
+body[data-mbe-tool="last-day-events"] .page{
+  min-height:auto;
 }
 
-.mbe-shell-form label{
-  color:var(--mbe-navy);
-  font-size:.84rem;
-  font-weight:700;
-}
-
-.mbe-shell-form input,
-.mbe-shell-form textarea,
-.mbe-shell-form select{
-  width:100%;
-  border:1px solid var(--mbe-rule);
-  border-radius:4px;
-  background:#fffdf8;
-  color:var(--mbe-ink);
-  font:inherit;
-  padding:12px 14px;
-}
-
-.mbe-shell-form input:focus,
-.mbe-shell-form textarea:focus,
-.mbe-shell-form select:focus{
-  outline:none;
-  border-color:var(--mbe-gold);
-  box-shadow:0 0 0 3px rgba(201,164,76,.16);
-}
-
-@media(max-width:820px){
-  .mbe-global-shell .mbe-shell-wrap{
-    grid-template-columns:1fr;
-    gap:10px;
-    padding-top:12px;
-    padding-bottom:14px;
-  }
-
-  .mbe-site-context{
-    flex-direction:row;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-  }
-
-  .mbe-global-nav{
-    justify-content:flex-start;
-    gap:14px;
-    overflow-x:auto;
-    padding-bottom:2px;
-    scrollbar-width:none;
-  }
-
-  .mbe-global-nav::-webkit-scrollbar{display:none;}
-
-  .mbe-library-panel{
-    left:0;
-    right:auto;
-    width:min(520px,calc(100vw - 56px));
-  }
-}
-
-@media(max-width:560px){
-  .mbe-shell-wrap{padding-left:20px;padding-right:20px;}
-  .mbe-brand-logo{width:184px;}
-  .mbe-site-context{align-items:flex-start;flex-direction:column;}
+@media(max-width:900px){
+  :root{--mbe-header-height:142px;}
+  .mbe-shell-main{grid-template-columns:1fr auto;gap:14px;min-height:70px;}
+  .mbe-site-context{display:none;}
+  .mbe-brand-logo{width:174px;}
+  .mbe-global-nav{gap:12px;font-size:.82rem;}
+  .mbe-library-panel{right:-80px;}
   .mbe-library-grid{grid-template-columns:1fr;}
-  .mbe-footer-wrap{align-items:flex-start;flex-direction:column;}
+}
+
+@media(max-width:620px){
+  :root{--mbe-header-height:180px;}
+  .mbe-shell-wrap{padding:0 16px;}
+  .mbe-shell-main{grid-template-columns:1fr;align-items:start;padding-top:10px;padding-bottom:8px;}
+  .mbe-brand-logo{width:166px;}
+  .mbe-global-nav{width:100%;justify-content:space-between;gap:10px;}
+  .mbe-library-panel{left:0;right:auto;width:calc(100vw - 32px);}
+  .mbe-footer-wrap{align-items:flex-start;flex-direction:column;padding-top:24px;padding-bottom:24px;}
 }
