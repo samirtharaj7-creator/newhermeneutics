@@ -36,17 +36,16 @@
 .mbe-global-shell{
   position:sticky;
   top:0;
-  z-index:80;
-  background:rgba(255,255,255,.94);
-  border-bottom:1px solid var(--mbe-rule);
-  backdrop-filter:blur(10px);
+  z-index:1200;
+  min-height:46px;
+  background:var(--mbe-navy);
+  border-bottom:1px solid rgba(247,243,232,.14);
+  color:#f7f3e8;
   font-family:var(--mbe-font-ui);
-  color:var(--mbe-ink);
 }
 
-.mbe-global-shell[data-embedded="true"]{
-  position:relative;
-  top:auto;
+.mbe-global-shell + .site-header{
+  top:46px;
 }
 
 .mbe-shell-wrap{
@@ -56,92 +55,78 @@
 }
 
 .mbe-global-shell .mbe-shell-wrap{
-  min-height:76px;
-  display:grid;
-  grid-template-columns:auto minmax(120px,1fr) auto;
-  align-items:center;
-  gap:22px;
-}
-
-.mbe-brand-lockup{
-  display:inline-flex;
-  align-items:center;
-  min-width:0;
-  color:inherit;
-  text-decoration:none;
-}
-
-.mbe-brand-logo{
-  display:block;
-  width:clamp(176px,19vw,232px);
-  height:auto;
-}
-
-.mbe-site-context{
+  min-height:46px;
   display:flex;
-  flex-direction:column;
-  gap:2px;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+
+.mbe-ribbon-left{
   min-width:0;
+  display:flex;
+  align-items:center;
+  gap:18px;
 }
 
-.mbe-back-home{
-  color:var(--mbe-muted);
-  font-size:.72rem;
-  font-weight:600;
-  letter-spacing:.14em;
-  line-height:1.2;
-  text-decoration:none;
-  text-transform:uppercase;
-}
-
-.mbe-back-home:hover{color:var(--mbe-accent-dark);}
-
-.mbe-current-site{
-  color:var(--mbe-ink);
+.mbe-ribbon-brand{
+  color:#fff;
   font-family:var(--mbe-font-display);
-  font-size:1.22rem;
+  font-size:1.14rem;
   font-weight:600;
-  line-height:1.1;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  line-height:1;
+  letter-spacing:.01em;
+  text-decoration:none;
   white-space:nowrap;
 }
 
-.mbe-current-site::before{
+.mbe-ribbon-brand:hover,
+.mbe-ribbon-back:hover,
+.mbe-global-nav a:hover,
+.mbe-library-menu[open] .mbe-library-toggle,
+.mbe-library-toggle:hover{
+  color:var(--mbe-gold);
+}
+
+.mbe-ribbon-back{
+  color:#d8d3c3;
+  font-size:.73rem;
+  font-weight:700;
+  letter-spacing:.14em;
+  line-height:1;
+  text-decoration:none;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+.mbe-ribbon-back::before{
   content:"";
   display:inline-block;
-  width:.46rem;
-  height:.46rem;
-  margin-right:.48rem;
-  border-radius:50%;
-  background:var(--mbe-accent);
-  vertical-align:.13rem;
+  width:1px;
+  height:16px;
+  margin-right:18px;
+  background:rgba(247,243,232,.22);
+  vertical-align:-3px;
 }
 
 .mbe-global-nav{
   display:flex;
   align-items:center;
-  gap:18px;
   justify-content:flex-end;
-  background:transparent;
-  border:0;
-  backdrop-filter:none;
-  font-size:.88rem;
-  font-weight:600;
+  gap:18px;
+  color:#d8d3c3;
+  font-size:.82rem;
+  font-weight:700;
+  line-height:1;
 }
 
 .mbe-global-nav a,
 .mbe-library-toggle{
-  color:var(--mbe-muted);
+  color:inherit;
   text-decoration:none;
   transition:color .18s ease;
+  white-space:nowrap;
 }
-
-.mbe-global-nav a:hover,
-.mbe-library-menu[open] .mbe-library-toggle,
-.mbe-library-toggle:hover{color:var(--mbe-accent-dark);}
-
-.mbe-global-nav a[aria-current="page"]{color:var(--mbe-ink);}
 
 .mbe-library-menu{position:relative;}
 .mbe-library-toggle{list-style:none;cursor:pointer;}
@@ -150,37 +135,38 @@
 .mbe-library-toggle::after{
   content:"";
   display:inline-block;
-  width:.42rem;
-  height:.42rem;
+  width:.38rem;
+  height:.38rem;
   margin-left:.42rem;
   border-right:1.5px solid currentColor;
   border-bottom:1.5px solid currentColor;
-  transform:rotate(45deg) translateY(-.12rem);
+  transform:rotate(45deg) translateY(-.1rem);
 }
 
 .mbe-library-menu[open] .mbe-library-toggle::after{
-  transform:rotate(225deg) translateY(-.12rem);
+  transform:rotate(225deg) translateY(-.08rem);
 }
 
 .mbe-library-panel{
   position:absolute;
   right:0;
-  top:calc(100% + 18px);
+  top:calc(100% + 14px);
   width:min(560px,calc(100vw - 32px));
   padding:12px;
   border:1px solid var(--mbe-rule);
   border-radius:8px;
   background:#fff;
+  color:var(--mbe-ink);
   box-shadow:0 24px 50px -34px rgba(11,31,58,.55);
 }
 
 .mbe-library-panel::before{
   content:"";
   position:absolute;
-  top:-18px;
+  top:-14px;
   right:0;
   left:0;
-  height:18px;
+  height:14px;
 }
 
 .mbe-library-grid{
@@ -195,12 +181,13 @@
   gap:2px;
   padding:11px 12px;
   border-radius:6px;
+  color:var(--mbe-ink);
   text-decoration:none;
 }
 
 .mbe-library-item:hover{background:var(--mbe-soft);}
 .mbe-library-item[aria-current="page"]{background:rgba(201,164,76,.13);}
-.mbe-library-name{font-family:var(--mbe-font-display);font-size:1.02rem;font-weight:600;color:var(--mbe-ink);line-height:1.1;}
+.mbe-library-name{font-family:var(--mbe-font-display);font-size:1.02rem;font-weight:600;line-height:1.1;}
 .mbe-library-desc{color:var(--mbe-muted);font-size:.78rem;font-weight:500;line-height:1.35;}
 
 .mbe-global-footer{
@@ -251,6 +238,29 @@
 }
 
 @media(max-width:720px){
+  .mbe-global-shell .mbe-shell-wrap{
+    padding:0 18px;
+    gap:12px;
+  }
+
+  .mbe-ribbon-back{display:none;}
+
+  .mbe-ribbon-brand{
+    font-size:1rem;
+  }
+
+  .mbe-global-nav{
+    gap:14px;
+    font-size:.78rem;
+  }
+
+  .mbe-library-panel{
+    right:-76px;
+    width:min(360px,calc(100vw - 24px));
+  }
+
+  .mbe-library-grid{grid-template-columns:1fr;}
+
   .mbe-footer-wrap{
     min-height:auto;
     flex-direction:column;
@@ -258,20 +268,4 @@
     gap:16px;
     padding:44px 24px;
   }
-}
-
-@media(max-width:900px){
-  .mbe-global-shell .mbe-shell-wrap{grid-template-columns:auto 1fr;min-height:auto;padding-top:14px;padding-bottom:14px;}
-  .mbe-brand-logo{width:170px;}
-  .mbe-global-nav{grid-column:1/-1;justify-content:flex-start;overflow-x:auto;padding-top:8px;}
-  .mbe-library-panel{left:0;right:auto;}
-}
-
-@media(max-width:620px){
-  .mbe-shell-wrap{padding:0 18px;}
-  .mbe-site-context{display:none;}
-  .mbe-global-shell .mbe-shell-wrap{display:flex;flex-wrap:wrap;gap:12px 18px;}
-  .mbe-brand-logo{width:158px;}
-  .mbe-global-nav{width:100%;gap:14px;font-size:.84rem;}
-  .mbe-library-grid{grid-template-columns:1fr;}
 }

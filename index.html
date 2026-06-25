@@ -74,21 +74,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@400;500;600;700&family=Literata:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/global-shell.css" />
-    <script defer src="/mbe-unified.js?v=brand-shell-1"></script>
+    <link rel="stylesheet" href="/global-shell.css?v=slim-ribbon-2" />
+    <script defer src="/mbe-unified.js?v=slim-ribbon-2"></script>
   </head>
   <body>
     <header class="mbe-global-shell" data-tool="hermeneutics" data-embedded="true">
       <div class="mbe-shell-wrap">
-        <a class="mbe-brand-lockup" href="https://mybibleexplorer.com" aria-label="My Bible Explorer home">
-          <img class="mbe-brand-logo" src="/assets/my-bible-explorer-logo.png" alt="My Bible Explorer" />
-        </a>
-        <div class="mbe-site-context" aria-label="Current site">
-          <a class="mbe-back-home" href="https://mybibleexplorer.com">Back to My Bible Explorer</a>
-          <span class="mbe-current-site">Hermeneutics Guide</span>
+        <div class="mbe-ribbon-left">
+          <a class="mbe-ribbon-brand" href="https://mybibleexplorer.com" aria-label="My Bible Explorer home">My Bible Explorer</a>
+          <a class="mbe-ribbon-back" href="https://mybibleexplorer.com/#journeys">Back to Library</a>
         </div>
         <nav class="mbe-global-nav" aria-label="My Bible Explorer">
-          <a href="/">Home</a>
           <details class="mbe-library-menu">
             <summary class="mbe-library-toggle">Library</summary>
             <div class="mbe-library-panel">
@@ -102,12 +98,10 @@
               </div>
             </div>
           </details>
-          <a href="https://mybibleexplorer.com/#donate">Give</a>
-          <a href="mailto:admin@mybibleexplorer.com">Contact</a>
+          <a class="mbe-ribbon-give" href="https://mybibleexplorer.com/#donate">Give</a>
         </nav>
       </div>
     </header>
-
 <div id="root"></div>
     <footer class="mbe-global-footer" data-tool="hermeneutics">
       <div class="mbe-shell-wrap mbe-footer-wrap">
@@ -119,5 +113,5 @@
       </div>
     </footer>
     <script>document.querySelectorAll('[data-mbe-year]').forEach((node) => { node.textContent = new Date().getFullYear(); });</script>
-  </body>
+</body>
 </html>
