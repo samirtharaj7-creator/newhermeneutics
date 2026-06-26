@@ -48,6 +48,28 @@
   top:46px;
 }
 
+/* Hermeneutics renders its native navigation inside the React root, not as
+   .site-header. Keep those sticky bars below the shared library ribbon. */
+body > #root > div > header.sticky.top-0{
+  top:46px !important;
+}
+
+#root .top-\[65px\]{
+  top:111px !important;
+}
+
+#root .top-\[67px\]{
+  top:113px !important;
+}
+
+#root .top-\[73px\]{
+  top:119px !important;
+}
+
+#root .top-\[122px\]{
+  top:168px !important;
+}
+
 .mbe-shell-wrap{
   max-width:var(--mbe-max);
   margin:0 auto;
