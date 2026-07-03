@@ -186,41 +186,4 @@
   window.__HERMENEUTICS_ID_FROM_URL__ = idFromUrl;
   window.__HERMENEUTICS_CLEAN_URL_FOR_ID__ = cleanUrlForId;
   window.__HERMENEUTICS_CANONICAL_FOR_ID__ = canonicalForId;
-
-  const originalReplaceState = history.replaceState.bind(history);
-  const originalPushState = history.pushState.bind(history);
-
-  const cleanRoutePath = cleanUrlForId(byPath[normalizePath(window.location.pathname)] || "", window.location.href);
-  if (cleanRoutePath && cleanRoutePath !== "/" && !window.location.hash && !new URLSearchParams(window.location.search).get("page")) {
-    const id = idFromUrl(window.location.href);
-    originalReplaceState(history.state, "", `${cleanRoutePath}#${id}`);
-  }
-
-  function rewriteHistoryUrl(urlValue) {
-    if (urlValue == null) return urlValue;
-    try {
-      const id = idFromUrl(urlValue);
-      return cleanUrlForId(id, urlValue) || urlValue;
-    } catch {
-      return urlValue;
-    }
-  }
-
-  function announceNavigation() {
-    window.dispatchEvent(new CustomEvent("hermeneutics:navigation", {
-      detail: { id: idFromUrl(window.location.href) }
-    }));
-  }
-
-  history.replaceState = function (state, title, urlValue) {
-    const result = originalReplaceState(state, title, rewriteHistoryUrl(urlValue));
-    announceNavigation();
-    return result;
-  };
-
-  history.pushState = function (state, title, urlValue) {
-    const result = originalPushState(state, title, rewriteHistoryUrl(urlValue));
-    announceNavigation();
-    return result;
-  };
 })();
