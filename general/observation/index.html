@@ -3,6 +3,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#020617" />
+    <script>
+      (() => {
+        const rootPath = location.pathname === "/" || location.pathname === "/index.html";
+        const directSection = location.hash && location.hash !== "#home";
+        const querySection = new URLSearchParams(location.search).has("page");
+        if (!rootPath || directSection || querySection) return;
+
+        document.documentElement.classList.add("home-boot");
+        const preload = document.createElement("link");
+        preload.rel = "preload";
+        preload.as = "image";
+        preload.href = "/home/bible-closed-poster.jpg?v=reload-poster-1";
+        preload.fetchPriority = "high";
+        document.head.appendChild(preload);
+      })();
+    </script>
+    <style id="critical-first-paint">
+      html { background: #f8fafc; }
+      body { margin: 0; background: #f8fafc; }
+      #root { min-height: 100vh; }
+      html.home-boot { background: #020617; }
+      html.home-boot #root:empty {
+        display: block;
+        min-height: 100vh;
+        padding: 0;
+        background-color: #020617;
+        background-image:
+          linear-gradient(180deg, rgba(2, 6, 23, 0.2), rgba(2, 6, 23, 0.34)),
+          url("/home/bible-closed-poster.jpg?v=reload-poster-1");
+        background-position: center, center bottom;
+        background-repeat: no-repeat;
+        background-size: cover, min(118vw, 1680px) auto;
+      }
+      html.home-boot #root:empty::before {
+        content: none;
+        display: none;
+      }
+      @media (max-width: 639px) {
+        html.home-boot #root:empty {
+          background-position: center, center calc(100% - 4.25rem);
+          background-size: cover, min(116vw, 31rem) auto;
+        }
+      }
+    </style>
     <title>Observation in Bible Study | General Hermeneutics</title>
     <meta name="description" content="Learn to notice repeated words, structure, people, commands, contrasts, and textual clues before explaining a passage." />
     <link rel="canonical" href="https://hermeneutics.mybibleexplorer.com/general/observation/" />
@@ -13,18 +58,6 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Observation in Bible Study | General Hermeneutics" />
     <meta name="twitter:description" content="Learn to notice repeated words, structure, people, commands, contrasts, and textual clues before explaining a passage." />
-    <script src="/vendor/tailwind.js?v=general-application-spacepets-one-row-1"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"]
-            }
-          }
-        }
-      };
-    </script>
     <style>
       *, ::before, ::after { box-sizing: border-box; }
       html, body, #root { width: 100%; max-width: 100%; overflow-x: clip; }
@@ -80,7 +113,8 @@
       }
     </style>
     <script src="/assets/hermeneutics-route-meta.js?v=clean-routes-1"></script>
-    <script type="module" crossorigin src="/assets/index-e932b6a7.js?v=home-bible-restore-3"></script>
+    <link rel="preload" as="script" href="/vendor/tailwind.js?v=general-application-spacepets-one-row-1" />
+    <link rel="modulepreload" crossorigin href="/assets/index-e932b6a7.js?v=home-bible-restore-4" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@400;500;600;700&family=Literata:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
@@ -124,6 +158,61 @@
         <span>&copy; <span data-mbe-year></span> My Bible Explorer</span>
       </div>
     </footer>
+    <script>
+      (() => {
+        const injectApp = (() => {
+          let injected = false;
+          return () => {
+            if (injected) return;
+            injected = true;
+            const app = document.createElement("script");
+            app.type = "module";
+            app.crossOrigin = "anonymous";
+            app.src = "/assets/index-e932b6a7.js?v=home-bible-restore-4";
+            document.head.appendChild(app);
+          };
+        })();
+
+        const loadRuntime = () => {
+          const runtime = document.createElement("script");
+          runtime.src = "/vendor/tailwind.js?v=general-application-spacepets-one-row-1";
+          runtime.onload = () => {
+            tailwind.config = {
+              theme: {
+                extend: {
+                  fontFamily: {
+                    sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"]
+                  }
+                }
+              }
+            };
+
+            const tailwindReady = () => Array.from(document.head.querySelectorAll("style"))
+              .some((style) => style.textContent.includes("--tw-border-spacing-x"));
+
+            if (tailwindReady()) {
+              injectApp();
+              return;
+            }
+
+            const observer = new MutationObserver(() => {
+              if (!tailwindReady()) return;
+              observer.disconnect();
+              injectApp();
+            });
+            observer.observe(document.head, { childList: true });
+            window.setTimeout(() => {
+              observer.disconnect();
+              injectApp();
+            }, 1500);
+          };
+          runtime.onerror = injectApp;
+          document.head.appendChild(runtime);
+        };
+
+        requestAnimationFrame(() => requestAnimationFrame(loadRuntime));
+      })();
+    </script>
     <script>document.querySelectorAll('[data-mbe-year]').forEach((node) => { node.textContent = new Date().getFullYear(); });</script>
 </body>
 </html>
