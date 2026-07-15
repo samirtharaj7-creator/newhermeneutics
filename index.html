@@ -12,39 +12,71 @@
         if (!rootPath || directSection || querySection) return;
 
         document.documentElement.classList.add("home-boot");
-        const preload = document.createElement("link");
-        preload.rel = "preload";
-        preload.as = "image";
-        preload.href = "/home/bible-closed-poster.jpg?v=mbe-20260715-1";
-        preload.fetchPriority = "high";
-        document.head.appendChild(preload);
       })();
     </script>
     <style id="critical-first-paint">
       html { background: #f8fafc; }
       body { margin: 0; background: #f8fafc; }
       #root { min-height: 100vh; }
-      html.home-boot { background: #020617; }
+      html.home-boot { background: #f8fafc; }
       html.home-boot #root:empty {
         display: block;
-        min-height: 100vh;
-        padding: 0;
+        min-height: min(44rem, calc(100vh - 5rem));
+        margin: 1rem auto 0;
+        width: min(calc(100% - 2rem), 92rem);
+        overflow: hidden;
+        border: 1px solid rgba(15, 23, 42, 0.85);
+        border-radius: 2rem;
+        padding: clamp(2rem, 5vw, 4.5rem);
+        color: #fff;
         background-color: #020617;
         background-image:
-          linear-gradient(180deg, rgba(2, 6, 23, 0.2), rgba(2, 6, 23, 0.34)),
-          url("/home/bible-closed-poster.jpg?v=mbe-20260715-1");
-        background-position: center, center bottom;
-        background-repeat: no-repeat;
-        background-size: cover, min(118vw, 1680px) auto;
+          linear-gradient(180deg, rgba(2,6,23,0.78), rgba(15,23,42,0.5) 46%, rgba(2,6,23,0.84)),
+          radial-gradient(circle at 50% 82%, rgba(129,140,248,0.22), transparent 32%),
+          radial-gradient(circle at 18% 18%, rgba(96,165,250,0.14), transparent 28%),
+          repeating-linear-gradient(0deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 44px),
+          repeating-linear-gradient(90deg, rgba(255,255,255,0.025) 0 1px, transparent 1px 44px);
+        box-shadow: 0 28px 80px rgba(15, 23, 42, 0.22);
       }
       html.home-boot #root:empty::before {
-        content: none;
-        display: none;
+        content: "What if understanding the Bible is not the problem, but our method is?";
+        display: block;
+        max-width: 64rem;
+        margin: 0 auto 2rem;
+        text-align: center;
+        color: #fff;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: clamp(2.15rem, 5vw, 5rem);
+        font-weight: 900;
+        letter-spacing: 0;
+        line-height: 1.04;
+      }
+      html.home-boot #root:empty::after {
+        content: "Scroll to keep reading";
+        display: block;
+        max-width: 18rem;
+        margin: 0 auto;
+        border: 1px solid rgba(255,255,255,0.16);
+        border-radius: 999px;
+        padding: 0.75rem 1rem;
+        background: rgba(15,23,42,0.55);
+        color: #e0e7ff;
+        text-align: center;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-size: 0.72rem;
+        font-weight: 900;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
       }
       @media (max-width: 639px) {
         html.home-boot #root:empty {
-          background-position: center, center calc(100% - 4.25rem);
-          background-size: cover, min(116vw, 31rem) auto;
+          min-height: 34rem;
+          border-radius: 1.25rem;
+          padding: 2rem 1rem;
+        }
+        html.home-boot #root:empty::after {
+          letter-spacing: 0.04em;
+          line-height: 1.7;
         }
       }
     </style>
@@ -114,7 +146,7 @@
     </style>
     <script src="/assets/hermeneutics-route-meta.js?v=clean-routes-1"></script>
     <link rel="preload" as="script" href="/vendor/tailwind.js?v=general-application-spacepets-one-row-1" />
-    <link rel="modulepreload" crossorigin href="/assets/index-e932b6a7.js?v=home-bible-restore-4" />
+    <link rel="modulepreload" crossorigin href="/assets/index-e932b6a7.js?v=scroll-webp-avif-1" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@400;500;600;700&family=Literata:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
@@ -173,7 +205,7 @@
             const app = document.createElement("script");
             app.type = "module";
             app.crossOrigin = "anonymous";
-            app.src = "/assets/index-e932b6a7.js?v=home-bible-restore-4";
+            app.src = "/assets/index-e932b6a7.js?v=scroll-webp-avif-1";
             document.head.appendChild(app);
           };
         })();
