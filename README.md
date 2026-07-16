@@ -17,11 +17,7 @@ This folder is a static GitHub Pages-ready export. It does not require Vite, Ver
 - `assets/hermeneutics-route-meta.js`: clean-route and SEO metadata helper.
 - `home/`: optimized AVIF/WebP Bible hero images for the homepage scroll reveal.
 - `scripts/generate-static-routes.mjs`: regenerates static clean-URL pages from `index.html`.
-- `infographics/`: public gallery for the General Hermeneutics infographic series.
-- `outputs/hermeneutics-infographics/png/`: downloadable 1920x1080 infographic images.
-- `outputs/hermeneutics-infographics/General-Hermeneutics-Infographic-Series.pptx`: editable presentation download.
-- `output/pdf/`: printable infographic PDF.
-- `general-hermeneutics-complete-text.md`: source used to build the no-James-2 infographic text editions.
+- `general-hermeneutics-complete-text.md`: source text for the General Hermeneutics document export.
 - `vendor/`: local Tailwind runtime used by the app.
 - `.nojekyll`: prevents GitHub Pages from filtering files through Jekyll.
 

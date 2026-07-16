@@ -112,7 +112,7 @@
         border-radius: 3px;
         background: rgba(238, 242, 255, 0.9);
         color: #312e81;
-        cursor: help;
+        cursor: pointer;
         font: inherit;
         font-weight: 800;
         line-height: inherit;
@@ -137,7 +137,7 @@
         background: #fff;
         box-shadow: 0 22px 48px rgba(15, 23, 42, 0.18), 0 2px 8px rgba(15, 23, 42, 0.08);
         color: #475569;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         font-size: 0.78rem;
         font-weight: 600;
         line-height: 1.5;

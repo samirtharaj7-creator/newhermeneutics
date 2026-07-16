@@ -10,12 +10,19 @@
   --mbe-muted:#5f6673;
   --mbe-ivory:#f7f3e8;
   --mbe-max:1080px;
+  --mbe-ribbon-height:46px;
+  --mbe-guide-nav-height:72px;
   --mbe-accent:var(--mbe-gold);
   --mbe-accent-dark:var(--mbe-gold-dark);
-  --mbe-font-display:"Cormorant Garamond",Georgia,serif;
-  --mbe-font-reading:"Literata",Georgia,serif;
-  --mbe-font-ui:"Inter",system-ui,sans-serif;
+  --mbe-font-display:"Newsreader",Georgia,serif;
+  --mbe-font-reading:"IBM Plex Sans",system-ui,sans-serif;
+  --mbe-font-ui:"IBM Plex Sans",system-ui,sans-serif;
 }
+
+#root{font-family:var(--mbe-font-ui);}
+#root h1,
+#root h2,
+#root h3{font-family:var(--mbe-font-display);letter-spacing:0;}
 
 .mbe-global-shell *,
 .mbe-global-footer *{box-sizing:border-box;}
@@ -37,66 +44,67 @@
   position:sticky;
   top:0;
   z-index:1200;
-  min-height:46px;
-  background:linear-gradient(180deg,#fffdf8 0%,var(--mbe-ivory) 100%);
-  border-bottom:1px solid var(--mbe-rule);
-  box-shadow:0 14px 32px -28px rgba(11,31,58,.38);
-  color:var(--mbe-muted);
+  min-height:var(--mbe-ribbon-height);
+  background:linear-gradient(180deg,#0e2138,#0b1f3a);
+  border-top:1px solid rgba(201,164,76,.18);
+  border-bottom:1px solid rgba(201,164,76,.18);
+  box-shadow:0 14px 32px -28px rgba(0,0,0,.82);
+  color:#b9ad90;
   font-family:var(--mbe-font-ui);
 }
 
 .mbe-global-shell + .site-header{
-  top:46px;
+  top:var(--mbe-ribbon-height);
 }
 
 /* Hermeneutics renders its native navigation inside the React root, not as
    .site-header. Keep those sticky bars below the shared library ribbon. */
 body > #root > div > header.sticky.top-0{
-  top:46px !important;
+  top:var(--mbe-ribbon-height) !important;
 }
 
 #root .top-\[65px\]{
-  top:111px !important;
+  top:calc(var(--mbe-ribbon-height) + var(--mbe-guide-nav-height) + 4px) !important;
 }
 
 #root .top-\[67px\]{
-  top:113px !important;
+  top:calc(var(--mbe-ribbon-height) + var(--mbe-guide-nav-height) + 6px) !important;
 }
 
 #root .top-\[73px\]{
-  top:119px !important;
+  top:calc(var(--mbe-ribbon-height) + var(--mbe-guide-nav-height) + 12px) !important;
 }
 
 #root .top-\[122px\]{
-  top:168px !important;
+  top:calc(var(--mbe-ribbon-height) + var(--mbe-guide-nav-height) + 61px) !important;
 }
 
 .mbe-shell-wrap{
-  max-width:var(--mbe-max);
+  max-width:none;
   margin:0 auto;
-  padding:0 28px;
+  padding:0 clamp(48px,5vw,92px);
 }
 
 .mbe-global-shell .mbe-shell-wrap{
-  min-height:46px;
+  min-height:var(--mbe-ribbon-height);
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:18px;
+  gap:clamp(18px,3vw,42px);
 }
 
 .mbe-ribbon-left{
   min-width:0;
   display:flex;
   align-items:center;
-  gap:18px;
+  gap:clamp(18px,2vw,30px);
 }
 
 .mbe-ribbon-brand{
   display:inline-flex;
   align-items:center;
   flex:0 0 auto;
-  color:var(--mbe-navy);
+  color:#f4ead7;
   text-decoration:none;
   white-space:nowrap;
 }
@@ -105,6 +113,7 @@ body > #root > div > header.sticky.top-0{
   display:block;
   width:auto;
   height:34px;
+  filter:grayscale(1) brightness(0) invert(88%) sepia(18%) saturate(320%) hue-rotate(2deg);
 }
 
 .mbe-ribbon-brand:hover,
@@ -112,13 +121,13 @@ body > #root > div > header.sticky.top-0{
 .mbe-global-nav a:hover,
 .mbe-library-menu[open] .mbe-library-toggle,
 .mbe-library-toggle:hover{
-  color:var(--mbe-gold-dark);
+  color:#f0d28b;
 }
 
 .mbe-ribbon-back{
-  color:var(--mbe-muted);
+  color:#b9ad90;
   font-size:.73rem;
-  font-weight:700;
+  font-weight:800;
   letter-spacing:.14em;
   line-height:1;
   text-decoration:none;
@@ -132,7 +141,7 @@ body > #root > div > header.sticky.top-0{
   width:1px;
   height:16px;
   margin-right:18px;
-  background:rgba(155,118,40,.28);
+  background:rgba(201,164,76,.3);
   vertical-align:-3px;
 }
 
@@ -140,10 +149,10 @@ body > #root > div > header.sticky.top-0{
   display:flex;
   align-items:center;
   justify-content:flex-end;
-  gap:18px;
-  color:var(--mbe-muted);
+  gap:clamp(22px,2.6vw,42px);
+  color:#b9ad90;
   font-size:.82rem;
-  font-weight:700;
+  font-weight:800;
   line-height:1;
 }
 
@@ -153,6 +162,57 @@ body > #root > div > header.sticky.top-0{
   text-decoration:none;
   transition:color .18s ease;
   white-space:nowrap;
+}
+
+/* Animated accent underline on text links (skips the pill button) */
+.mbe-ribbon-back,
+.mbe-global-nav a:not(.mbe-ribbon-give),
+.mbe-library-toggle{
+  position:relative;
+}
+
+.mbe-ribbon-back::after,
+.mbe-global-nav a:not(.mbe-ribbon-give)::after,
+.mbe-library-toggle::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-6px;
+  height:2px;
+  border-radius:2px;
+  background:var(--mbe-accent);
+  transform:scaleX(0);
+  transform-origin:left center;
+  transition:transform .22s ease;
+}
+
+.mbe-ribbon-back:hover::after,
+.mbe-global-nav a:not(.mbe-ribbon-give):hover::after,
+.mbe-library-toggle:hover::before,
+.mbe-library-menu[open] .mbe-library-toggle::before{
+  transform:scaleX(1);
+}
+
+/* "Support" promoted to an accent pill button */
+.mbe-ribbon-give{
+  display:inline-flex;
+  align-items:center;
+  padding:0;
+  border-radius:0;
+  background:transparent;
+  color:#b9ad90 !important;
+  font-weight:800;
+  letter-spacing:.01em;
+  box-shadow:none;
+  transition:transform .16s ease,background .18s ease,box-shadow .18s ease;
+}
+
+.mbe-ribbon-give:hover{
+  background:transparent;
+  color:#f0d28b !important;
+  transform:translateY(-1px);
+  box-shadow:none;
 }
 
 .mbe-library-menu{position:relative;}
@@ -177,17 +237,17 @@ body > #root > div > header.sticky.top-0{
 .mbe-library-panel{
   position:absolute;
   right:0;
-  top:calc(100% + 14px);
+  top:calc(100% + 24px);
   width:min(920px,calc(100vw - 32px));
-  max-height:calc(100vh - 96px);
+  max-height:calc(100vh - 132px);
   overflow:auto;
   overscroll-behavior:contain;
   padding:12px;
-  border:1px solid var(--mbe-rule);
+  border:1px solid rgba(201,164,76,.25);
   border-radius:8px;
-  background:#fff;
-  color:var(--mbe-ink);
-  box-shadow:0 24px 50px -34px rgba(11,31,58,.55);
+  background:#0f2b47;
+  color:#f7f1e5;
+  box-shadow:0 24px 50px -34px rgba(0,0,0,.8);
 }
 
 .mbe-library-panel::before{
@@ -212,22 +272,22 @@ body > #root > div > header.sticky.top-0{
   gap:2px;
   padding:11px 12px;
   border-radius:6px;
-  color:var(--mbe-ink);
+  color:#f7f1e5;
   text-decoration:none;
 }
 
-.mbe-library-item:hover{background:var(--mbe-soft);}
-.mbe-library-item[aria-current="page"]{background:rgba(201,164,76,.13);}
+.mbe-library-item:hover{background:rgba(255,255,255,.08);}
+.mbe-library-item[aria-current="page"]{background:rgba(201,164,76,.16);}
 .mbe-library-name{font-family:var(--mbe-font-display);font-size:1.02rem;font-weight:600;line-height:1.1;}
-.mbe-library-desc{color:var(--mbe-muted);font-size:.78rem;font-weight:500;line-height:1.35;overflow-wrap:anywhere;}
+.mbe-library-desc{color:#bdb29f;font-size:.78rem;font-weight:500;line-height:1.35;overflow-wrap:anywhere;}
 
 .mbe-global-footer{
   order:999;
-  background:linear-gradient(180deg,#fffdf8 0%,var(--mbe-ivory) 100%);
-  color:var(--mbe-muted);
+  background:linear-gradient(180deg,#0e2138,#0b1f3a);
+  color:#b9ad90;
   font-family:var(--mbe-font-ui);
-  border-top:1px solid var(--mbe-rule);
-  box-shadow:0 -14px 32px -30px rgba(11,31,58,.42);
+  border-top:1px solid rgba(201,164,76,.18);
+  box-shadow:0 -18px 42px -34px rgba(0,0,0,.8);
   padding:0;
 }
 
@@ -242,7 +302,7 @@ body > #root > div > header.sticky.top-0{
   align-items:center;
   justify-content:space-between;
   gap:10px clamp(18px,3vw,34px);
-  padding:24px clamp(20px,3vw,42px);
+  padding:34px clamp(48px,5vw,92px);
   font-size:clamp(.86rem,.95vw,.98rem);
   line-height:1.4;
 }
@@ -258,32 +318,53 @@ body > #root > div > header.sticky.top-0{
 
 .mbe-footer-logo{
   display:block;
-  width:clamp(168px,16vw,240px);
+  width:auto;
+  height:34px;
   max-width:100%;
-  height:auto;
+  filter:grayscale(1) brightness(0) invert(88%) sepia(18%) saturate(320%) hue-rotate(2deg);
 }
 
 .mbe-footer-wrap > span:last-child{
   flex-basis:100%;
-  color:var(--mbe-muted);
+  color:#a99e8c;
   font-size:clamp(.78rem,.85vw,.9rem);
 }
 
 .mbe-footer-link{
-  color:var(--mbe-gold-dark);
+  color:#f0d28b;
   text-decoration:none;
   font-weight:700;
-  border-bottom:1px solid rgba(155,118,40,.45);
+  border-bottom:1px solid rgba(240,210,139,.45);
   padding-bottom:2px;
 }
 
 .mbe-footer-link:hover{
-  color:var(--mbe-navy);
-  border-bottom-color:var(--mbe-navy);
+  color:#fff6df;
+  border-bottom-color:#fff6df;
+}
+
+/* Footer "Support" as a matching accent pill */
+.mbe-footer-link[href*="donate"]{
+  display:inline-flex;
+  align-items:center;
+  padding:0;
+  border-radius:0;
+  border-bottom:1px solid rgba(240,210,139,.45);
+  background:transparent;
+  color:#f0d28b;
+  box-shadow:none;
+  transition:transform .16s ease,background .18s ease;
+}
+
+.mbe-footer-link[href*="donate"]:hover{
+  background:transparent;
+  color:#fff6df;
+  border-bottom-color:#fff6df;
+  transform:translateY(-1px);
 }
 
 html{
-  scroll-padding-top:64px;
+  scroll-padding-top:calc(var(--mbe-ribbon-height) + var(--mbe-guide-nav-height) + 24px);
 }
 
 body:has(> .mbe-global-footer){

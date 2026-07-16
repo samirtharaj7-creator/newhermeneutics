@@ -258,7 +258,7 @@ def configure_sections(doc):
 
         header = section.header
         p = header.paragraphs[0]
-        p.text = "GENERAL HERMENEUTICS  |  INFOGRAPHIC SOURCE EDITION"
+        p.text = "GENERAL HERMENEUTICS  |  TEACHING SOURCE EDITION"
         p.alignment = WD_ALIGN_PARAGRAPH.LEFT
         p.paragraph_format.space_after = Pt(0)
         for run in p.runs:
@@ -279,7 +279,7 @@ def add_cover(doc):
     p = doc.add_paragraph()
     p.paragraph_format.space_after = Pt(10)
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run = p.add_run("Complete Text for Infographic Creation")
+    run = p.add_run("Complete General Hermeneutics Text")
     set_run_font(run, size=28, color=NAVY, bold=True)
 
     p = doc.add_paragraph()
@@ -291,7 +291,7 @@ def add_cover(doc):
     add_callout(
         doc,
         "Source edition",
-        "Worked passage examples have been omitted so every section can serve as reusable infographic source material.",
+        "Worked passage examples have been omitted so every section can serve as reusable study and teaching source material.",
     )
 
     p = doc.add_paragraph()
@@ -439,10 +439,10 @@ def build():
     configure_styles(doc)
 
     props = doc.core_properties
-    props.title = "General Hermeneutics Complete Text for Infographic Creation"
+    props.title = "General Hermeneutics Complete Text"
     props.subject = "Overview and five phases of General Hermeneutics"
     props.author = "My Bible Explorer"
-    props.keywords = "hermeneutics, Bible study, infographic, interpretation"
+    props.keywords = "hermeneutics, Bible study, interpretation"
 
     add_cover(doc)
     add_document_content(doc, markdown)

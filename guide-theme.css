@@ -1,0 +1,900 @@
+:root{
+  --guide-night:#f4f6f5;
+  --guide-night-2:#fbfcfc;
+  --guide-night-3:#eef3f1;
+  --guide-ink:#12181a;
+  --guide-muted:#5b6b69;
+  --guide-line:#dfe6e4;
+  --guide-gold:#b8872d;
+  --guide-gold-hover:#8a641f;
+  --guide-gold-ink:#20180a;
+  --guide-nav-accent:#0f2b47;
+  --guide-nav-accent-hover:#173a5b;
+  --guide-nav-border:#28455f;
+  --guide-nav-active-bg:rgba(15,43,71,.09);
+  --guide-nav-hover-bg:rgba(15,43,71,.07);
+  --guide-phase-ink:#ffffff;
+  --guide-overview:#6366f1;
+  --guide-overview-rgb:99,102,241;
+  --guide-preparation:#fb923c;
+  --guide-preparation-rgb:251,146,60;
+  --guide-observation:#38bdf8;
+  --guide-observation-rgb:56,189,248;
+  --guide-interpretation:#8b5cf6;
+  --guide-interpretation-rgb:139,92,246;
+  --guide-imagination:#d946ef;
+  --guide-imagination-rgb:217,70,239;
+  --guide-application:#34d399;
+  --guide-application-rgb:52,211,153;
+  --guide-serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --guide-sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+}
+
+html:has(body.guide-theme){background:var(--guide-night);}
+
+body.guide-theme{
+  --mbe-font-display:var(--guide-serif);
+  --mbe-font-reading:var(--guide-sans);
+  --mbe-font-ui:var(--guide-sans);
+  margin:0;
+  min-width:320px;
+  color:var(--guide-ink);
+  background:var(--guide-night);
+  color-scheme:light;
+  font-family:var(--guide-sans);
+  -webkit-font-smoothing:antialiased;
+}
+
+body.guide-theme > #root:empty{
+  display:block!important;
+  min-height:calc(100vh - var(--mbe-ribbon-height, 80px))!important;
+  padding:0!important;
+}
+
+body.guide-theme > #root:empty::before{
+  display:none!important;
+  content:none!important;
+}
+
+.guide-first-paint{
+  min-height:calc(100vh - var(--mbe-ribbon-height, 80px));
+  background:var(--guide-night);
+  color:var(--guide-ink);
+  font-family:var(--guide-sans);
+}
+
+.guide-first-paint-nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:clamp(18px,3vw,42px);
+  border-bottom:1px solid var(--guide-line);
+  background:rgba(255,255,255,.94);
+  padding:18px clamp(24px,4vw,56px);
+  box-shadow:0 12px 28px rgba(15,43,71,.08);
+}
+
+.guide-first-paint-brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  color:#12181a;
+  font-weight:800;
+}
+
+.guide-first-paint-mark{
+  display:grid;
+  width:46px;
+  height:46px;
+  place-items:center;
+  border:1px solid rgba(15,43,71,.22);
+  border-radius:14px;
+  background:rgba(15,43,71,.07);
+  color:#0f2b47;
+  font-size:24px;
+  line-height:1;
+}
+
+.guide-first-paint-mark svg{
+  width:28px;
+  height:28px;
+}
+
+.guide-first-paint-brand small,
+.guide-first-paint-link small{
+  display:block;
+  color:#0f2b47;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.08em;
+  line-height:1.1;
+  text-transform:uppercase;
+}
+
+.guide-first-paint-links{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:clamp(22px,4vw,70px);
+  flex:1 1 auto;
+  max-width:920px;
+}
+
+.guide-first-paint-link{
+  color:#12181a;
+  font-size:15px;
+  font-weight:800;
+  text-decoration:none;
+  white-space:nowrap;
+}
+
+.guide-first-paint-link.is-active{
+  border-radius:10px;
+  background:rgba(15,43,71,.09);
+  color:#0f2b47;
+  padding:10px 14px;
+}
+
+.guide-first-paint-rail{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  margin:22px auto 0;
+  width:min(100% - 48px,92rem);
+  overflow:hidden;
+  border:1px solid var(--guide-line);
+  border-radius:14px;
+  background:#fff;
+  box-shadow:0 14px 34px rgba(15,43,71,.08);
+}
+
+.guide-first-paint-step{
+  display:grid;
+  min-height:72px;
+  place-items:center;
+  border-right:1px solid var(--guide-line);
+  color:#647184;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-align:center;
+  text-transform:uppercase;
+}
+
+.guide-first-paint-step:last-child{
+  border-right:0;
+}
+
+.guide-first-paint-step.is-active{
+  background:#6366f1;
+  color:#fff;
+}
+
+.guide-first-paint-main{
+  margin:28px auto 72px;
+  width:min(100% - 48px,92rem);
+}
+
+.guide-first-paint h1{
+  margin:0 0 28px;
+  color:#12181a;
+  font-family:var(--guide-serif);
+  font-size:clamp(42px,7vw,76px);
+  line-height:1.04;
+}
+
+.guide-first-paint-card{
+  border:1px solid var(--guide-line);
+  border-radius:14px;
+  background:#fff;
+  padding:clamp(22px,3vw,34px);
+  box-shadow:0 18px 42px rgba(15,43,71,.08);
+}
+
+.guide-first-paint-card h2{
+  margin:0 0 20px;
+  color:#12181a;
+  font-family:var(--guide-serif);
+  font-size:clamp(26px,4vw,40px);
+  line-height:1.1;
+}
+
+.guide-first-paint-image{
+  display:block;
+  width:100%;
+  height:auto;
+  border:1px solid var(--guide-line);
+  border-radius:14px;
+  background:#f8fafc;
+  box-shadow:0 10px 28px rgba(15,43,71,.08);
+}
+
+@media (max-width:900px){
+  .guide-first-paint-nav{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .guide-first-paint-links{
+    justify-content:flex-start;
+    gap:16px;
+    max-width:none;
+    overflow-x:auto;
+    width:100%;
+  }
+
+  .guide-first-paint-rail{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+}
+
+@media (max-width:620px){
+  .guide-first-paint-nav{
+    padding:14px 18px;
+  }
+
+  .guide-first-paint-links{
+    display:none;
+  }
+
+  .guide-first-paint-rail,
+  .guide-first-paint-main{
+    width:min(100% - 28px,92rem);
+  }
+
+  .guide-first-paint-rail{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+.guide-theme .mbe-global-shell[data-tool="hermeneutics"],
+.guide-theme .mbe-global-footer[data-tool="hermeneutics"]{
+  --mbe-accent:#d8b25e;
+  --mbe-accent-dark:#9b7628;
+}
+
+.guide-theme #root,
+.guide-theme #root > div,
+.guide-theme #root main{
+  min-height:100vh;
+  color:var(--guide-ink)!important;
+  background:var(--guide-night)!important;
+}
+
+.guide-theme #root *{letter-spacing:0!important;}
+.guide-theme #root button,
+.guide-theme #root input,
+.guide-theme #root textarea,
+.guide-theme #root select{font-family:var(--guide-sans)!important;}
+
+.guide-theme #root h1,
+.guide-theme #root h2,
+.guide-theme #root h3,
+.guide-theme #root h4{
+  color:var(--guide-ink)!important;
+  font-family:var(--guide-serif)!important;
+  font-weight:600!important;
+  letter-spacing:0!important;
+}
+
+.guide-theme #root main h1{font-size:3rem!important;line-height:1.05!important;}
+.guide-theme #root main h2{font-size:2.25rem!important;line-height:1.1!important;}
+.guide-theme #root main h3{font-size:1.55rem!important;line-height:1.15!important;}
+.guide-theme #root main h4{font-size:1.2rem!important;line-height:1.2!important;}
+
+/* Guide header */
+.guide-theme #root > div > header{
+  min-height:72px!important;
+  padding:0 24px!important;
+  border-color:var(--guide-line)!important;
+  background:rgba(251,252,252,.96)!important;
+  box-shadow:0 16px 30px -28px rgba(15,38,45,.35)!important;
+  backdrop-filter:blur(12px)!important;
+}
+
+.guide-theme #root > div > header > div{
+  min-height:72px!important;
+  padding:0!important;
+}
+
+.guide-theme #root > div > header > div > button:first-child{
+  gap:11px!important;
+  min-height:44px!important;
+  padding:6px 8px!important;
+  border:1px solid transparent!important;
+  border-radius:8px!important;
+  background:transparent!important;
+  color:var(--guide-ink)!important;
+  box-shadow:none!important;
+}
+
+.guide-theme #root > div > header > div > button:first-child:hover{
+  border-color:rgba(15,43,71,.18)!important;
+  background:var(--guide-nav-hover-bg)!important;
+}
+
+.guide-theme #root > div > header > div > button:first-child > span:first-child{
+  position:relative!important;
+  width:34px!important;
+  height:34px!important;
+  border:1px solid rgba(15,43,71,.18)!important;
+  border-radius:8px!important;
+  overflow:hidden!important;
+  background:
+    linear-gradient(var(--guide-nav-accent),var(--guide-nav-accent)) 11px 8px/13px 4px no-repeat,
+    linear-gradient(var(--guide-nav-accent),var(--guide-nav-accent)) 8px 12px/19px 3px no-repeat,
+    linear-gradient(180deg,#f4f8fa,#e7eff4)!important;
+  color:var(--guide-nav-accent)!important;
+  box-shadow:0 8px 20px rgba(15,43,71,.1)!important;
+}
+
+.guide-theme #root > div > header > div > button:first-child > span:first-child svg{
+  display:none!important;
+}
+
+.guide-theme #root > div > header > div > button:first-child > span:first-child::before{
+  content:""!important;
+  position:absolute!important;
+  left:8px!important;
+  top:15px!important;
+  width:11px!important;
+  height:11px!important;
+  border:2px solid var(--guide-nav-accent)!important;
+  border-radius:50%!important;
+  background:rgba(255,255,255,.46)!important;
+}
+
+.guide-theme #root > div > header > div > button:first-child > span:first-child::after{
+  content:""!important;
+  position:absolute!important;
+  left:20px!important;
+  top:25px!important;
+  width:10px!important;
+  height:2px!important;
+  border-radius:999px!important;
+  background:var(--guide-nav-accent)!important;
+  transform:rotate(45deg)!important;
+  transform-origin:left center!important;
+}
+
+.guide-theme #root > div > header > div > button:first-child > span:last-child{
+  display:grid!important;
+  line-height:1!important;
+}
+
+.guide-theme #root > div > header > div > button:first-child > span:last-child > span:first-child{
+  color:var(--guide-ink)!important;
+  font-size:14px!important;
+  font-weight:700!important;
+}
+
+.guide-theme #root > div > header > div > button:first-child > span:last-child > span:last-child{
+  margin-top:4px!important;
+  color:var(--guide-nav-accent)!important;
+  font-size:9px!important;
+  font-weight:700!important;
+  letter-spacing:.08em!important;
+}
+
+.guide-theme #root > div > header nav button{
+  min-height:44px!important;
+  padding:8px 14px!important;
+  border-radius:6px!important;
+  color:var(--guide-ink)!important;
+  font-size:14px!important;
+  font-weight:600!important;
+}
+
+.guide-theme #root > div > header nav button:hover,
+.guide-theme #root > div > header nav button[class~="bg-indigo-50"]{
+  background:var(--guide-nav-active-bg)!important;
+  color:var(--guide-nav-accent-hover)!important;
+}
+
+.guide-theme #root > div > header nav button svg{
+  width:17px!important;
+  height:17px!important;
+}
+
+.guide-theme #root > div > header nav button[class~="bg-indigo-50"] svg{
+  color:var(--guide-nav-accent)!important;
+}
+
+.guide-theme #root > div > header nav button span span:last-child{
+  margin-top:3px!important;
+  color:var(--guide-nav-accent)!important;
+  font-size:9px!important;
+  font-weight:700!important;
+  letter-spacing:.03em!important;
+}
+
+@media (min-width:1024px){
+  .guide-theme #root > div > header > div{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    gap:clamp(18px,2.8vw,44px)!important;
+    width:min(100%,1320px)!important;
+    max-width:1320px!important;
+    margin:0 auto!important;
+  }
+
+  .guide-theme #root > div > header > div > button:first-child{
+    flex:0 0 clamp(160px,16vw,214px)!important;
+  }
+
+  .guide-theme #root > div > header nav{
+    display:flex!important;
+    flex:1 1 auto!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    gap:clamp(16px,2.2vw,42px)!important;
+    min-width:0!important;
+    margin-left:0!important;
+  }
+}
+
+.guide-theme #root > div > header input,
+.guide-theme #root > div > header [role="searchbox"]{
+  border-color:var(--guide-line)!important;
+  background:var(--guide-night-2)!important;
+  color:var(--guide-ink)!important;
+}
+
+.guide-theme #root > div > header button[class~="bg-indigo-950"]{
+  border:1px solid var(--guide-line)!important;
+  border-radius:50%!important;
+  background:var(--guide-night-3)!important;
+  color:var(--guide-ink)!important;
+}
+
+.guide-theme #root > div > header .guide-downloads-link{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:7px!important;
+  min-height:44px!important;
+  padding:8px 14px!important;
+  border-radius:6px!important;
+  color:var(--guide-ink)!important;
+  font-size:14px!important;
+  font-weight:600!important;
+  transition:background .2s ease,color .2s ease!important;
+  text-decoration:none!important;
+}
+
+.guide-theme #root > div > header .guide-downloads-link:hover,
+.guide-theme #root > div > header .guide-downloads-link[aria-current="page"]{
+  background:var(--guide-nav-active-bg)!important;
+  color:var(--guide-nav-accent-hover)!important;
+}
+
+.guide-theme #root > div > header .guide-downloads-link svg{
+  width:17px!important;
+  height:17px!important;
+  flex:0 0 auto!important;
+}
+
+.guide-theme #root > div > header [data-downloads-link="mobile"]{
+  display:flex!important;
+  align-items:center!important;
+  gap:9px!important;
+  padding:11px 12px!important;
+  border-radius:6px!important;
+  color:var(--guide-ink)!important;
+  font-size:14px!important;
+  font-weight:700!important;
+  text-decoration:none!important;
+}
+
+.guide-theme #root > div > header [data-downloads-link="mobile"]:hover,
+.guide-theme #root > div > header [data-downloads-link="mobile"][aria-current="page"]{
+  background:var(--guide-night-3)!important;
+  color:var(--guide-nav-accent-hover)!important;
+}
+
+/* Core surfaces */
+.guide-theme #root [class~="bg-slate-50"],
+.guide-theme #root [class~="bg-slate-50/50"],
+.guide-theme #root [class~="bg-slate-50/70"]{background-color:var(--guide-night)!important;}
+
+.guide-theme #root [class~="bg-white"],
+.guide-theme #root [class~="bg-white/70"],
+.guide-theme #root [class~="bg-white/75"],
+.guide-theme #root [class~="bg-white/80"],
+.guide-theme #root [class~="bg-white/85"],
+.guide-theme #root [class~="bg-white/95"]{background-color:var(--guide-night-2)!important;}
+
+.guide-theme #root [class~="bg-slate-100"],
+.guide-theme #root [class~="bg-slate-200"]{background-color:var(--guide-night-3)!important;}
+
+.guide-theme #root [class~="bg-slate-900"],
+.guide-theme #root [class~="bg-slate-950"],
+.guide-theme #root [class~="bg-slate-950/45"],
+.guide-theme #root [class~="bg-slate-950/70"],
+.guide-theme #root [class~="bg-indigo-900"],
+.guide-theme #root [class~="bg-indigo-900/95"],
+.guide-theme #root [class~="bg-indigo-950"]{background-color:#e9efed!important;}
+
+.guide-theme #root [class~="bg-indigo-50"],
+.guide-theme #root [class~="bg-indigo-50/60"],
+.guide-theme #root [class~="bg-indigo-50/70"],
+.guide-theme #root [class~="bg-indigo-50/80"],
+.guide-theme #root [class~="bg-indigo-100"],
+.guide-theme #root [class~="bg-indigo-200"]{background-color:rgba(var(--guide-interpretation-rgb),.13)!important;}
+
+.guide-theme #root [class~="bg-rose-50"]{background-color:rgba(var(--guide-preparation-rgb),.12)!important;}
+.guide-theme #root [class~="bg-pink-50"]{background-color:rgba(var(--guide-imagination-rgb),.12)!important;}
+
+.guide-theme #root [class~="bg-sky-50"],
+.guide-theme #root [class~="bg-sky-50/60"],
+.guide-theme #root [class~="bg-sky-100"],
+.guide-theme #root [class~="bg-teal-50"]{background-color:rgba(var(--guide-observation-rgb),.12)!important;}
+
+.guide-theme #root [class~="bg-fuchsia-50"],
+.guide-theme #root [class~="bg-fuchsia-50/50"],
+.guide-theme #root [class~="bg-fuchsia-50/70"],
+.guide-theme #root [class~="bg-purple-50"],
+.guide-theme #root [class~="bg-purple-50/70"],
+.guide-theme #root [class~="bg-purple-100"]{background-color:rgba(var(--guide-imagination-rgb),.12)!important;}
+
+.guide-theme #root [class~="bg-emerald-50"],
+.guide-theme #root [class~="bg-emerald-100"],
+.guide-theme #root [class~="bg-emerald-100/60"]{background-color:rgba(var(--guide-application-rgb),.12)!important;}
+
+.guide-theme #root [class~="bg-amber-50"],
+.guide-theme #root [class~="bg-amber-100"],
+.guide-theme #root [class~="bg-orange-50"],
+.guide-theme #root [class~="bg-orange-100/60"]{background-color:rgba(var(--guide-preparation-rgb),.12)!important;}
+
+.guide-theme #root [class~="bg-gradient-to-br"],
+.guide-theme #root [class~="bg-gradient-to-r"]{
+  background-color:var(--guide-night-2)!important;
+  background-image:none!important;
+}
+
+/* Text hierarchy */
+.guide-theme #root [class~="text-slate-950"],
+.guide-theme #root [class~="text-slate-900"],
+.guide-theme #root [class~="text-slate-800"],
+.guide-theme #root [class~="text-slate-700"],
+.guide-theme #root [class~="text-indigo-950"],
+.guide-theme #root [class~="text-indigo-900"],
+.guide-theme #root [class~="text-indigo-800"],
+.guide-theme #root [class~="text-white"]{color:var(--guide-ink)!important;}
+
+.guide-theme #root [class~="text-slate-600"],
+.guide-theme #root [class~="text-slate-500"]{color:var(--guide-muted)!important;}
+.guide-theme #root [class~="text-slate-400"],
+.guide-theme #root [class~="text-slate-300"]{color:#7f829b!important;}
+
+.guide-theme #root [class~="text-indigo-700"],
+.guide-theme #root [class~="text-indigo-600"],
+.guide-theme #root [class~="text-indigo-500"],
+.guide-theme #root [class~="text-indigo-400"],
+.guide-theme #root [class~="text-yellow-300"],
+.guide-theme #root [class~="text-yellow-400"],
+.guide-theme #root [class~="text-amber-600"]{color:var(--guide-gold)!important;}
+
+.guide-theme #root [class~="text-amber-700"],
+.guide-theme #root [class~="text-amber-800"],
+.guide-theme #root [class~="text-amber-900"],
+.guide-theme #root [class~="text-amber-950"],
+.guide-theme #root [class~="text-orange-800"],
+.guide-theme #root [class~="text-orange-900"]{color:var(--guide-preparation)!important;}
+
+.guide-theme #root [class~="text-rose-700"],
+.guide-theme #root [class~="text-rose-800"],
+.guide-theme #root [class~="text-rose-900"],
+.guide-theme #root [class~="text-rose-950"]{color:var(--guide-preparation)!important;}
+
+.guide-theme #root [class~="text-sky-600"],
+.guide-theme #root [class~="text-sky-700"],
+.guide-theme #root [class~="text-sky-800"],
+.guide-theme #root [class~="text-sky-900"],
+.guide-theme #root [class~="text-sky-950"],
+.guide-theme #root [class~="text-teal-900"]{color:var(--guide-observation)!important;}
+
+.guide-theme #root [class~="text-blue-900"]{color:var(--guide-interpretation)!important;}
+
+.guide-theme #root main strong[class~="bg-indigo-100"]{
+  color:var(--guide-interpretation)!important;
+  background:rgba(var(--guide-interpretation-rgb),.1)!important;
+  box-shadow:inset 0 0 0 1px rgba(var(--guide-interpretation-rgb),.56)!important;
+}
+
+.guide-theme #root [class~="text-purple-600"],
+.guide-theme #root [class~="text-purple-700"],
+.guide-theme #root [class~="text-purple-800"],
+.guide-theme #root [class~="text-purple-900"],
+.guide-theme #root [class~="text-purple-950"],
+.guide-theme #root [class~="text-fuchsia-700"],
+.guide-theme #root [class~="text-fuchsia-900"],
+.guide-theme #root [class~="text-fuchsia-950"],
+.guide-theme #root [class~="text-pink-700"],
+.guide-theme #root [class~="text-pink-800"],
+.guide-theme #root [class~="text-pink-900"]{color:var(--guide-imagination)!important;}
+
+.guide-theme #root [class~="text-emerald-500"],
+.guide-theme #root [class~="text-emerald-700"],
+.guide-theme #root [class~="text-emerald-800"],
+.guide-theme #root [class~="text-emerald-900"],
+.guide-theme #root [class~="text-emerald-950"]{color:var(--guide-application)!important;}
+
+/* Borders, dividers, and focus */
+.guide-theme #root [class*="border-slate-"],
+.guide-theme #root [class*="border-white"],
+.guide-theme #root [class~="divide-slate-100"]{border-color:var(--guide-line)!important;}
+
+.guide-theme #root [class*="border-indigo-"]{border-color:rgba(var(--guide-interpretation-rgb),.42)!important;}
+.guide-theme #root [class*="border-rose-"],
+.guide-theme #root [class*="border-orange-"],
+.guide-theme #root [class*="border-amber-"]{border-color:rgba(var(--guide-preparation-rgb),.4)!important;}
+.guide-theme #root [class*="border-sky-"],
+.guide-theme #root [class*="border-teal-"]{border-color:rgba(var(--guide-observation-rgb),.4)!important;}
+.guide-theme #root [class*="border-purple-"],
+.guide-theme #root [class*="border-fuchsia-"],
+.guide-theme #root [class*="border-pink-"]{border-color:rgba(var(--guide-imagination-rgb),.4)!important;}
+.guide-theme #root [class*="border-emerald-"]{border-color:rgba(var(--guide-application-rgb),.4)!important;}
+
+.guide-theme #root :focus-visible{
+  outline:2px solid var(--guide-gold)!important;
+  outline-offset:2px!important;
+  box-shadow:none!important;
+}
+
+/* Cards and reading surfaces */
+.guide-theme #root main section[class*="rounded-"],
+.guide-theme #root main article[class*="rounded-"]{
+  border-radius:8px!important;
+  box-shadow:0 18px 36px -32px rgba(18,24,26,.28)!important;
+}
+
+.guide-theme #root main [class~="shadow-sm"],
+.guide-theme #root main [class~="shadow-md"],
+.guide-theme #root main [class~="shadow-lg"],
+.guide-theme #root main [class~="shadow-xl"],
+.guide-theme #root main [class~="shadow-2xl"]{box-shadow:0 18px 36px -32px rgba(18,24,26,.28)!important;}
+
+.guide-theme #root main p,
+.guide-theme #root main li{color:var(--guide-muted);}
+.guide-theme #root main strong,
+.guide-theme #root main b{color:var(--guide-ink);}
+.guide-theme #root main a:not([class]){color:var(--guide-gold);}
+
+.guide-theme #root blockquote{
+  border-color:var(--guide-gold)!important;
+  background:rgba(184,135,45,.1)!important;
+  color:var(--guide-ink)!important;
+}
+
+.guide-theme #root code,
+.guide-theme #root pre{
+  border-color:var(--guide-line)!important;
+  background:#edf3f1!important;
+  color:var(--guide-ink)!important;
+}
+
+.guide-theme #root table{border-color:var(--guide-line)!important;background:var(--guide-night-2)!important;color:var(--guide-ink)!important;}
+.guide-theme #root th{border-color:var(--guide-line)!important;background:var(--guide-night-3)!important;color:var(--guide-gold)!important;}
+.guide-theme #root td{border-color:var(--guide-line)!important;color:var(--guide-muted)!important;}
+
+/* Forms and command controls */
+.guide-theme #root input:not([type="checkbox"]):not([type="radio"]),
+.guide-theme #root textarea,
+.guide-theme #root select{
+  border-color:var(--guide-line)!important;
+  border-radius:6px!important;
+  background:var(--guide-night-2)!important;
+  color:var(--guide-ink)!important;
+  caret-color:var(--guide-gold);
+}
+
+.guide-theme #root input::placeholder,
+.guide-theme #root textarea::placeholder{color:#8ca09c!important;opacity:1;}
+.guide-theme #root input[type="checkbox"]{accent-color:var(--guide-application);}
+
+.guide-theme #root [class~="bg-indigo-500"],
+.guide-theme #root [class~="bg-indigo-600"],
+.guide-theme #root [class~="bg-indigo-700"]{
+  background-color:var(--guide-gold)!important;
+  color:var(--guide-gold-ink)!important;
+}
+
+.guide-theme #root button[class~="bg-indigo-600"],
+.guide-theme #root button[class~="bg-indigo-700"]{border-radius:6px!important;}
+
+.guide-theme #root .glossary-hover-term{
+  border-bottom-color:rgba(184,135,45,.58)!important;
+  background:rgba(184,135,45,.1)!important;
+  color:var(--guide-gold)!important;
+  cursor:pointer!important;
+}
+
+/* Six-step General Hermeneutics rail */
+.guide-theme #root nav.no-print{
+  border-color:var(--guide-line)!important;
+  border-radius:8px!important;
+  background:var(--guide-night-2)!important;
+  box-shadow:0 16px 32px -28px rgba(18,24,26,.26)!important;
+}
+
+.guide-theme #root nav.no-print > .grid-cols-6 > button{
+  --phase:var(--guide-overview);
+  border-color:var(--guide-line)!important;
+  background:#fff!important;
+  color:var(--guide-muted)!important;
+  box-shadow:inset 0 4px 0 var(--phase)!important;
+}
+
+.guide-theme #root nav.no-print > .grid-cols-6 > button:nth-child(1){--phase:var(--guide-overview);}
+.guide-theme #root nav.no-print > .grid-cols-6 > button:nth-child(2){--phase:var(--guide-preparation);}
+.guide-theme #root nav.no-print > .grid-cols-6 > button:nth-child(3){--phase:var(--guide-observation);}
+.guide-theme #root nav.no-print > .grid-cols-6 > button:nth-child(4){--phase:var(--guide-interpretation);}
+.guide-theme #root nav.no-print > .grid-cols-6 > button:nth-child(5){--phase:var(--guide-imagination);}
+.guide-theme #root nav.no-print > .grid-cols-6 > button:nth-child(6){--phase:var(--guide-application);}
+
+.guide-theme #root nav.no-print > .grid-cols-6 > button:hover{
+  background:color-mix(in srgb,var(--phase) 9%,#fff)!important;
+  color:var(--phase)!important;
+}
+
+.guide-theme #root nav.no-print > .grid-cols-6 > button.shadow-inner{
+  border-color:color-mix(in srgb,var(--phase) 72%,#fff)!important;
+  background:
+    linear-gradient(135deg,color-mix(in srgb,var(--phase) 76%,#6475c2),var(--phase))!important;
+  color:#fff!important;
+  box-shadow:0 14px 28px -22px rgba(var(--guide-overview-rgb),.65)!important;
+}
+
+.guide-theme #root nav.no-print > .grid-cols-6 > button > span > span:first-child{
+  border-radius:50%!important;
+  background:var(--phase)!important;
+  background-image:none!important;
+  color:var(--guide-phase-ink)!important;
+  box-shadow:none!important;
+  opacity:1!important;
+}
+
+.guide-theme #root nav.no-print > .grid-cols-6 > button > span > span:last-child{
+  background:transparent!important;
+  color:var(--phase)!important;
+}
+
+.guide-theme #root nav.no-print > .grid-cols-6 > button.shadow-inner > span > span:first-child{
+  border:2px solid rgba(255,255,255,.68)!important;
+  background:rgba(255,255,255,.18)!important;
+  color:#fff!important;
+}
+
+.guide-theme #root nav.no-print > .grid-cols-6 > button.shadow-inner > span > span:last-child{
+  color:#fff!important;
+}
+
+.guide-theme .general-detective-picture{
+  margin:1.35rem 0 1.85rem!important;
+  overflow:hidden!important;
+  border:1px solid var(--guide-line)!important;
+  border-radius:12px!important;
+  background:#fff!important;
+  box-shadow:0 16px 36px -30px rgba(18,24,26,.35)!important;
+}
+
+.guide-theme .general-detective-picture img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  max-height:clamp(15rem, 28vw, 24rem)!important;
+  object-fit:cover!important;
+  object-position:center!important;
+}
+
+/* Historical Narrative: the arc graphic was built for a dark theme. Keep the
+   light page, but make the tiny plot labels readable on light paper. */
+.guide-theme #root main [class~="bg-slate-900"]:has(> .flex.items-end){
+  border:1px solid rgba(15,43,71,.18)!important;
+  background:
+    linear-gradient(180deg,rgba(251,252,252,.98),rgba(238,243,241,.96))!important;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.78)!important;
+}
+
+.guide-theme #root main [class~="bg-slate-900"]:has(> .flex.items-end) > .flex.items-end{
+  gap:clamp(.55rem,1.1vw,1rem)!important;
+}
+
+.guide-theme #root main [class~="bg-slate-900"]:has(> .flex.items-end) > .flex.items-end *,
+.guide-theme #root main [class~="bg-slate-900"]:has(> .flex.items-end) [class*="text-"]{
+  color:#0f2b47!important;
+  opacity:1!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.9)!important;
+}
+
+.guide-theme #root main [class~="bg-slate-900"]:has(> .flex.items-end) > .flex.items-end strong,
+.guide-theme #root main [class~="bg-slate-900"]:has(> .flex.items-end) > .flex.items-end span,
+.guide-theme #root main [class~="bg-slate-900"]:has(> .flex.items-end) > .flex.items-end small,
+.guide-theme #root main [class~="bg-slate-900"]:has(> .flex.items-end) > .flex.items-end p{
+  display:inline-block!important;
+  width:auto!important;
+  max-width:12rem!important;
+  border-radius:6px!important;
+  padding:.12rem .28rem!important;
+  background:rgba(255,255,255,.74)!important;
+  line-height:1.25!important;
+}
+
+/* Genre rail */
+.guide-theme #root > div > div.sticky > div{
+  border-color:var(--guide-line)!important;
+  background:rgba(251,252,252,.96)!important;
+  box-shadow:0 14px 30px -28px rgba(18,24,26,.28)!important;
+}
+
+.guide-theme #root > div > div.sticky button{
+  border-color:transparent!important;
+  color:var(--guide-muted)!important;
+}
+
+.guide-theme #root > div > div.sticky button:hover,
+.guide-theme #root > div > div.sticky button[class~="bg-indigo-50"]{
+  border-color:rgba(15,43,71,.24)!important;
+  background:var(--guide-nav-hover-bg)!important;
+  color:var(--guide-nav-accent-hover)!important;
+}
+
+.guide-theme #root > div > div.sticky button[class~="bg-indigo-600"]{
+  border-color:var(--guide-nav-accent)!important;
+  background:var(--guide-nav-accent)!important;
+  color:#fff!important;
+  box-shadow:none!important;
+}
+
+/* Special Hermeneutics landing cards */
+.guide-theme #root main div[class~="md:grid-cols-2"] > article:has(span[class~="inline-flex"]):has(button){
+  border-color:rgba(15,43,71,.16)!important;
+  background:var(--guide-night-2)!important;
+}
+
+.guide-theme #root main div[class~="md:grid-cols-2"] > article:has(span[class~="inline-flex"]):has(button) span[class~="mb-2"][class~="inline-flex"]{
+  display:none!important;
+}
+
+.guide-theme #root main div[class~="md:grid-cols-2"] > article:has(span[class~="inline-flex"]):has(button) svg{
+  color:var(--guide-nav-accent)!important;
+  stroke:currentColor!important;
+}
+
+.guide-theme #root main div[class~="md:grid-cols-2"] > article:has(span[class~="inline-flex"]):has(button) button:first-of-type{
+  border-color:var(--guide-nav-accent)!important;
+  background:var(--guide-nav-accent)!important;
+  color:#fff!important;
+}
+
+.guide-theme #root main div[class~="md:grid-cols-2"] > article:has(span[class~="inline-flex"]):has(button) button:first-of-type:hover{
+  border-color:var(--guide-nav-accent-hover)!important;
+  background:var(--guide-nav-accent-hover)!important;
+}
+
+.guide-theme #root main div[class~="md:grid-cols-2"] > article:has(span[class~="inline-flex"]):has(button) button:nth-of-type(2){
+  border-color:rgba(15,43,71,.32)!important;
+  background:transparent!important;
+  color:var(--guide-nav-accent)!important;
+}
+
+.guide-theme #root main div[class~="md:grid-cols-2"] > article:has(span[class~="inline-flex"]):has(button) button:nth-of-type(2):hover{
+  background:var(--guide-nav-hover-bg)!important;
+  color:var(--guide-nav-accent-hover)!important;
+}
+
+@media (max-width:767px){
+  .guide-theme #root main h1{font-size:2.25rem!important;}
+  .guide-theme #root main h2{font-size:1.85rem!important;}
+  .guide-theme #root main h3{font-size:1.35rem!important;}
+  .guide-theme #root nav.no-print > .grid-cols-6 > button{min-height:4.6rem!important;padding:6px 3px!important;font-size:8px!important;}
+  .guide-theme #root nav.no-print > .grid-cols-6 > button > span > span:first-child{width:28px!important;height:28px!important;}
+}
+
+@media print{
+  body.guide-theme,
+  .guide-theme #root,
+  .guide-theme #root > div,
+  .guide-theme #root main{color:#111827!important;background:#fff!important;}
+}
