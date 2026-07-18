@@ -5,12 +5,13 @@ import { fileURLToPath } from "node:url";
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(scriptDirectory, "..");
 const errors = [];
-const unifiedVersion = "a11y-labels-1";
+const unifiedVersion = "a11y-labels-2";
 const tailwindRuntimeVersion = "self-hosted-warning-sanitized-1";
 const sanitizerMarker = "void 0/*mbe:self-hosted-tailwind-runtime*/;";
 const warningFragment = "cdn.tailwindcss.com should not be used in production";
 const expectedFields = [
   ["Select a Book", "select"],
+  ["Select an Epistle", "select"],
   ["Bible Reference", "input"],
   ["Manual Genre Override", "select"],
   ["Optional Notes or Initial Observations", "textarea"]

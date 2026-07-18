@@ -4,7 +4,7 @@ import path from "node:path";
 const root = process.cwd();
 const siteUrl = "https://hermeneutics.mybibleexplorer.com";
 const assetVersion = "special-navy-cards-1";
-const unifiedVersion = "a11y-labels-1";
+const unifiedVersion = "a11y-labels-2";
 const tailwindRuntimeVersion = "self-hosted-warning-sanitized-1";
 
 const routes = [
@@ -175,7 +175,7 @@ function cleanLegacyHomepageFallback(html) {
     .replace(/\s*<link rel="preload" as="image"[^>]*bible-closed[^>]*\/>/, "")
     .replace(
       /<div id="root">[\s\S]*?(?=\s*<footer class="mbe-global-footer")/,
-      '<div id="root"></div>\n'
+      '<div id="root"></div>'
     )
     .replace(
       /https:\/\/mybibleexplorer\.com\/assets\/my-bible-explorer-logo\.png\?v=[^"]+/g,

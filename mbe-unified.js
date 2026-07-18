@@ -4,6 +4,7 @@
   const footerMarkup = "<footer class=\"mbe-global-footer\" data-tool=\"hermeneutics\">\n      <div class=\"mbe-shell-wrap mbe-footer-wrap\">\n        <a class=\"mbe-footer-brand\" href=\"https://mybibleexplorer.com\" aria-label=\"My Bible Explorer home\"><img class=\"mbe-footer-logo\" src=\"/assets/my-bible-explorer-logo.png?v=local-logo-1\" alt=\"My Bible Explorer\" width=\"107\" height=\"34\"></a>\n        <span>Know the Word. Live the Word.</span>\n        <span>To contact, email <a class=\"mbe-footer-link\" href=\"mailto:admin@mybibleexplorer.com\">admin@mybibleexplorer.com</a></span>\n        <a class=\"mbe-footer-link\" href=\"https://mybibleexplorer.com/#donate\">Support</a>\n        <span>&copy; <span data-mbe-year></span> My Bible Explorer</span>\n      </div>\n    </footer>\n    ";
   const dynamicControlLabels = [
     { label: "Select a Book", selector: "select" },
+    { label: "Select an Epistle", selector: "select" },
     { label: "Bible Reference", selector: "input" },
     { label: "Manual Genre Override", selector: "select" },
     { label: "Optional Notes or Initial Observations", selector: "textarea" }
