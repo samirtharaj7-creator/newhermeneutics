@@ -4,6 +4,7 @@ import path from "node:path";
 const root = process.cwd();
 const siteUrl = "https://hermeneutics.mybibleexplorer.com";
 const assetVersion = "special-navy-cards-1";
+const appBundleVersion = "general-route-h1-1";
 const unifiedVersion = "a11y-labels-2";
 const tailwindRuntimeVersion = "self-hosted-warning-sanitized-1";
 
@@ -180,6 +181,10 @@ function cleanLegacyHomepageFallback(html) {
     .replace(
       /https:\/\/mybibleexplorer\.com\/assets\/my-bible-explorer-logo\.png\?v=[^"]+/g,
       "/assets/my-bible-explorer-logo.png?v=local-logo-1"
+    )
+    .replace(
+      /\/assets\/index-e932b6a7\.js\?v=[^"]+/g,
+      `/assets/index-e932b6a7.js?v=${appBundleVersion}`
     )
     .replace(/\/mbe-unified\.js\?v=[^"]+/g, `/mbe-unified.js?v=${unifiedVersion}`)
     .replace(/\/vendor\/tailwind\.js\?v=[^"]+/g, `/vendor/tailwind.js?v=${tailwindRuntimeVersion}`);

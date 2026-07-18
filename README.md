@@ -17,8 +17,10 @@ This folder is a static GitHub Pages-ready export. It does not require Vite, Ver
 - `assets/hermeneutics-route-meta.js`: clean-route and SEO metadata helper.
 - `home/`: optimized AVIF/WebP Bible hero images for the homepage scroll reveal.
 - `scripts/generate-static-routes.mjs`: regenerates static clean-URL pages from `index.html`.
+- `scripts/repair-general-route-headings.mjs`: guarded, idempotent repair for the bundled General phase heading semantics.
 - `scripts/sanitize-tailwind-runtime.mjs`: deterministically removes the CDN-only production warning from the pinned, self-hosted Tailwind runtime.
 - `scripts/validate-production-repairs.mjs`: checks the runtime sanitizer, cache versions, and dynamic-control accessibility mappings.
+- `scripts/validate-general-route-headings.mjs`: verifies the overview and all five General phase routes keep exactly one visible-heading source for their active state.
 - `general-hermeneutics-complete-text.md`: source text for the General Hermeneutics document export.
 - `vendor/`: local Tailwind runtime used by the app.
 - `.nojekyll`: prevents GitHub Pages from filtering files through Jekyll.
@@ -41,5 +43,6 @@ After replacing `vendor/tailwind.js`, sanitize it before deployment. The rewrite
 node scripts/sanitize-tailwind-runtime.mjs
 node scripts/sanitize-tailwind-runtime.mjs --check
 node scripts/validate-production-repairs.mjs
+node scripts/validate-general-route-headings.mjs
 node --check mbe-unified.js
 ```
