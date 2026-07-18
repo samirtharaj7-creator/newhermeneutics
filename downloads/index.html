@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f4f6f5">
   <title>Downloads | Hermeneutics Guide</title>
-  <meta name="description" content="Downloads for the Hermeneutics Guide are not available yet.">
+  <meta name="description" content="Print or save the Hermeneutics Guide and continue with its general, special, and worked-example studies.">
   <link rel="canonical" href="https://hermeneutics.mybibleexplorer.com/downloads/">
   <meta property="og:title" content="Downloads | Hermeneutics Guide">
-  <meta property="og:description" content="Downloads for the Hermeneutics Guide are not available yet.">
+  <meta property="og:description" content="Print or save the Hermeneutics Guide and continue with its general, special, and worked-example studies.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hermeneutics.mybibleexplorer.com/downloads/">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Downloads | Hermeneutics Guide">
-  <meta name="twitter:description" content="Downloads for the Hermeneutics Guide are not available yet.">
+  <meta name="twitter:description" content="Print or save the Hermeneutics Guide and continue with its general, special, and worked-example studies.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
@@ -218,13 +218,47 @@
       padding:48px 24px;
       text-align:center;
     }
-    .downloads-placeholder p{
+    .downloads-card{
+      width:min(100%,760px);
+      padding:clamp(32px,6vw,64px);
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:var(--card);
+      box-shadow:0 24px 60px rgba(18,24,26,.1);
+    }
+    .downloads-card h1{
       margin:0;
-      color:var(--ink);
       font-family:var(--serif);
-      font-size:clamp(2.5rem,8vw,6rem);
+      font-size:clamp(2.5rem,7vw,5rem);
       font-weight:600;
-      line-height:1;
+      line-height:.98;
+    }
+    .downloads-card p{
+      max-width:620px;
+      margin:24px auto 0;
+      color:var(--muted);
+      font-size:1.05rem;
+      line-height:1.75;
+    }
+    .downloads-actions{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:12px;
+      margin-top:30px;
+    }
+    .downloads-actions a{
+      min-height:44px;
+      padding:12px 18px;
+      border:1px solid var(--nav-border);
+      border-radius:7px;
+      background:var(--nav-accent);
+      color:#fff;
+      font-weight:700;
+    }
+    .downloads-actions a:last-child{
+      background:transparent;
+      color:var(--nav-accent);
     }
     @media (max-width:900px){
       .guide-links{display:none;}
@@ -317,7 +351,14 @@
   </nav>
 
   <main class="downloads-placeholder" aria-labelledby="downloads-title">
-    <p id="downloads-title">Check again later...</p>
+    <section class="downloads-card">
+      <h1 id="downloads-title">Save the guide for study</h1>
+      <p>Every guide page is designed to print cleanly or save as a PDF from your browser. Open the section you want, choose <strong>Print</strong>, and select <strong>Save as PDF</strong>. This keeps the downloadable copy synchronized with the current guide.</p>
+      <div class="downloads-actions" aria-label="Choose a study section">
+        <a href="/general/">General Hermeneutics</a>
+        <a href="/special/">Special Hermeneutics</a>
+      </div>
+    </section>
   </main>
 
   <footer class="mbe-global-footer" data-tool="hermeneutics">
