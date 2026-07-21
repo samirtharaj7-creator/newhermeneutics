@@ -3,10 +3,11 @@ import path from "node:path";
 
 const root = process.cwd();
 const siteUrl = "https://hermeneutics.mybibleexplorer.com";
-const assetVersion = "special-navy-cards-1";
-const appBundleVersion = "general-route-h1-1";
+const assetVersion = "general-secondary-strip-2";
+const appBundleVersion = "special-card-eyebrows-1";
 const unifiedVersion = "a11y-labels-2";
 const tailwindRuntimeVersion = "self-hosted-warning-sanitized-1";
+const noGlossaryRouteIds = new Set(["ai-interpreter", "credits-sources"]);
 
 const routes = [
   {
@@ -167,7 +168,7 @@ function breadcrumbJson(route) {
 
 function cleanLegacyHomepageFallback(html) {
   return html
-    .replace(/detective-nav-1|downloads-menu-1|downloads-placeholder-1|navy-guide-nav-1|general-rail-detective-\d+|narrative-arc-contrast-\d+|guide-first-paint-\d+|special-navy-cards-\d+/g, assetVersion)
+    .replace(/special-card-eyebrows-\d+|general-secondary-strip-\d+/g, assetVersion)
     .replace(
       /\s*<script>\s*\(\(\) => \{[\s\S]*?document\.documentElement\.classList\.add\("home-boot"\);[\s\S]*?<\/script>/,
       ""
@@ -201,19 +202,12 @@ function ensureDownloadsMenuScript(html) {
   );
 }
 
-function ensureGeneralOverviewImageScript(html) {
-  const script = `    <script defer src="/assets/general-overview-image.js?v=${assetVersion}"></script>`;
-  if (html.includes("/assets/general-overview-image.js")) {
-    return html.replace(/\/assets\/general-overview-image\.js\?v=[^"]+/g, `/assets/general-overview-image.js?v=${assetVersion}`);
-  }
-  return html.replace(
-    /(\s*<script defer src="\/assets\/downloads-menu\.js\?v=[^"]+"><\/script>)/,
-    `$1\n${script}`
-  );
+function removeGlossaryHoverScript(html) {
+  return html.replace(/\s*<script defer src="\/assets\/glossary-hover\.js\?v=[^"]+"><\/script>/g, "");
 }
 
 function ensureGeneralOverviewImagePreload(html, route) {
-  const preload = `    <link rel="preload" as="image" href="/assets/detective-method-caseboard.png?v=${assetVersion}" imagesrcset="/assets/detective-method-caseboard.png?v=${assetVersion}" imagesizes="min(100vw - 3rem, 92rem)" />`;
+  const preload = `    <link rel="preload" as="image" href="/assets/optimized/detective-method-caseboard-1280.jpg?v=${assetVersion}" imagesrcset="/assets/optimized/detective-method-caseboard-960.jpg?v=${assetVersion} 960w, /assets/optimized/detective-method-caseboard-1280.jpg?v=${assetVersion} 1280w" imagesizes="min(100vw - 4rem, 82rem)" />`;
   html = html.replace(/\s*<link rel="preload" as="image"[^>]*detective-method-caseboard[^>]*\/>/g, "");
   if (route.id !== "intro") return html;
   return html.replace(
@@ -222,56 +216,16 @@ function ensureGeneralOverviewImagePreload(html, route) {
   );
 }
 
-function generalOverviewFallback() {
-  const steps = [
-    ["Overview", true],
-    ["Preparation", false],
-    ["Observation", false],
-    ["Interpretation", false],
-    ["Imagination", false],
-    ["Application", false]
-  ]
-    .map(([label, active]) => `<span class="guide-first-paint-step${active ? " is-active" : ""}">${label}</span>`)
-    .join("");
-
-  return `<div id="root"><div class="guide-first-paint">
-      <nav class="guide-first-paint-nav" aria-label="Guide preview">
-        <a class="guide-first-paint-brand" href="/">
-          <span class="guide-first-paint-mark" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 5h10v11a7 7 0 0 1-14 0V5h4Z"/><path d="M14 5v11"/><path d="M10 16H4"/><path d="M22 22l5 5"/></svg></span>
-          <span>Hermeneutics<small>Guide</small></span>
-        </a>
-        <div class="guide-first-paint-links">
-          <a class="guide-first-paint-link" href="/">Home</a>
-          <a class="guide-first-paint-link is-active" href="/general/">General<small>Hermeneutics</small></a>
-          <a class="guide-first-paint-link" href="/special/">Special<small>Hermeneutics</small></a>
-          <a class="guide-first-paint-link" href="/downloads/">Downloads</a>
-          <a class="guide-first-paint-link" href="/resources/">Resources</a>
-          <a class="guide-first-paint-link" href="/credits/">Credits</a>
-        </div>
-      </nav>
-      <div class="guide-first-paint-rail" aria-label="General Hermeneutics phases">${steps}</div>
-      <main class="guide-first-paint-main">
-        <h1>General Hermeneutics: Overview</h1>
-        <section class="guide-first-paint-card">
-          <h2>The Detective Method</h2>
-          <img class="guide-first-paint-image" src="/assets/detective-method-caseboard.png?v=${assetVersion}" width="1718" height="916" alt="An open Bible studied like an investigation, with notes, a magnifying glass, and a careful case-board scene.">
-        </section>
-      </main>
-    </div></div>`;
-}
-
-function ensureFirstPaintFallback(html, route) {
-  if (route.id !== "intro") return html;
-  return html.replace(/<div id="root"><\/div>/, generalOverviewFallback());
-}
-
 function routeHtml(template, route) {
   const canonical = `${siteUrl}${route.path}`;
-  let html = ensureFirstPaintFallback(ensureGeneralOverviewImagePreload(
-    ensureGeneralOverviewImageScript(ensureDownloadsMenuScript(cleanLegacyHomepageFallback(template))),
+  let html = ensureGeneralOverviewImagePreload(
+    ensureDownloadsMenuScript(cleanLegacyHomepageFallback(template)),
     route
-  ), route)
+  )
     .replace(/\s*<script id="hermeneutics-breadcrumb-jsonld"[\s\S]*?<\/script>\s*/g, "\n");
+  if (noGlossaryRouteIds.has(route.id)) {
+    html = removeGlossaryHoverScript(html);
+  }
   html = replaceTag(html, /<title>[\s\S]*?<\/title>/, `<title>${escapeAttr(route.title)}</title>`);
   html = replaceTag(html, /<meta name="description" content="[^"]*"\s*\/>/, `<meta name="description" content="${escapeAttr(route.description)}" />`);
   html = replaceTag(html, /<link rel="canonical" href="[^"]*"\s*\/>/, `<link rel="canonical" href="${canonical}" />`);
