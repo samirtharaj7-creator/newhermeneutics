@@ -3,8 +3,8 @@ import path from "node:path";
 
 const root = process.cwd();
 const siteUrl = "https://hermeneutics.mybibleexplorer.com";
-const assetVersion = "general-secondary-strip-2";
-const appBundleVersion = "special-card-eyebrows-1";
+const assetVersion = "ask-ai-prototype-1";
+const appBundleVersion = "general-route-h1-1";
 const unifiedVersion = "a11y-labels-2";
 const tailwindRuntimeVersion = "self-hosted-warning-sanitized-1";
 const noGlossaryRouteIds = new Set(["ai-interpreter", "credits-sources"]);
@@ -168,7 +168,7 @@ function breadcrumbJson(route) {
 
 function cleanLegacyHomepageFallback(html) {
   return html
-    .replace(/special-card-eyebrows-\d+|general-secondary-strip-\d+/g, assetVersion)
+    .replace(/special-card-eyebrows-\d+|general-secondary-strip-\d+|post-ai-removal-\d+|ask-ai-prototype-\d+/g, assetVersion)
     .replace(
       /\s*<script>\s*\(\(\) => \{[\s\S]*?document\.documentElement\.classList\.add\("home-boot"\);[\s\S]*?<\/script>/,
       ""

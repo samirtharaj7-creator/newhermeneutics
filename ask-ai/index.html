@@ -4,16 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f4f6f5">
-  <title>Downloads | Hermeneutics Guide</title>
-  <meta name="description" content="Downloads for the Hermeneutics Guide will be added soon.">
-  <link rel="canonical" href="https://hermeneutics.mybibleexplorer.com/downloads/">
-  <meta property="og:title" content="Downloads | Hermeneutics Guide">
-  <meta property="og:description" content="Downloads for the Hermeneutics Guide will be added soon.">
+  <title>Ask AI | Hermeneutics Guide</title>
+  <meta name="description" content="Ask AI for the Hermeneutics Guide will be added soon.">
+  <link rel="canonical" href="https://hermeneutics.mybibleexplorer.com/ask-ai/">
+  <meta property="og:title" content="Ask AI | Hermeneutics Guide">
+  <meta property="og:description" content="Ask AI for the Hermeneutics Guide will be added soon.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://hermeneutics.mybibleexplorer.com/downloads/">
+  <meta property="og:url" content="https://hermeneutics.mybibleexplorer.com/ask-ai/">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Downloads | Hermeneutics Guide">
-  <meta name="twitter:description" content="Downloads for the Hermeneutics Guide will be added soon.">
+  <meta name="twitter:title" content="Ask AI | Hermeneutics Guide">
+  <meta name="twitter:description" content="Ask AI for the Hermeneutics Guide will be added soon.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
@@ -47,6 +47,17 @@
     }
     a{color:inherit;text-decoration:none;}
     :focus-visible{outline:2px solid var(--nav-accent);outline-offset:3px;}
+    .sr-only{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
     .mbe-global-shell[data-tool="hermeneutics"],
     .mbe-global-footer[data-tool="hermeneutics"]{
       --mbe-accent:#d8b25e;
@@ -219,27 +230,210 @@
     .guide-menu-panel a{display:flex;align-items:center;gap:9px;padding:11px 12px;border-radius:6px;}
     .guide-menu-panel a:hover,
     .guide-menu-panel a[aria-current="page"]{background:var(--nav-hover-bg);color:var(--nav-accent-hover);}
-    .downloads-placeholder{
+    .ask-ai-page{
       display:grid;
       min-height:calc(100vh - var(--mbe-ribbon-height,0px) - 72px);
       place-items:center;
-      padding:48px 24px;
-      text-align:center;
+      padding:clamp(32px,6vw,72px) 24px;
     }
-    .downloads-card{
-      width:min(100%,760px);
-      padding:clamp(32px,6vw,64px);
+    .ask-ai-shell{
+      display:grid;
+      width:min(100%,1180px);
+      gap:24px;
+    }
+    .ask-ai-intro{
+      display:grid;
+      grid-template-columns:minmax(0,0.8fr) minmax(320px,1fr);
+      gap:24px;
+      align-items:stretch;
+    }
+    .ask-ai-hero,
+    .ai-assistant{
       border:1px solid var(--line);
       border-radius:12px;
       background:var(--card);
       box-shadow:0 24px 60px rgba(18,24,26,.1);
     }
-    .downloads-card h1{
+    .ask-ai-hero{
+      padding:clamp(34px,6vw,70px);
+    }
+    .ask-ai-hero h1{
       margin:0;
       font-family:var(--serif);
       font-size:clamp(2.5rem,7vw,5rem);
       font-weight:600;
       line-height:.98;
+    }
+    .ask-ai-hero p{
+      max-width:44rem;
+      margin:24px 0 0;
+      color:var(--muted);
+      font-size:clamp(1.05rem,2vw,1.35rem);
+      line-height:1.65;
+    }
+    .ask-ai-setup{
+      padding:clamp(28px,4vw,42px);
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:linear-gradient(145deg,#fbfcfc,#f4f8fa);
+      box-shadow:0 24px 60px rgba(18,24,26,.08);
+    }
+    .ask-ai-eyebrow,
+    .ai-example-bubbles-label,
+    .ai-message-label{
+      color:var(--nav-accent);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .ask-ai-setup h2{
+      margin:10px 0 12px;
+      font-size:clamp(1.4rem,3vw,2rem);
+      line-height:1.1;
+    }
+    .ask-ai-setup p{
+      margin:0;
+      color:var(--muted);
+      font-size:1rem;
+      line-height:1.65;
+    }
+    .ai-assistant{
+      overflow:hidden;
+    }
+    .ai-transcript{
+      display:flex;
+      min-height:clamp(420px,52vh,560px);
+      flex-direction:column;
+      gap:18px;
+      padding:clamp(22px,4vw,42px);
+    }
+    .ai-empty-state{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(270px,340px);
+      flex:1;
+      align-items:center;
+      gap:clamp(24px,4vw,54px);
+    }
+    .ai-welcome{
+      display:grid;
+      max-width:620px;
+      margin:auto;
+      justify-items:center;
+      text-align:center;
+    }
+    .ai-welcome-mark{
+      display:grid;
+      width:54px;
+      height:54px;
+      place-items:center;
+      border:1px solid rgba(15,43,71,.18);
+      border-radius:18px;
+      background:linear-gradient(145deg,#eef5f8,#f8fbfc);
+      color:var(--nav-accent);
+      font-size:27px;
+      box-shadow:0 15px 35px rgba(15,43,71,.12);
+    }
+    .ai-welcome h2{
+      margin:20px 0 10px;
+      color:var(--ink);
+      font-size:clamp(26px,4vw,42px);
+      letter-spacing:-.04em;
+    }
+    .ai-welcome p{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      font-weight:600;
+      line-height:1.7;
+    }
+    .ai-example-bubbles{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:11px;
+    }
+    .ai-example-bubbles-label{
+      margin:0 9px -1px 0;
+      color:var(--muted);
+    }
+    .ai-example-bubbles button{
+      width:fit-content;
+      max-width:100%;
+      border:1px solid var(--nav-border);
+      border-radius:22px 8px 22px 22px;
+      padding:13px 16px;
+      color:#fff;
+      background:linear-gradient(145deg,var(--nav-accent-hover),var(--nav-accent));
+      cursor:not-allowed;
+      font:inherit;
+      font-size:13px;
+      font-weight:800;
+      line-height:1.35;
+      text-align:left;
+      box-shadow:0 12px 26px rgba(15,43,71,.16);
+      opacity:.86;
+    }
+    .ai-composer-shell{
+      padding:0 clamp(16px,3vw,30px) 22px;
+      border-top:1px solid rgba(223,230,228,.9);
+      background:rgba(244,246,245,.72);
+    }
+    .ai-form{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 44px;
+      align-items:end;
+      gap:10px;
+      padding:8px;
+      border:1px solid #cbd8dc;
+      border-radius:22px;
+      background:#fff;
+      box-shadow:0 12px 28px rgba(18,24,26,.08);
+    }
+    .ai-form textarea{
+      width:100%;
+      min-height:48px;
+      max-height:150px;
+      resize:vertical;
+      border:0;
+      padding:12px 10px;
+      background:transparent;
+      color:var(--ink);
+      font:inherit;
+      font-size:15px;
+      font-weight:500;
+      line-height:1.5;
+      outline:none;
+    }
+    .ai-form textarea::placeholder{color:#8a9896;}
+    .ai-submit-button{
+      display:grid;
+      width:44px;
+      height:44px;
+      place-items:center;
+      border:0;
+      border-radius:15px;
+      background:linear-gradient(145deg,var(--nav-accent-hover),var(--nav-accent));
+      color:#fff;
+      cursor:not-allowed;
+      font-size:22px;
+      font-weight:800;
+      opacity:.62;
+    }
+    .ai-note{
+      margin:9px 4px 0;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:650;
+      text-align:center;
+    }
+    @media (max-width:900px){
+      .ask-ai-intro,
+      .ai-empty-state{grid-template-columns:1fr;}
+      .ai-example-bubbles{
+        width:min(100%,340px);
+        justify-self:end;
+      }
     }
     @media (max-width:900px){
       .guide-links{display:none;}
@@ -304,11 +498,11 @@
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"></path></svg>
           <span class="guide-link-copy"><span>Special</span><small>Hermeneutics</small></span>
         </a>
-        <a class="guide-link" href="/ask-ai/">
+        <a class="guide-link" href="/ask-ai/" aria-current="page">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path></svg>
           <span>Ask AI</span>
         </a>
-        <a class="guide-link" href="/downloads/" aria-current="page">
+        <a class="guide-link" href="/downloads/">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg>
           <span>Downloads</span>
         </a>
@@ -327,8 +521,8 @@
           <a href="/">Home</a>
           <a href="/general/">General Hermeneutics</a>
           <a href="/special/">Special Hermeneutics</a>
-          <a href="/ask-ai/">Ask AI</a>
-          <a href="/downloads/" aria-current="page">Downloads</a>
+          <a href="/ask-ai/" aria-current="page">Ask AI</a>
+          <a href="/downloads/">Downloads</a>
           <a href="/resources/">Resources</a>
           <a href="/credits/">Credits</a>
         </div>
@@ -336,10 +530,49 @@
     </div>
   </nav>
 
-  <main class="downloads-placeholder" aria-labelledby="downloads-title">
-    <section class="downloads-card">
-      <h1 id="downloads-title">Downloads will be added soon.</h1>
-    </section>
+  <main class="ask-ai-page" aria-labelledby="ask-ai-title">
+    <div class="ask-ai-shell">
+      <section class="ask-ai-intro">
+        <div class="ask-ai-hero">
+          <h1 id="ask-ai-title">Ask AI</h1>
+          <p>Ask about a passage, a hermeneutics step, or a reading question. This page is a prototype for the guided assistant you will connect later.</p>
+        </div>
+        <aside class="ask-ai-setup" aria-label="Prototype status">
+          <span class="ask-ai-eyebrow">Prototype</span>
+          <h2>Hermeneutics assistant shell</h2>
+          <p>The interface is ready for the future logic. For now, it is intentionally offline and does not collect private setup details or send requests.</p>
+        </aside>
+      </section>
+
+      <section class="ai-assistant" aria-label="Ask AI prototype">
+        <div class="ai-transcript" aria-live="polite">
+          <div class="ai-empty-state">
+            <div class="ai-welcome">
+              <span class="ai-welcome-mark" aria-hidden="true">✦</span>
+              <h2>Where would you like to begin?</h2>
+              <p>The final version can guide readers through observation, interpretation, genre questions, and faithful application.</p>
+            </div>
+            <div class="ai-example-bubbles" aria-label="Example questions">
+              <span class="ai-example-bubbles-label">Try asking</span>
+              <button type="button" disabled>How should I observe Psalm 23?</button>
+              <button type="button" disabled>What genre is this passage?</button>
+              <button type="button" disabled>Help me move from meaning to application.</button>
+              <button type="button" disabled>What context should I check first?</button>
+            </div>
+          </div>
+        </div>
+        <div class="ai-composer-shell">
+          <form class="ai-form">
+            <label class="sr-only" for="ai-question">Ask AI</label>
+            <textarea id="ai-question" rows="2" maxlength="1200" placeholder="Ask a hermeneutics question..." disabled></textarea>
+            <button class="ai-submit-button" type="button" disabled aria-label="Send question">
+              <span aria-hidden="true">↑</span>
+            </button>
+          </form>
+          <p class="ai-note">Ask AI is coming soon. The code and live logic can be connected later.</p>
+        </div>
+      </section>
+    </div>
   </main>
 
   <footer class="mbe-global-footer" data-tool="hermeneutics">
