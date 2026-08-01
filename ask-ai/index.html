@@ -4,25 +4,46 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f4f6f5">
-  <title>Ask AI | Hermeneutics Guide</title>
-  <meta name="description" content="Ask AI for the Hermeneutics Guide will be added soon.">
+  <title>Guided Study | Hermeneutics Guide</title>
+  <meta name="description" content="A step-by-step, AI-guided walk through the inductive method: Preparation, Observation, Interpretation, Imagination, and Application, with genre-specific keys and an exportable study.">
   <link rel="canonical" href="https://hermeneutics.mybibleexplorer.com/ask-ai/">
-  <meta property="og:title" content="Ask AI | Hermeneutics Guide">
-  <meta property="og:description" content="Ask AI for the Hermeneutics Guide will be added soon.">
+  <meta property="og:title" content="Guided Study | Hermeneutics Guide">
+  <meta property="og:description" content="A step-by-step, AI-guided walk through the inductive method: Preparation, Observation, Interpretation, Imagination, and Application.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hermeneutics.mybibleexplorer.com/ask-ai/">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Ask AI | Hermeneutics Guide">
-  <meta name="twitter:description" content="Ask AI for the Hermeneutics Guide will be added soon.">
+  <meta name="twitter:title" content="Guided Study | Hermeneutics Guide">
+  <meta name="twitter:description" content="A step-by-step, AI-guided walk through the inductive method, with genre-specific keys and an exportable study.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/global-shell.css?v=downloads-soon-1">
+  <link rel="preload" as="script" href="/vendor/tailwind.js?v=self-hosted-warning-sanitized-1">
+  <link rel="stylesheet" href="/global-shell.css?v=ask-ai-app-1">
+  <script src="/vendor/tailwind.js?v=self-hosted-warning-sanitized-1"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["IBM Plex Sans", "system-ui", "sans-serif"],
+            serif: ["Newsreader", "Georgia", "serif"]
+          },
+          colors: {
+            paper: "#f4f6f5",
+            ink: "#12181a",
+            muted: "#5b6b69",
+            navy: "#0f2b47",
+            navyHover: "#173a5b",
+            line: "#dfe6e4"
+          }
+        }
+      }
+    };
+  </script>
   <style>
     :root{
       --paper:#f4f6f5;
       --card:#fbfcfc;
-      --card-soft:#eef3f1;
       --ink:#12181a;
       --muted:#5b6b69;
       --line:#dfe6e4;
@@ -31,7 +52,6 @@
       --nav-border:#28455f;
       --nav-active-bg:rgba(15,43,71,.09);
       --nav-hover-bg:rgba(15,43,71,.07);
-      --serif:"Newsreader",Georgia,"Times New Roman",serif;
       --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
     }
     *{box-sizing:border-box;}
@@ -46,17 +66,10 @@
       -webkit-font-smoothing:antialiased;
     }
     a{color:inherit;text-decoration:none;}
-    :focus-visible{outline:2px solid var(--nav-accent);outline-offset:3px;}
+    :focus-visible{outline:2px solid #2563eb;outline-offset:3px;}
     .sr-only{
-      position:absolute;
-      width:1px;
-      height:1px;
-      padding:0;
-      margin:-1px;
-      overflow:hidden;
-      clip:rect(0,0,0,0);
-      white-space:nowrap;
-      border:0;
+      position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+      clip:rect(0,0,0,0);white-space:nowrap;border:0;
     }
     .mbe-global-shell[data-tool="hermeneutics"],
     .mbe-global-footer[data-tool="hermeneutics"]{
@@ -70,371 +83,115 @@
       min-height:72px;
       padding:0 24px;
       border-bottom:1px solid var(--line);
-      background:rgba(251,252,252,.96);
+      background:color-mix(in srgb,var(--card) 96%,transparent);
       box-shadow:0 16px 34px -30px rgba(18,24,26,.32);
       backdrop-filter:blur(14px);
     }
     .guide-nav-wrap{
-      display:flex;
-      align-items:center;
-      gap:clamp(18px,2.8vw,44px);
-      width:min(100%,1320px);
-      min-height:72px;
-      margin:0 auto;
+      display:flex;align-items:center;gap:clamp(18px,2.8vw,44px);
+      width:min(100%,1320px);min-height:72px;margin:0 auto;
     }
     .guide-brand{
-      display:flex;
-      flex:0 0 clamp(160px,16vw,214px);
-      align-items:center;
-      gap:11px;
-      min-height:44px;
-      padding:6px 8px;
-      border:1px solid transparent;
-      border-radius:8px;
-      margin-right:0;
-      color:var(--ink);
-      font-family:var(--sans);
-      white-space:nowrap;
+      display:flex;flex:0 0 clamp(160px,16vw,214px);align-items:center;gap:11px;
+      min-height:44px;padding:6px 8px;border:1px solid transparent;border-radius:8px;
+      color:var(--ink);font-family:var(--sans);white-space:nowrap;
       transition:background .2s ease,border-color .2s ease;
     }
-    .guide-brand:hover{
-      border-color:rgba(15,43,71,.18);
-      background:var(--nav-hover-bg);
-    }
+    .guide-brand:hover{border-color:rgba(15,43,71,.18);background:var(--nav-hover-bg);}
     .guide-brand-mark{
-      position:relative;
-      display:grid;
-      width:34px;
-      height:34px;
-      place-items:center;
-      border:1px solid rgba(15,43,71,.18);
-      border-radius:8px;
-      overflow:hidden;
+      position:relative;display:grid;width:34px;height:34px;place-items:center;
+      border:1px solid rgba(15,43,71,.18);border-radius:8px;overflow:hidden;
       background:
         linear-gradient(var(--nav-accent),var(--nav-accent)) 11px 8px/13px 4px no-repeat,
         linear-gradient(var(--nav-accent),var(--nav-accent)) 8px 12px/19px 3px no-repeat,
         linear-gradient(180deg,#f4f8fa,#e7eff4);
-      color:var(--nav-accent);
-      box-shadow:0 8px 20px rgba(15,43,71,.1);
+      color:var(--nav-accent);box-shadow:0 8px 20px rgba(15,43,71,.1);
     }
     .guide-brand-mark::before{
-      content:"";
-      position:absolute;
-      left:8px;
-      top:15px;
-      width:11px;
-      height:11px;
-      border:2px solid var(--nav-accent);
-      border-radius:50%;
-      background:rgba(255,255,255,.46);
+      content:"";position:absolute;left:8px;top:15px;width:11px;height:11px;
+      border:2px solid var(--nav-accent);border-radius:50%;background:rgba(255,255,255,.46);
     }
     .guide-brand-mark::after{
-      content:"";
-      position:absolute;
-      left:20px;
-      top:25px;
-      width:10px;
-      height:2px;
-      border-radius:999px;
-      background:var(--nav-accent);
-      transform:rotate(45deg);
+      content:"";position:absolute;left:20px;top:25px;width:10px;height:2px;
+      border-radius:999px;background:var(--nav-accent);transform:rotate(45deg);
       transform-origin:left center;
     }
     .guide-brand-copy{display:grid;line-height:1;}
-    .guide-brand-copy strong{
-      color:var(--ink);
-      font-size:14px;
-      font-weight:700;
-    }
+    .guide-brand-copy strong{color:var(--ink);font-size:14px;font-weight:700;}
     .guide-brand-copy small{
-      margin-top:4px;
-      color:var(--nav-accent);
-      font-size:9px;
-      font-weight:700;
-      letter-spacing:.08em;
-      text-transform:uppercase;
+      margin-top:4px;color:var(--nav-accent);font-size:9px;font-weight:700;
+      letter-spacing:.08em;text-transform:uppercase;
     }
     .guide-links{
-      display:flex;
-      flex:1 1 auto;
-      align-items:center;
-      justify-content:space-between;
-      gap:clamp(10px,1.6vw,30px);
-      min-width:0;
+      display:flex;flex:1 1 auto;align-items:center;justify-content:space-between;
+      gap:clamp(10px,1.6vw,30px);min-width:0;
     }
     .guide-link{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:7px;
-      min-height:44px;
-      padding:8px 12px;
-      border-radius:6px;
-      color:var(--muted);
-      font-size:14px;
-      font-weight:600;
+      display:flex;align-items:center;justify-content:center;gap:7px;min-height:44px;
+      padding:8px 12px;border-radius:6px;color:var(--muted);font-size:14px;font-weight:600;
       transition:background .2s ease,color .2s ease;
     }
-    .guide-link:hover,
-    .guide-link[aria-current="page"]{
-      background:var(--nav-active-bg);
-      color:var(--nav-accent-hover);
-    }
+    .guide-link:hover,.guide-link[aria-current="page"]{background:var(--nav-active-bg);color:var(--nav-accent-hover);}
     .guide-link[aria-current="page"] .nav-icon{color:var(--nav-accent);}
     .guide-link-copy{display:grid;line-height:1.05;}
     .guide-link-copy small{
-      margin-top:3px;
-      color:var(--nav-accent);
-      font-size:9px;
-      font-weight:600;
-      text-transform:uppercase;
+      margin-top:3px;color:var(--nav-accent);font-size:9px;font-weight:600;text-transform:uppercase;
     }
     .nav-icon{width:17px;height:17px;flex:0 0 auto;}
     .guide-menu{display:none;position:relative;margin-left:auto;}
     .guide-menu summary{
-      display:grid;
-      width:42px;
-      height:42px;
-      padding:0;
-      cursor:pointer;
-      list-style:none;
-      place-items:center;
-      border:1px solid var(--line);
-      border-radius:50%;
-      background:var(--card);
-      color:var(--ink);
+      display:grid;width:42px;height:42px;padding:0;cursor:pointer;list-style:none;
+      place-items:center;border:1px solid var(--line);border-radius:50%;background:var(--card);color:var(--ink);
     }
     .guide-menu summary::-webkit-details-marker{display:none;}
-    .menu-icon,.menu-icon::before,.menu-icon::after{
-      display:block;
-      width:17px;
-      height:2px;
-      background:currentColor;
-      content:"";
-    }
+    .menu-icon,.menu-icon::before,.menu-icon::after{display:block;width:17px;height:2px;background:currentColor;content:"";}
     .menu-icon{position:relative;}
     .menu-icon::before{position:absolute;top:-6px;left:0;}
     .menu-icon::after{position:absolute;top:6px;left:0;}
     .guide-menu-panel{
-      position:absolute;
-      top:50px;
-      right:0;
-      display:grid;
-      width:min(260px,calc(100vw - 40px));
-      padding:8px;
-      border:1px solid var(--line);
-      border-radius:8px;
-      background:var(--card);
+      position:absolute;top:50px;right:0;display:grid;width:min(260px,calc(100vw - 40px));
+      padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--card);
       box-shadow:0 24px 60px rgba(18,24,26,.16);
     }
     .guide-menu-panel a{display:flex;align-items:center;gap:9px;padding:11px 12px;border-radius:6px;}
-    .guide-menu-panel a:hover,
-    .guide-menu-panel a[aria-current="page"]{background:var(--nav-hover-bg);color:var(--nav-accent-hover);}
-    .ask-ai-page{
-      display:grid;
-      min-height:calc(100vh - var(--mbe-ribbon-height,0px) - 72px);
-      place-items:center;
-      padding:clamp(32px,6vw,72px) 24px;
-    }
-    .ask-ai-shell{
-      display:grid;
-      width:min(100%,1180px);
-      gap:24px;
-    }
-    .ask-ai-intro{
-      display:grid;
-      grid-template-columns:minmax(0,0.8fr) minmax(320px,1fr);
-      gap:24px;
-      align-items:stretch;
-    }
-    .ask-ai-hero,
-    .ai-assistant{
-      border:1px solid var(--line);
-      border-radius:12px;
-      background:var(--card);
-      box-shadow:0 24px 60px rgba(18,24,26,.1);
-    }
-    .ask-ai-hero{
-      padding:clamp(34px,6vw,70px);
-    }
-    .ask-ai-hero h1{
-      margin:0;
-      font-family:var(--serif);
-      font-size:clamp(2.5rem,7vw,5rem);
-      font-weight:600;
-      line-height:.98;
-    }
-    .ask-ai-hero p{
-      max-width:44rem;
-      margin:24px 0 0;
-      color:var(--muted);
-      font-size:clamp(1.05rem,2vw,1.35rem);
-      line-height:1.65;
-    }
-    .ask-ai-setup{
-      padding:clamp(28px,4vw,42px);
-      border:1px solid var(--line);
-      border-radius:12px;
-      background:linear-gradient(145deg,#fbfcfc,#f4f8fa);
-      box-shadow:0 24px 60px rgba(18,24,26,.08);
-    }
-    .ask-ai-eyebrow,
-    .ai-example-bubbles-label,
-    .ai-message-label{
-      color:var(--nav-accent);
-      font-size:12px;
-      font-weight:800;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-    }
-    .ask-ai-setup h2{
-      margin:10px 0 12px;
-      font-size:clamp(1.4rem,3vw,2rem);
-      line-height:1.1;
-    }
-    .ask-ai-setup p{
-      margin:0;
-      color:var(--muted);
-      font-size:1rem;
-      line-height:1.65;
-    }
-    .ai-assistant{
-      overflow:hidden;
-    }
-    .ai-transcript{
-      display:flex;
-      min-height:clamp(420px,52vh,560px);
-      flex-direction:column;
-      gap:18px;
-      padding:clamp(22px,4vw,42px);
-    }
-    .ai-empty-state{
-      display:grid;
-      grid-template-columns:minmax(0,1fr) minmax(270px,340px);
-      flex:1;
-      align-items:center;
-      gap:clamp(24px,4vw,54px);
-    }
-    .ai-welcome{
-      display:grid;
-      max-width:620px;
-      margin:auto;
-      justify-items:center;
-      text-align:center;
-    }
-    .ai-welcome-mark{
-      display:grid;
-      width:54px;
-      height:54px;
-      place-items:center;
-      border:1px solid rgba(15,43,71,.18);
-      border-radius:18px;
-      background:linear-gradient(145deg,#eef5f8,#f8fbfc);
-      color:var(--nav-accent);
-      font-size:27px;
-      box-shadow:0 15px 35px rgba(15,43,71,.12);
-    }
-    .ai-welcome h2{
-      margin:20px 0 10px;
-      color:var(--ink);
-      font-size:clamp(26px,4vw,42px);
-      letter-spacing:-.04em;
-    }
-    .ai-welcome p{
-      margin:0;
-      color:var(--muted);
-      font-size:16px;
-      font-weight:600;
-      line-height:1.7;
-    }
-    .ai-example-bubbles{
-      display:flex;
-      flex-direction:column;
-      align-items:flex-end;
-      gap:11px;
-    }
-    .ai-example-bubbles-label{
-      margin:0 9px -1px 0;
-      color:var(--muted);
-    }
-    .ai-example-bubbles button{
-      width:fit-content;
-      max-width:100%;
-      border:1px solid var(--nav-border);
-      border-radius:22px 8px 22px 22px;
-      padding:13px 16px;
-      color:#fff;
-      background:linear-gradient(145deg,var(--nav-accent-hover),var(--nav-accent));
-      cursor:not-allowed;
-      font:inherit;
-      font-size:13px;
-      font-weight:800;
-      line-height:1.35;
-      text-align:left;
-      box-shadow:0 12px 26px rgba(15,43,71,.16);
-      opacity:.86;
-    }
-    .ai-composer-shell{
-      padding:0 clamp(16px,3vw,30px) 22px;
-      border-top:1px solid rgba(223,230,228,.9);
-      background:rgba(244,246,245,.72);
-    }
-    .ai-form{
-      display:grid;
-      grid-template-columns:minmax(0,1fr) 44px;
-      align-items:end;
-      gap:10px;
-      padding:8px;
-      border:1px solid #cbd8dc;
-      border-radius:22px;
-      background:#fff;
-      box-shadow:0 12px 28px rgba(18,24,26,.08);
-    }
-    .ai-form textarea{
-      width:100%;
-      min-height:48px;
-      max-height:150px;
-      resize:vertical;
-      border:0;
-      padding:12px 10px;
-      background:transparent;
-      color:var(--ink);
-      font:inherit;
-      font-size:15px;
-      font-weight:500;
-      line-height:1.5;
-      outline:none;
-    }
-    .ai-form textarea::placeholder{color:#8a9896;}
-    .ai-submit-button{
-      display:grid;
-      width:44px;
-      height:44px;
-      place-items:center;
-      border:0;
-      border-radius:15px;
-      background:linear-gradient(145deg,var(--nav-accent-hover),var(--nav-accent));
-      color:#fff;
-      cursor:not-allowed;
-      font-size:22px;
-      font-weight:800;
-      opacity:.62;
-    }
-    .ai-note{
-      margin:9px 4px 0;
-      color:var(--muted);
-      font-size:12px;
-      font-weight:650;
-      text-align:center;
-    }
-    @media (max-width:900px){
-      .ask-ai-intro,
-      .ai-empty-state{grid-template-columns:1fr;}
-      .ai-example-bubbles{
-        width:min(100%,340px);
-        justify-self:end;
-      }
-    }
+    .guide-menu-panel a:hover,.guide-menu-panel a[aria-current="page"]{background:var(--nav-hover-bg);color:var(--nav-accent-hover);}
+    .markdown-body h1,.markdown-body h2,.markdown-body h3{margin:.85em 0 .35em;font-weight:800;line-height:1.16;}
+    .markdown-body h1{font-size:1.35rem;}
+    .markdown-body h2{font-size:1.18rem;}
+    .markdown-body h3{font-size:1.05rem;}
+    .markdown-body p{margin:.72em 0;}
+    .markdown-body ul,.markdown-body ol{margin:.72em 0 .72em 1.25rem;}
+    .markdown-body li{margin:.25em 0;}
+    .markdown-body a{text-decoration:underline;text-underline-offset:3px;}
+    @keyframes pulseBar{0%,100%{transform:scaleX(.35);opacity:.55;}50%{transform:scaleX(1);opacity:1;}}
+    .loading-bar{animation:pulseBar 1.2s ease-in-out infinite;transform-origin:left;}
+    .phase-step{display:flex;align-items:center;gap:11px;width:100%;padding:9px 11px;border:1px solid transparent;border-radius:9px;text-align:left;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;transition:background .18s ease,border-color .18s ease,color .18s ease;}
+    .phase-step:hover:not(:disabled){background:var(--nav-hover-bg);}
+    .phase-step:disabled{cursor:not-allowed;opacity:.55;}
+    .phase-step .dot{display:grid;flex:0 0 auto;width:26px;height:26px;place-items:center;border-radius:50%;border:1.5px solid var(--line);background:#fff;font-size:12px;font-weight:800;color:var(--muted);}
+    .phase-step[data-state="active"]{background:var(--nav-active-bg);border-color:rgba(15,43,71,.18);color:var(--nav-accent-hover);}
+    .phase-step[data-state="active"] .dot{border-color:var(--nav-accent);color:var(--nav-accent);}
+    .phase-step[data-state="done"] .dot{background:var(--nav-accent);border-color:var(--nav-accent);color:#fff;}
+    .phase-step[data-state="done"]{color:var(--ink);}
+    .worksheet-q{position:relative;padding-left:20px;}
+    .worksheet-q::before{content:"";position:absolute;left:2px;top:9px;width:7px;height:7px;border-radius:50%;background:var(--nav-accent);opacity:.55;}
+    .substep-list{margin:4px 0 8px 24px;padding-left:14px;border-left:1px solid var(--line);display:grid;gap:2px;}
+    .substep{display:flex;align-items:center;gap:9px;padding:4px 2px;font-size:12.5px;line-height:1.25;color:var(--muted);}
+    .substep .sub-dot{flex:0 0 auto;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--line);background:#fff;transition:background .18s ease,border-color .18s ease,box-shadow .18s ease;}
+    .substep[data-state="active"]{color:var(--nav-accent-hover);font-weight:700;}
+    .substep[data-state="active"] .sub-dot{border-color:var(--nav-accent);box-shadow:0 0 0 3px var(--nav-active-bg);}
+    .substep[data-state="done"]{color:var(--ink);}
+    .substep[data-state="done"] .sub-dot{background:var(--nav-accent);border-color:var(--nav-accent);}
+    .more-link[data-active="true"]{color:var(--nav-accent-hover);}
+    .more-link[data-active="true"] svg{fill:var(--nav-active-bg);}
+    .detail-body{padding:18px 20px 28px;color:#334155;font-size:14.5px;line-height:1.65;}
+    .detail-body h4{margin:18px 0 8px;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--nav-accent);}
+    .detail-body h4:first-child{margin-top:0;}
+    .detail-body ul{margin:6px 0;padding-left:18px;list-style:disc;}
+    .detail-body ul ul{margin:4px 0;list-style:circle;}
+    .detail-body li{margin:5px 0;}
+    .detail-body p{margin:8px 0;}
+    .detail-body strong{color:#0f172a;}
     @media (max-width:900px){
       .guide-links{display:none;}
       .guide-menu{display:block;}
@@ -442,7 +199,7 @@
     }
   </style>
 </head>
-<body>
+<body class="bg-paper text-ink">
   <header class="mbe-global-shell" data-tool="hermeneutics" data-embedded="true">
     <div class="mbe-shell-wrap">
       <div class="mbe-ribbon-left">
@@ -500,7 +257,7 @@
         </a>
         <a class="guide-link" href="/ask-ai/" aria-current="page">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path><path d="M8 9h8"></path><path d="M8 13h5"></path></svg>
-          <span>Ask AI</span>
+          <span>Guided Study</span>
         </a>
         <a class="guide-link" href="/downloads/">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg>
@@ -521,7 +278,7 @@
           <a href="/">Home</a>
           <a href="/general/">General Hermeneutics</a>
           <a href="/special/">Special Hermeneutics</a>
-          <a href="/ask-ai/" aria-current="page">Ask AI</a>
+          <a href="/ask-ai/" aria-current="page">Guided Study</a>
           <a href="/downloads/">Downloads</a>
           <a href="/resources/">Resources</a>
           <a href="/credits/">Credits</a>
@@ -530,48 +287,52 @@
     </div>
   </nav>
 
-  <main class="ask-ai-page" aria-labelledby="ask-ai-title">
-    <div class="ask-ai-shell">
-      <section class="ask-ai-intro">
-        <div class="ask-ai-hero">
-          <h1 id="ask-ai-title">Ask AI</h1>
-          <p>Ask about a passage, a hermeneutics step, or a reading question. This page is a prototype for the guided assistant you will connect later.</p>
-        </div>
-        <aside class="ask-ai-setup" aria-label="Prototype status">
-          <span class="ask-ai-eyebrow">Prototype</span>
-          <h2>Hermeneutics assistant shell</h2>
-          <p>The interface is ready for the future logic. For now, it is intentionally offline and does not collect private setup details or send requests.</p>
-        </aside>
-      </section>
-
-      <section class="ai-assistant" aria-label="Ask AI prototype">
-        <div class="ai-transcript" aria-live="polite">
-          <div class="ai-empty-state">
-            <div class="ai-welcome">
-              <span class="ai-welcome-mark" aria-hidden="true">✦</span>
-              <h2>Where would you like to begin?</h2>
-              <p>The final version can guide readers through observation, interpretation, genre questions, and faithful application.</p>
-            </div>
-            <div class="ai-example-bubbles" aria-label="Example questions">
-              <span class="ai-example-bubbles-label">Try asking</span>
-              <button type="button" disabled>How should I observe Psalm 23?</button>
-              <button type="button" disabled>What genre is this passage?</button>
-              <button type="button" disabled>Help me move from meaning to application.</button>
-              <button type="button" disabled>What context should I check first?</button>
-            </div>
+  <main id="guidedApp" class="min-h-[calc(100vh-144px)] bg-paper px-4 py-5 text-ink transition-colors sm:px-6 lg:px-8">
+    <div class="mx-auto flex max-w-[1680px] flex-col gap-4 xl:grid xl:grid-cols-[300px_minmax(0,1fr)_360px]">
+      <aside class="rounded-2xl border border-line bg-white/90 shadow-sm backdrop-blur xl:sticky xl:top-[calc(var(--mbe-ribbon-height,0px)+88px)] xl:max-h-[calc(100vh-var(--mbe-ribbon-height,0px)-104px)] xl:overflow-y-auto">
+        <div class="border-b border-line p-5">
+          <p class="text-xs font-bold uppercase tracking-[.18em] text-navy">Study Session</p>
+          <h1 class="mt-2 font-serif text-3xl font-semibold tracking-[-.03em] text-slate-950">Guided Study</h1>
+          <p class="mt-3 text-sm leading-6 text-muted">Walk the inductive method one phase at a time. You do the studying; the guide coaches each step.</p>
+          <div id="passageSummary" class="mt-4 hidden rounded-xl border border-line bg-slate-50 p-3 text-sm">
+            <p class="font-bold text-slate-900" id="passageSummaryRef"></p>
+            <p class="mt-1 text-xs font-semibold uppercase tracking-[.12em] text-navy" id="passageSummaryGenre"></p>
           </div>
         </div>
-        <div class="ai-composer-shell">
-          <form class="ai-form">
-            <label class="sr-only" for="ai-question">Ask AI</label>
-            <textarea id="ai-question" rows="2" maxlength="1200" placeholder="Ask a hermeneutics question..." disabled></textarea>
-            <button class="ai-submit-button" type="button" disabled aria-label="Send question">
-              <span aria-hidden="true">↑</span>
-            </button>
-          </form>
-          <p class="ai-note">Ask AI is coming soon. The code and live logic can be connected later.</p>
+        <div class="p-5">
+          <div class="flex items-center justify-between">
+            <h2 class="text-sm font-bold uppercase tracking-[.14em] text-slate-700">Progress</h2>
+            <button id="clearHistory" type="button" class="text-xs font-bold text-navy hover:underline">Reset</button>
+          </div>
+          <ol id="progressList" class="mt-4 grid gap-1.5 text-sm" aria-label="Study phases"></ol>
         </div>
+      </aside>
+
+      <section class="flex min-h-[72vh] flex-col overflow-hidden rounded-2xl border border-line bg-white shadow-sm">
+        <div class="flex flex-col gap-4 border-b border-line bg-white/95 p-5 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h2 class="font-serif text-3xl font-semibold tracking-[-.03em] md:text-4xl">Inductive Method</h2>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button id="exportStudy" type="button" class="inline-flex items-center justify-center rounded-xl bg-navy px-4 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-navyHover disabled:cursor-not-allowed disabled:opacity-50" disabled>Export Study</button>
+            <button id="printStudy" type="button" class="inline-flex items-center justify-center rounded-xl border border-line px-4 py-3 text-sm font-bold text-navy transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50" disabled>Print</button>
+          </div>
+        </div>
+
+        <div id="statusPanel" class="hidden border-b border-amber-200 bg-amber-50 px-5 py-3 text-sm font-semibold text-amber-900"></div>
+
+        <div id="stepStage" class="flex-1 overflow-y-auto bg-gradient-to-b from-slate-50 to-white p-4 md:p-6" aria-live="polite"></div>
+
+        <div id="composer" class="border-t border-line bg-white p-4 md:p-5"></div>
       </section>
+
+      <aside id="referencePanel" class="rounded-2xl border border-line bg-white/90 shadow-sm backdrop-blur xl:sticky xl:top-[calc(var(--mbe-ribbon-height,0px)+88px)] xl:max-h-[calc(100vh-var(--mbe-ribbon-height,0px)-104px)] xl:overflow-y-auto">
+        <div class="border-b border-line p-5">
+          <p class="text-xs font-bold uppercase tracking-[.18em] text-navy">About this step</p>
+          <h2 id="referenceTitle" class="mt-2 font-serif text-2xl font-semibold tracking-[-.03em] text-slate-950"></h2>
+        </div>
+        <div id="referenceBody" class="detail-body"></div>
+      </aside>
     </div>
   </main>
 
@@ -584,6 +345,1222 @@
       <span>&copy; <span data-mbe-year></span> My Bible Explorer</span>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      const API_URL = "https://hermeneutics-backend.onrender.com/api/v1/next-step";
+      const STORAGE_KEY = "hermeneuticsGuidedStudy:v3";
+
+      const GENRES = {
+        "historical-narrative": {
+          label: "Historical Narrative",
+          blurb: "Story that recounts what happened in Israel's history (Genesis-Esther and beyond).",
+          ask: "What is the narrator, and God through him, teaching through this account?",
+          look: "The plot and its turning points, characters as actors in God's unfolding story, the narrator's point of view, and where this scene sits in salvation history.",
+          avoid: "Turning mere description into command, or squeezing a moral lesson out of every character's action.",
+          href: "/special/historical-narrative/"
+        },
+        "gospels-acts": {
+          label: "Gospels & Acts",
+          blurb: "The four Gospels and the continuing mission in Acts.",
+          ask: "How does this writer portray Jesus, and where does this fit in His mission and the gospel's advance?",
+          look: "Each Gospel's distinct portrait of Christ, kingdom themes, and in Acts the pattern of the Spirit spreading the church outward.",
+          avoid: "Flattening each Gospel's emphasis into a blur, or reading Acts narrative as a universal command.",
+          href: "/special/gospels-acts/"
+        },
+        "epistles": {
+          label: "Epistles",
+          blurb: "Occasional letters written to real first-century churches and people.",
+          ask: "What situation prompted this letter, and what did the author want this audience to believe and do?",
+          look: "The occasion behind the letter, the flow of the argument (truth then command), and logical connectors like therefore, so that, because.",
+          avoid: "Lifting a single verse out of the letter's argument and occasion.",
+          href: "/special/epistles/"
+        },
+        "law": {
+          label: "Law",
+          blurb: "The commands and instruction of Torah within God's covenant with Israel.",
+          ask: "What does this law reveal about God's character and Israel's covenant life, and how is it carried forward in Christ?",
+          look: "The moral principle beneath the rule, the covenant setting, and typology that points ahead to Jesus.",
+          avoid: "Flat, mechanical application that skips the covenant framework and Christ's fulfillment.",
+          href: "/special/law/"
+        },
+        "parables": {
+          label: "Parables",
+          blurb: "Jesus' earthly stories with a heavenly meaning.",
+          ask: "What single central truth is Jesus pressing on this audience?",
+          look: "The original audience and occasion, the surprising twist or reversal, and the response the story demands.",
+          avoid: "Over-allegorizing every detail, or softening the parable until it loses its edge.",
+          href: "/special/parables/"
+        },
+        "poetry": {
+          label: "Poetry",
+          blurb: "The heart's language: Psalms, and poetic sections throughout Scripture.",
+          ask: "How do the paired lines and images carry the emotion and the truth?",
+          look: "Parallelism (synonymous, antithetic, synthetic), vivid imagery and figures of speech, and structure such as acrostics and refrains.",
+          avoid: "Pressing poetic imagery into wooden, literal prose.",
+          href: "/special/poetry/"
+        },
+        "prophecy": {
+          label: "Prophecy",
+          blurb: "The prophets' covenant messages and apocalyptic visions of history's sweep.",
+          ask: "Is this classical prophecy (a covenant call to God's people) or apocalyptic (the sweep of history to the end)?",
+          look: "The historical setting, the call to repentance, symbols that Scripture itself interprets, and the shape of fulfillment.",
+          avoid: "Newspaper speculation, or ignoring the original audience and Scripture's own symbol keys.",
+          href: "/special/prophecy/"
+        },
+        "wisdom": {
+          label: "Wisdom",
+          blurb: "Proverbs, Job, Ecclesiastes, and Song of Songs.",
+          ask: "Which face of wisdom is this (Proverbs' norms, Job's suffering, Ecclesiastes' limits, Song's love), and how does it fit the fear of the Lord?",
+          look: "The kind of wisdom writing in front of you, and the general-truth (not iron-clad promise) nature of a proverb.",
+          avoid: "Reading proverbs as unconditional guarantees.",
+          href: "/special/wisdom/"
+        }
+      };
+
+      // Each phase carries its fixed, vetted sub-steps. Guidance and prompts are static
+      // (no AI needed) and always send the reader to their own Bible — never quoting it.
+      const PHASES = [
+        {
+          id: "preparation",
+          name: "Preparation",
+          kicker: "Slow down and prepare your heart before you read.",
+          substeps: [
+            {
+              id: "prep-assumptions",
+              title: "Name your assumptions",
+              guidance: "Before you open the text, name what you already carry to it. Naming these lets you hold them loosely and be corrected by Scripture itself.",
+              prompts: [
+                "What prior conclusions, sermons, or traditions do you already bring to this passage?",
+                "What do you hope — or fear — this text will say?",
+                "Is there a favorite argument or position you want it to support?",
+                "If it confronts you, are you willing to obey what you find?"
+              ]
+            },
+            {
+              id: "prep-prayer",
+              title: "Pray for humility",
+              guidance: "Depend on the Holy Spirit to open your eyes. Open your Bible and read these promises, then pray in your own words.",
+              prompts: [
+                "Read John 16:13 and Psalm 119:18 in your own Bible.",
+                "Ask God to quiet your assumptions and teach you what is true.",
+                "Ask Him for a heart willing to obey what you find."
+              ]
+            },
+            {
+              id: "prep-loosely",
+              title: "Hold expectations loosely",
+              guidance: "Treat your first impressions as hunches to test, not verdicts to defend.",
+              prompts: [
+                "Write your current best guess at what this passage means.",
+                "Hold it loosely — you will test it against the text, not protect it."
+              ]
+            },
+            {
+              id: "prep-obey",
+              title: "Commit to obey",
+              guidance: "Settle the question of obedience before you begin studying.",
+              prompts: [
+                "Finish this sentence: “If this passage confronts me, I am willing to …”"
+              ]
+            }
+          ]
+        },
+        {
+          id: "observation",
+          name: "Observation",
+          kicker: "See what the text actually says before explaining it.",
+          substeps: [
+            {
+              id: "obs-translation",
+              title: "Choose a working translation",
+              guidance: "Pick one primary translation to study from in your Bible. A more formal translation (ESV, NASB, NKJV) preserves repeated words and sentence shape; a functional one (NIV, NLT) can help when a sentence is hard.",
+              prompts: [
+                "Which translation are you reading as your main study text?",
+                "Where do other translations word it differently? Note the difference as a question."
+              ]
+            },
+            {
+              id: "obs-read",
+              title: "Read & reread",
+              guidance: "Read the passage in your Bible slowly and more than once before explaining it.",
+              prompts: [
+                "Read it silently for the overall movement and mood.",
+                "Read it aloud to catch emphasis, cadence, and tone.",
+                "Summarize in one sentence: “This passage moves from ___ to ___.”"
+              ]
+            },
+            {
+              id: "obs-map",
+              title: "Map the passage unit",
+              guidance: "Find where the complete thought begins and ends, and its movements.",
+              prompts: [
+                "Where does this thought unit start and stop? (shifts in speaker, topic, place, or time)",
+                "What are the main movements or paragraphs within it?"
+              ]
+            },
+            {
+              id: "obs-observe",
+              title: "Make observations",
+              guidance: "Write down what you actually see — not yet what it means. Start with the cues below; open “More about this step” for the full checklist.",
+              prompts: [
+                "People: who speaks, acts, is silent, or is being addressed?",
+                "Repeated words, contrasts (but, yet), and connectives (therefore, because, so that).",
+                "Commands, questions, promises, and stated reasons.",
+                "Structure, tone, and anything unfamiliar to look up."
+              ],
+              details: `
+                <h4>Basic observations — surface facts</h4>
+                <ul>
+                  <li><strong>People &amp; characters:</strong> who speaks, acts, is silent, is unnamed, and who is being addressed.</li>
+                  <li><strong>Places &amp; geography:</strong> cities, wilderness, roads, houses, seas — movement often marks structure.</li>
+                  <li><strong>Time &amp; setting:</strong> time of day, season, festival, era, stage of life.</li>
+                  <li><strong>Actions &amp; events:</strong> track the sequence of what happens.</li>
+                  <li><strong>Commands &amp; imperatives:</strong> every command, and who must obey it.</li>
+                  <li><strong>Questions:</strong> rhetorical or direct, and who asks them.</li>
+                  <li><strong>Promises &amp; warnings:</strong> conditions, rewards, threats, coming judgment.</li>
+                  <li><strong>Reasons &amp; explanations:</strong> stated reasons why something is done or true.</li>
+                  <li><strong>Atmosphere &amp; tone:</strong> joyful, urgent, tender, alarmed, sorrowful, cross-examining.</li>
+                  <li><strong>Unfamiliar terms:</strong> flag every unknown name, custom, or idiom to look up.</li>
+                </ul>
+                <h4>Close observations — weighted details</h4>
+                <ul>
+                  <li><strong>Key words &amp; repetition:</strong> recurring terms, refrains, synonyms; trace pronouns (he, she, it, they) back to who they point to.</li>
+                  <li><strong>Contrasts &amp; comparisons:</strong> but, however, yet, nevertheless, rather, instead / like, as, just as, so also. Watch for simile, metaphor, hyperbole, personification, irony, idiom.</li>
+                  <li><strong>Connectives &amp; logic:</strong>
+                    <ul>
+                      <li>Conclusion / result — therefore, so, thus, as a result, wherefore</li>
+                      <li>Purpose — so that, in order that, that you may</li>
+                      <li>Cause / reason — because, since, for, on account of</li>
+                      <li>Condition — if…then, unless, provided that</li>
+                      <li>Addition — and, also, moreover, furthermore</li>
+                      <li>Series — first, second, then, next, finally</li>
+                    </ul>
+                  </li>
+                  <li><strong>Expressions of time:</strong> then, after, before, when, until, while, now, immediately.</li>
+                  <li><strong>Lists &amp; series:</strong> number the enumerations and examine their order.</li>
+                  <li><strong>Cause &amp; effect:</strong> trace the logic chains (X happened → Y followed).</li>
+                  <li><strong>Grammar &amp; syntax:</strong> verb tense, active/passive voice, mood (command vs. statement), and prepositions (in, through, with, by, for).</li>
+                  <li><strong>Literary structure:</strong> progression, climax, parallel lines, chiasm, inclusio (same idea framing the opening and close), and how much space is given to each topic.</li>
+                  <li><strong>Scriptural links:</strong> Old Testament quotations, allusions, echoes, and historical background.</li>
+                </ul>
+                <h4>Reporter's questions</h4>
+                <p>Sweep the whole passage asking: <strong>Who? What? When? Where? Why? How?</strong></p>`
+            },
+            {
+              id: "obs-questions",
+              title: "Build the question log",
+              guidance: "Collect your questions before you try to answer them.",
+              prompts: [
+                "List your questions by type: definitions, reasons/logic, background, links to other Scripture, and application."
+              ]
+            }
+          ]
+        },
+        {
+          id: "interpretation",
+          name: "Interpretation",
+          kicker: "Ask what the author truly meant, and test it.",
+          substeps: [
+            {
+              id: "int-genre",
+              title: "Identify genre & its rules",
+              guidance: "Read the passage according to its genre. See the genre keys above for what to ask, look for, and avoid.",
+              prompts: [
+                "What genre is this, and what reading rules does it call for?"
+              ]
+            },
+            {
+              id: "int-setting",
+              title: "Historical & cultural setting",
+              guidance: "Ask who wrote it, to whom, when, and why. Open “More about this step” for the full context checklist.",
+              prompts: [
+                "Author, audience, date, occasion, and pastoral purpose?"
+              ],
+              details: `
+                <h4>Who wrote it, and to whom?</h4>
+                <ul>
+                  <li><strong>Author:</strong> who is writing or speaking, and what do we know of them?</li>
+                  <li><strong>Audience:</strong> who first received this — an individual, a church, a nation, friends or opponents?</li>
+                </ul>
+                <h4>When and why?</h4>
+                <ul>
+                  <li><strong>Date:</strong> roughly when was it written, or when did the events occur?</li>
+                  <li><strong>Occasion:</strong> what prompted it — a question, a crisis, a letter, a conflict?</li>
+                  <li><strong>Pastoral purpose:</strong> what did the author want this audience to know, feel, or do?</li>
+                </ul>
+                <h4>The world behind the text</h4>
+                <ul>
+                  <li><strong>Social &amp; economic pressures:</strong> poverty, wealth, slavery, favoritism, honor and shame.</li>
+                  <li><strong>Political setting:</strong> empire, exile, occupation, persecution, leadership.</li>
+                  <li><strong>Religious setting:</strong> covenant, temple, festivals, synagogue, rival teachers or sects.</li>
+                  <li><strong>Geography &amp; culture:</strong> the places named and what they meant to the first hearers; customs, farming, family, and daily life.</li>
+                </ul>
+                <h4>Where to find this</h4>
+                <p>Use the book introduction in a study Bible, a Bible dictionary or handbook, and a Bible atlas — not guesswork.</p>`
+            },
+            {
+              id: "int-context",
+              title: "Literary context",
+              guidance: "Read the verses before and after, then widen out: paragraph → section → book → whole Bible.",
+              prompts: [
+                "What comes immediately before and after, and how does it steer the meaning?",
+                "State the meaning within its paragraph in one sentence."
+              ]
+            },
+            {
+              id: "int-keywords",
+              title: "Key word study",
+              guidance: "Study the central, repeated, or weighty words using a lexicon or study Bible.",
+              prompts: [
+                "Which words carry the most weight here, and what do they mean in this context?",
+                "Avoid reading every possible meaning into one word."
+              ]
+            },
+            {
+              id: "int-scripture",
+              title: "Let Scripture interpret Scripture",
+              guidance: "Follow the passage's own quotations and clear cross-references.",
+              prompts: [
+                "What Old Testament citations or cross-references clarify this passage?",
+                "Do they confirm your reading without silencing the passage in front of you?"
+              ]
+            },
+            {
+              id: "int-theology",
+              title: "Theology & redemptive history",
+              guidance: "See how this fits God's larger story of creation, fall, redemption, and restoration.",
+              prompts: [
+                "How does this passage reveal God's character and point to Christ?"
+              ]
+            },
+            {
+              id: "int-resources",
+              title: "Consult resources last",
+              guidance: "Only after your own study, check trusted commentaries to confirm, correct, or sharpen your findings.",
+              prompts: [
+                "What do trusted resources add or correct in your reading?"
+              ]
+            },
+            {
+              id: "int-statement",
+              title: "Write the interpretation",
+              guidance: "State the author's intended meaning in one clear sentence.",
+              prompts: [
+                "Fill in: “In [passage], [author] teaches [main meaning] by [evidence], so that [purpose].”"
+              ]
+            }
+          ]
+        },
+        {
+          id: "imagination",
+          name: "Imagination",
+          kicker: "Enter the passage's world without adding to it.",
+          substeps: [
+            {
+              id: "img-picture",
+              title: "Picture the setting",
+              guidance: "Reconstruct the scene from the text only — do not add to it.",
+              prompts: [
+                "Picture the setting, faces, sounds, and conditions the text describes."
+              ]
+            },
+            {
+              id: "img-force",
+              title: "Feel its force",
+              guidance: "Enter what the first hearers would have felt.",
+              prompts: [
+                "What would have comforted, exposed, alarmed, or convicted the first hearers?"
+              ]
+            },
+            {
+              id: "img-distance",
+              title: "Measure the distance",
+              guidance: "Notice what separates their world from ours, and what remains the same.",
+              prompts: [
+                "What is different about their situation, and what timeless truth carries over?"
+              ]
+            }
+          ]
+        },
+        {
+          id: "application",
+          name: "Application",
+          kicker: "Bring the meaning home and act on it.",
+          substeps: [
+            {
+              id: "app-first",
+              title: "Meaning for the first hearers",
+              guidance: "State what it meant for them before what it means for you.",
+              prompts: [
+                "In past tense: the author was telling his first readers to …"
+              ]
+            },
+            {
+              id: "app-principle",
+              title: "Timeless principle",
+              guidance: "Lift the enduring truth that crosses from their world to ours.",
+              prompts: [
+                "What timeless principle stands behind the passage?"
+              ]
+            },
+            {
+              id: "app-home",
+              title: "Bring it home",
+              guidance: "Search where this truth touches your life.",
+              prompts: [
+                "Is there a sin to forsake, promise to claim, attitude to change, command to obey, example to follow, or truth to believe?",
+                "Where does it apply — personally, in your family, church, and world?"
+              ]
+            },
+            {
+              id: "app-step",
+              title: "One concrete step",
+              guidance: "Turn meaning into one checkable act of obedience.",
+              prompts: [
+                "Write ONE specific, personal, checkable, time-bound step for this week."
+              ]
+            }
+          ]
+        }
+      ];
+
+      // Full "More about this step" reference content for every sub-step. (obs-observe and
+      // int-setting also carry inline `details`; detailFor() prefers this map.)
+      const DETAILS = {
+        "prep-assumptions": `
+          <h4>Why name your assumptions?</h4>
+          <p>None of us come to the Bible as a blank page. We arrive with beliefs, feelings, and habits that quietly shape what we expect to find. Naming them lets you hold them loosely and be corrected by the text.</p>
+          <h4>Kinds of assumptions to watch for</h4>
+          <ul>
+            <li><strong>Theological:</strong> positions or doctrines you already hold on this topic.</li>
+            <li><strong>Emotional:</strong> comfort, hope, guilt, or fear tied to this passage.</li>
+            <li><strong>Inherited:</strong> what a sermon, teacher, tradition, or denomination taught you it means.</li>
+            <li><strong>Argumentative:</strong> a debate you want this text to win.</li>
+          </ul>
+          <h4>The goal</h4>
+          <p>Not to empty your mind, but to bring these into the light so Scripture can test and correct them.</p>`,
+        "prep-prayer": `
+          <h4>Depend on the Spirit</h4>
+          <p>Understanding Scripture is a gift of the Holy Spirit, not merely a skill. Ask Him to open your eyes before you study.</p>
+          <h4>Promises to claim (read them in your Bible)</h4>
+          <ul>
+            <li><strong>John 16:13</strong> — the Spirit of truth guides believers into all truth.</li>
+            <li><strong>Psalm 119:18</strong> — "Open my eyes, that I may behold wondrous things."</li>
+          </ul>
+          <h4>What illumination is (and isn't)</h4>
+          <p>The Spirit helps you understand and receive what is already written — He does not give new revelation that adds to or overrides Scripture.</p>`,
+        "prep-loosely": `
+          <h4>Hunches, not verdicts</h4>
+          <p>Your first impression of a passage is a hypothesis to test, not a conclusion to defend. Good study lets the text correct the guess.</p>
+          <h4>Two ways to come to a verse</h4>
+          <ul>
+            <li><strong>Deductive:</strong> starting with a conclusion and hunting for support.</li>
+            <li><strong>Inductive:</strong> starting with the text and letting it lead you to the meaning already there.</li>
+          </ul>
+          <p>Inductive study keeps you teachable.</p>`,
+        "prep-obey": `
+          <h4>Settle obedience first</h4>
+          <p>Willingness to obey is part of understanding. If we only study to win an argument or defend a view, we resist the very truth we claim to seek.</p>
+          <h4>Ask honestly</h4>
+          <ul>
+            <li>If this passage confronts a belief I hold, am I willing to change?</li>
+            <li>If it calls for action, am I willing to act?</li>
+          </ul>
+          <p>Come as a learner ready to follow, not a judge deciding the verdict.</p>`,
+        "obs-translation": `
+          <h4>Kinds of translation</h4>
+          <ul>
+            <li><strong>Formal (word-for-word)</strong> — ESV, NASB, KJV/NKJV. Preserves repeated words, sentence shape, and connectors. Best as your main study text.</li>
+            <li><strong>Functional (thought-for-thought)</strong> — NIV, NLT. Smooths the flow; helpful to compare when a sentence is hard.</li>
+            <li><strong>Paraphrase</strong> — The Message. Use for freshness only; never build doctrine on a paraphrase.</li>
+          </ul>
+          <h4>Compare, don't panic</h4>
+          <p>When reliable translations word something differently, don't just pick your favorite — mark the difference and carry it as a question. You may have found a spot that deserves closer attention.</p>`,
+        "obs-read": `
+          <h4>Read more than once</h4>
+          <ul>
+            <li><strong>Silently</strong> — for the overall movement and mood.</li>
+            <li><strong>Aloud</strong> — to catch emphasis, cadence, repetition, and tone.</li>
+          </ul>
+          <h4>Summarize the movement</h4>
+          <p>Write one rough sentence: "This passage seems to move from <em>[starting point]</em> to <em>[ending point]</em>." You'll refine it later.</p>`,
+        "obs-map": `
+          <h4>Find the boundaries</h4>
+          <p>Locate where the complete thought begins and ends. Seams often appear at a shift in:</p>
+          <ul>
+            <li>Speaker or audience</li>
+            <li>Topic or theme</li>
+            <li>Place or setting</li>
+            <li>Time</li>
+            <li>A summary statement, contrast, or new command</li>
+          </ul>
+          <h4>Divide into movements</h4>
+          <p>Break the unit into its paragraphs or steps (for example: problem → example → response → conclusion) so you can see how the thought develops.</p>`,
+        "obs-questions": `
+          <h4>Collect before you answer</h4>
+          <p>Don't rush to answers. Gather your questions first so interpretation has something to work on.</p>
+          <h4>Sort your questions</h4>
+          <ul>
+            <li><strong>Definition</strong> — what does this word or phrase mean?</li>
+            <li><strong>Reason / logic</strong> — why is this said, and how does it connect?</li>
+            <li><strong>Background</strong> — what history or custom lies behind it?</li>
+            <li><strong>Connection to Scripture</strong> — where else does the Bible speak to this?</li>
+            <li><strong>Application</strong> — what might this ask of me?</li>
+          </ul>`,
+        "int-genre": `
+          <h4>Read by genre</h4>
+          <p>Each kind of writing has its own rules. Reading a poem like a law, or a parable like a history, distorts the meaning.</p>
+          <ul>
+            <li><strong>Epistle</strong> — follow the argument of a letter to a real church.</li>
+            <li><strong>Narrative</strong> — what the account teaches, not every action commanded.</li>
+            <li><strong>Gospel / Acts</strong> — the portrait of Jesus and the gospel's advance.</li>
+            <li><strong>Parable</strong> — one central point; don't over-allegorize.</li>
+            <li><strong>Poetry</strong> — parallelism and imagery, not wooden literalism.</li>
+            <li><strong>Wisdom</strong> — general truths, not iron-clad promises.</li>
+            <li><strong>Law</strong> — within the covenant, fulfilled in Christ.</li>
+            <li><strong>Prophecy / Apocalyptic</strong> — a covenant call or the sweep of history; let Scripture read its symbols.</li>
+          </ul>
+          <p>The genre keys panel on the worksheet gives the specifics for your passage.</p>`,
+        "int-context": `
+          <h4>Context controls meaning</h4>
+          <p>A verse means what it means <em>in its place</em>. Read the verses immediately before and after first — they steer the meaning more than anything else.</p>
+          <h4>Climb the context ladder</h4>
+          <ul>
+            <li>Immediate paragraph</li>
+            <li>Section of the book</li>
+            <li>The whole book</li>
+            <li>The same author's other writings</li>
+            <li>The whole Bible (canon)</li>
+            <li>The story of redemption</li>
+          </ul>
+          <p>State the meaning in its paragraph in one sentence before widening out.</p>`,
+        "int-keywords": `
+          <h4>Study the weighty words</h4>
+          <p>Focus on words that are central, repeated, or theologically heavy — not every word. Use a lexicon, a concordance (Strong's), or tools like Blue Letter Bible or the STEP Bible.</p>
+          <h4>Avoid word-study fallacies</h4>
+          <ul>
+            <li><strong>Root fallacy</strong> — a word's meaning is not the sum of its parts.</li>
+            <li><strong>Totality transfer</strong> — don't pour every possible meaning into one verse.</li>
+            <li><strong>Anachronism</strong> — don't read a later or modern meaning back into an ancient word.</li>
+            <li><strong>English-only</strong> — don't build doctrine on an English quirk.</li>
+            <li><strong>Same word, same meaning</strong> — different authors can use a word differently; context decides.</li>
+          </ul>`,
+        "int-scripture": `
+          <h4>Scripture interprets Scripture</h4>
+          <p>The Bible is its own best commentary. Follow the passage's own quotations first, then compare clear cross-references.</p>
+          <h4>Guardrails</h4>
+          <ul>
+            <li>Let <strong>clearer</strong> passages explain less clear ones — not the reverse.</li>
+            <li>Cross-references <strong>clarify</strong> the passage in front of you; they must not silence or override it.</li>
+            <li>A tool like the Treasury of Scripture Knowledge helps you find links.</li>
+          </ul>`,
+        "int-theology": `
+          <h4>Fit it into the whole story</h4>
+          <p>Trace how the passage fits God's unfolding plan: creation, fall, redemption, and restoration.</p>
+          <h4>Ask</h4>
+          <ul>
+            <li>What does this reveal about God's character?</li>
+            <li>How does it connect to the person and work of Christ?</li>
+            <li>How does grace received show itself in a changed life?</li>
+          </ul>`,
+        "int-resources": `
+          <h4>Resources last — to confirm, correct, or sharpen</h4>
+          <p>Do your own study first, then check trusted helps so your reading isn't just borrowed.</p>
+          <ul>
+            <li>Study Bibles (e.g. the Andrews Study Bible)</li>
+            <li>Conservative commentaries (Pillar, NICNT/NICOT, Tyndale, Baker)</li>
+            <li>The SDA Bible Commentary and Ellen G. White's comments</li>
+          </ul>
+          <p>Use them to test your findings — not to replace the work of looking for yourself.</p>`,
+        "int-statement": `
+          <h4>Write it in one sentence</h4>
+          <p>Boil your interpretation down to a single clear statement of the author's intended meaning.</p>
+          <h4>A template</h4>
+          <p>"In <em>[passage]</em>, <em>[author]</em> teaches <em>[main meaning]</em> by <em>[textual evidence]</em>, so that <em>[intended purpose]</em>."</p>
+          <p>If you can't say it in a sentence, keep working — clarity here guides everything that follows.</p>`,
+        "img-picture": `
+          <h4>Reconstruct from the text</h4>
+          <p>Enter the scene the passage describes — the setting, the people, the sounds, the physical conditions.</p>
+          <h4>One rule</h4>
+          <p>Build only from the evidence in the text. Picture it vividly, but do not invent facts the passage doesn't give.</p>`,
+        "img-force": `
+          <h4>Feel what they felt</h4>
+          <p>Step into the first hearers' shoes and let the passage regain its original weight.</p>
+          <ul>
+            <li>What would have comforted them?</li>
+            <li>What would have exposed, alarmed, or convicted them?</li>
+            <li>Where would they have been surprised or moved?</li>
+          </ul>`,
+        "img-distance": `
+          <h4>Measure the distance</h4>
+          <p>Notice how their world differs from ours before you carry the meaning across.</p>
+          <ul>
+            <li><strong>Cultural</strong> — customs, roles, daily life.</li>
+            <li><strong>Covenantal</strong> — where they stood in God's plan.</li>
+            <li><strong>Situational</strong> — their specific circumstances.</li>
+          </ul>
+          <p>Then name what remains the same — the timeless truth that crosses to us.</p>`,
+        "app-first": `
+          <h4>Their meaning first</h4>
+          <p>State what the passage meant for its first hearers before you ask what it means for you. Use past tense and name the audience.</p>
+          <p>Shape: "The author was telling <em>[audience]</em> to <em>[meaning]</em> because <em>[situation]</em>."</p>`,
+        "app-principle": `
+          <h4>Lift the timeless principle</h4>
+          <p>Move from their specific situation to the enduring truth behind it — the part that crosses every culture and century.</p>
+          <h4>Keep it grounded</h4>
+          <p>A good principle stays tied to the text's actual meaning. If you can't trace it back to the passage, it's your idea, not the Bible's.</p>`,
+        "app-home": `
+          <h4>Bring it home (the S.P.A.C.E.P.E.T.S. search)</h4>
+          <ul>
+            <li><strong>S</strong>in to confess or forsake</li>
+            <li><strong>P</strong>romise to claim and trust</li>
+            <li><strong>A</strong>ttitude to change</li>
+            <li><strong>C</strong>ommand to obey</li>
+            <li><strong>E</strong>xample to follow or avoid</li>
+            <li><strong>P</strong>rayer to pray</li>
+            <li><strong>E</strong>rror to avoid</li>
+            <li><strong>T</strong>ruth to believe</li>
+            <li><strong>S</strong>omething to praise God for</li>
+          </ul>
+          <h4>Circles of application</h4>
+          <p>Consider where it applies: personal → family → church → community → world.</p>`,
+        "app-step": `
+          <h4>One concrete step</h4>
+          <p>Turn the meaning into a single act of obedience for this week.</p>
+          <h4>Make it real</h4>
+          <ul>
+            <li><strong>Specific</strong> — a clear action, not a vague intention.</li>
+            <li><strong>Personal</strong> — something <em>you</em> will do.</li>
+            <li><strong>Checkable</strong> — you'll know if you did it.</li>
+            <li><strong>Time-bound</strong> — with a when.</li>
+          </ul>
+          <p>A truth received but never acted on has not finished its work.</p>`
+      };
+
+      function detailFor(sub) { return (sub && (DETAILS[sub.id] || sub.details)) || ""; }
+      function subById(id) {
+        for (const p of PHASES) { for (const s of p.substeps) { if (s.id === id) return { phase: p, sub: s }; } }
+        return null;
+      }
+
+      const state = loadState();
+      state.loadingSubs = new Set(); // transient: sub-step ids awaiting an AI hint
+
+      const el = {
+        progressList: document.getElementById("progressList"),
+        passageSummary: document.getElementById("passageSummary"),
+        passageSummaryRef: document.getElementById("passageSummaryRef"),
+        passageSummaryGenre: document.getElementById("passageSummaryGenre"),
+        stage: document.getElementById("stepStage"),
+        composer: document.getElementById("composer"),
+        referencePanel: document.getElementById("referencePanel"),
+        referenceTitle: document.getElementById("referenceTitle"),
+        referenceBody: document.getElementById("referenceBody"),
+        statusPanel: document.getElementById("statusPanel"),
+        exportButton: document.getElementById("exportStudy"),
+        printButton: document.getElementById("printStudy"),
+        clearButton: document.getElementById("clearHistory")
+      };
+
+      el.printButton.addEventListener("click", () => window.print());
+      el.exportButton.addEventListener("click", exportStudy);
+      el.clearButton.addEventListener("click", handleResetClick);
+
+      render();
+
+      // Belt-and-suspenders: flush any pending answer if the tab is hidden or closed,
+      // so nothing typed in the last fraction of a second before a reload is lost.
+      window.addEventListener("pagehide", saveState);
+      document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") saveState(); });
+
+      // --------------------------------------------------------------------
+      // Flow
+      // --------------------------------------------------------------------
+      function beginStudy() {
+        if (!(state.passage || "").trim()) {
+          showStatus("Enter a passage reference before you begin.");
+          return;
+        }
+        hideStatus();
+        state.mode = "study";
+        state.stageIndex = 0;
+        saveState();
+        render();
+        el.stage.scrollTop = 0;
+      }
+
+      function goToPhase(index) {
+        index = Math.max(0, Math.min(PHASES.length - 1, index));
+        state.mode = "study";
+        state.stageIndex = index;
+        saveState();
+        render();
+        el.stage.scrollTop = 0;
+      }
+
+      function finishStudy() {
+        state.mode = "summary";
+        saveState();
+        render();
+        el.stage.scrollTop = 0;
+      }
+
+      function currentPhase() { return PHASES[state.stageIndex]; }
+      function phaseById(id) { return PHASES.find((p) => p.id === id) || PHASES[0]; }
+      function answerOf(id) { return (state.answers[id] || "").trim(); }
+
+      // --------------------------------------------------------------------
+      // Optional AI hint (non-blocking; the worksheet works without it)
+      // --------------------------------------------------------------------
+      async function askHint(phase, sub) {
+        if (state.loadingSubs.has(sub.id)) return;
+        state.loadingSubs.add(sub.id);
+        renderHintArea(sub);
+        try {
+          const data = await callGuide(phase.id, buildHintHistory(phase, sub));
+          state.aiHints[sub.id] = { title: "A hint", content: data.content, sources: data.sources, error: false };
+          hideStatus();
+        } catch (error) {
+          state.aiHints[sub.id] = {
+            title: "Guide unavailable",
+            content: `I could not reach the study guide right now. ${error.message || "Please try again."} Your worksheet is unaffected — keep going.`,
+            sources: [], error: true
+          };
+        } finally {
+          state.loadingSubs.delete(sub.id);
+          saveState();
+          renderHintArea(sub);
+        }
+      }
+
+      function buildHintHistory(phase, sub) {
+        const genre = state.genre && GENRES[state.genre];
+        const note = answerOf(sub.id);
+        let msg = `I am studying ${state.passage} and working on the "${sub.title}" step of the ${phase.name} phase.`;
+        if (genre) msg += ` The genre is ${genre.label}.`;
+        msg += ` Here is what I have written so far: "${note || "(nothing yet)"}".`;
+        msg += " Please give me a short, encouraging hint for THIS step only — a few concrete cues or one guiding question to help me do the work myself. Do not do the work for me, do not quote the Bible text, and do not move on to other steps.";
+        return [{ role: "user", content: msg }];
+      }
+
+      // --------------------------------------------------------------------
+      // Backend (resilient: retry + the server's own model fallback)
+      // --------------------------------------------------------------------
+      async function callGuide(stageId, history) {
+        const payload = JSON.stringify({ passage: (state.passage || "").trim(), current_stage: stageId, history });
+        const maxAttempts = 4;
+        const backoffs = [2000, 5000, 10000];
+        let lastErr = null;
+        for (let attempt = 0; attempt < maxAttempts; attempt++) {
+          let response;
+          try {
+            response = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: payload });
+          } catch (networkErr) {
+            lastErr = new Error("It may be waking up or briefly redeploying — please try again in a moment.");
+            if (attempt < maxAttempts - 1) { await delay(backoffs[attempt] || 10000); continue; }
+            throw lastErr;
+          }
+          const text = await response.text();
+          let data = {};
+          try { data = text ? JSON.parse(text) : {}; } catch { data = { content: text }; }
+          if (!response.ok) {
+            const transient = [502, 503, 504, 429].includes(response.status);
+            if (transient && attempt < maxAttempts - 1) { lastErr = new Error(extractError(data, response.status)); await delay(backoffs[attempt] || 10000); continue; }
+            throw new Error(extractError(data, response.status));
+          }
+          return normalizeAssistant(data, stageId);
+        }
+        throw lastErr || new Error("The request did not complete.");
+      }
+
+      function delay(ms) { return new Promise((resolve) => setTimeout(resolve, ms)); }
+
+      function extractError(data, status) {
+        const detail = data && data.detail;
+        if (Array.isArray(detail)) return detail.map((e) => (e && e.msg) ? e.msg : JSON.stringify(e)).join("; ");
+        if (typeof detail === "string") return detail;
+        return (data && (data.error || data.message)) || `The service returned ${status}.`;
+      }
+
+      function normalizeAssistant(data, stageId) {
+        const payload = data && typeof data === "object" && data.data && typeof data.data === "object" ? data.data : data;
+        const content = payload.content || payload.response || payload.answer || payload.message || payload.output || payload.text || "";
+        let contentStr = typeof content === "string" ? content : JSON.stringify(content, null, 2);
+        contentStr = contentStr.replace(/\[\[\s*PHASE[_\s]?COMPLETE\s*\]\]/ig, "").replace(/\n{3,}/g, "\n\n").trim();
+        const sources = payload.sources || payload.excerpts || payload.context || [];
+        return { content: contentStr, sources: normalizeSources(sources) };
+      }
+
+      function normalizeSources(sources) {
+        if (!sources) return [];
+        if (typeof sources === "string") return [{ title: sources }];
+        if (!Array.isArray(sources)) return Object.entries(sources).map(([title]) => ({ title }));
+        return sources.map((s, i) => (typeof s === "string" ? { title: s } : (s || {})));
+      }
+
+      // --------------------------------------------------------------------
+      // Rendering
+      // --------------------------------------------------------------------
+      function render() {
+        renderProgress();
+        renderPassageSummary();
+        if (state.mode === "setup") renderSetup();
+        else if (state.mode === "summary") renderSummary();
+        else renderStudy();
+        renderComposer();
+        renderReference();
+        const hasAnswers = Object.values(state.answers).some((v) => (v || "").trim());
+        el.exportButton.disabled = !hasAnswers;
+        el.printButton.disabled = !hasAnswers;
+      }
+
+      function renderPassageSummary() {
+        if ((state.passage || "").trim() && state.mode !== "setup") {
+          el.passageSummary.classList.remove("hidden");
+          el.passageSummaryRef.textContent = state.passage.trim();
+          el.passageSummaryGenre.textContent = state.genre && GENRES[state.genre] ? GENRES[state.genre].label : "Genre: not set";
+        } else {
+          el.passageSummary.classList.add("hidden");
+        }
+      }
+
+      function renderProgress() {
+        const rows = [{ id: "setup", name: "Set the passage" }].concat(PHASES.map((p) => ({ id: p.id, name: p.name, phase: p })));
+        el.progressList.innerHTML = rows.map((row, index) => {
+          let stateName = "todo";
+          const phaseIdx = index - 1;
+          if (row.id === "setup") {
+            stateName = state.mode === "setup" ? "active" : "done";
+          } else if (state.mode === "study" && phaseIdx === state.stageIndex) {
+            stateName = "active";
+          } else if (state.mode === "summary" || (state.mode === "study" && phaseIdx < state.stageIndex) || phaseComplete(row.phase)) {
+            stateName = "done";
+          }
+          const label = stateName === "done" ? "&#10003;" : (row.id === "setup" ? "○" : String(index));
+          const subs = (stateName === "active" && row.phase) ? renderRailSubSteps(row.phase) : "";
+          return `<li>
+            <button type="button" class="phase-step" data-state="${stateName}" data-goto="${row.id === "setup" ? "setup" : phaseIdx}" ${(row.id !== "setup" && !(state.passage || "").trim()) ? "disabled" : ""}>
+              <span class="dot" aria-hidden="true">${label}</span>
+              <span>${escapeHtml(row.name)}</span>
+            </button>
+            ${subs}
+          </li>`;
+        }).join("");
+        el.progressList.querySelectorAll("[data-goto]").forEach((b) => {
+          b.addEventListener("click", () => {
+            const g = b.dataset.goto;
+            if (g === "setup") { state.mode = "setup"; saveState(); render(); }
+            else goToPhase(Number(g));
+          });
+        });
+      }
+
+      function renderRailSubSteps(phase) {
+        const firstUndone = phase.substeps.findIndex((s) => !answerOf(s.id));
+        return `<ul class="substep-list">` + phase.substeps.map((s, i) => {
+          let st = "todo";
+          if (answerOf(s.id)) st = "done";
+          else if (i === firstUndone) st = "active";
+          return `<li class="substep" data-state="${st}"><span class="sub-dot" aria-hidden="true"></span><span>${escapeHtml(s.title)}</span></li>`;
+        }).join("") + `</ul>`;
+      }
+
+      function phaseComplete(phase) {
+        return phase && phase.substeps.every((s) => answerOf(s.id));
+      }
+
+      function renderSetup() {
+        const genreOptions = [`<option value="">Not sure yet - help me identify it</option>`]
+          .concat(Object.entries(GENRES).map(([key, g]) => `<option value="${key}" ${state.genre === key ? "selected" : ""}>${escapeHtml(g.label)}</option>`))
+          .join("");
+        el.stage.innerHTML = `
+          <article class="mx-auto max-w-2xl rounded-2xl border border-line bg-white p-6 shadow-sm md:p-8">
+            <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-bold uppercase tracking-[.14em] text-navy">Set the passage</span>
+            <h3 class="mt-4 font-serif text-3xl font-semibold tracking-[-.03em] text-slate-950">What passage will you study?</h3>
+            <p class="mt-3 text-base leading-7 text-muted">We begin with the passage itself. Name it, choose its genre if you know it, and you'll work through the method one phase at a time — writing your own answers as you go.</p>
+            <div class="mt-6 grid gap-5">
+              <div>
+                <label for="passageRef" class="block text-sm font-bold text-slate-800">Passage reference</label>
+                <input id="passageRef" type="text" value="${escapeAttribute(state.passage || "")}" placeholder="e.g. Psalm 23, or Luke 15:11-32" class="mt-2 w-full rounded-xl border border-slate-300 bg-white p-3 text-base font-medium text-slate-950 outline-none focus:border-navy" />
+              </div>
+              <div>
+                <label for="reasonInput" class="block text-sm font-bold text-slate-800">Why this passage? <span class="font-semibold text-muted">(optional)</span></label>
+                <textarea id="reasonInput" rows="2" placeholder="What draws you here - a question, a struggle, a sermon, a season?" class="mt-2 w-full resize-y rounded-xl border border-slate-300 bg-white p-3 text-base leading-7 text-slate-950 outline-none focus:border-navy">${escapeHtml(state.reason || "")}</textarea>
+                <p class="mt-1.5 text-xs leading-5 text-muted">Name what you bring to the text, then hold it loosely.</p>
+              </div>
+              <div class="flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50/70 p-4">
+                <svg class="mt-0.5 h-5 w-5 flex-none text-navy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4v16"></path><path d="M22 4v16"></path><path d="M2 5a3 3 0 0 1 3-3h5a2 2 0 0 1 2 2v16a2 2 0 0 0-2-2H5a3 3 0 0 0-3 3"></path><path d="M22 5a3 3 0 0 0-3-3h-5a2 2 0 0 0-2 2v16a2 2 0 0 1 2-2h5a3 3 0 0 1 3 3"></path></svg>
+                <div>
+                  <p class="text-sm font-bold text-slate-900">Open your Bible</p>
+                  <p class="mt-1 text-sm leading-6 text-slate-700">Before you begin, open your physical Bible to this passage and read it slowly &mdash; aloud, if you can.</p>
+                  <p class="mt-2 text-sm leading-6 text-slate-700">If you don't have a physical Bible, you can visit <a class="font-bold text-navy underline underline-offset-2" href="https://www.biblegateway.com" target="_blank" rel="noopener noreferrer">biblegateway.com</a>.</p>
+                </div>
+              </div>
+              <div>
+                <label for="genreSelect" class="block text-sm font-bold text-slate-800">Genre</label>
+                <select id="genreSelect" class="mt-2 w-full rounded-xl border border-slate-300 bg-white p-3 text-base font-medium text-slate-950 outline-none focus:border-navy">${genreOptions}</select>
+              </div>
+            </div>
+          </article>`;
+
+        const refInput = document.getElementById("passageRef");
+        const reasonInput = document.getElementById("reasonInput");
+        const genreSelect = document.getElementById("genreSelect");
+        refInput.addEventListener("input", () => { state.passage = refInput.value; saveDebounced(); });
+        reasonInput.addEventListener("input", () => { state.reason = reasonInput.value; saveDebounced(); });
+        genreSelect.addEventListener("change", () => { state.genre = genreSelect.value; saveState(); });
+      }
+
+      function renderStudy() {
+        const phase = currentPhase();
+        // Default the reference panel to this phase's first step if it points elsewhere.
+        if (!state.activeDetail || !phase.substeps.some((s) => s.id === state.activeDetail)) {
+          state.activeDetail = phase.substeps[0].id;
+        }
+        const genre = state.genre && GENRES[state.genre];
+        const genrePanel = (phase.id === "interpretation") ? genreKeysPanel(genre) : "";
+        const cards = phase.substeps.map((sub, i) => subStepCard(sub, i)).join("");
+        el.stage.innerHTML = `
+          <article class="mx-auto max-w-3xl">
+            <div class="text-center">
+              <span class="inline-flex rounded-full bg-navy px-3 py-1 text-xs font-bold uppercase tracking-[.14em] text-white">Phase ${state.stageIndex + 1} of 5 &middot; ${escapeHtml(phase.name)}</span>
+              <p class="mt-2 font-serif text-lg italic text-navy">${escapeHtml(phase.kicker)}</p>
+            </div>
+            ${genrePanel}
+            <div class="mt-5 grid gap-4">${cards}</div>
+          </article>`;
+
+        phase.substeps.forEach((sub) => {
+          const ta = document.getElementById(`ta-${sub.id}`);
+          if (ta) {
+            ta.addEventListener("input", () => { state.answers[sub.id] = ta.value; saveDebounced(); });
+            ta.addEventListener("blur", () => { saveState(); renderProgress(); });
+          }
+          const btn = document.getElementById(`ask-${sub.id}`);
+          if (btn) btn.addEventListener("click", () => askHint(phase, sub));
+          const more = document.getElementById(`more-${sub.id}`);
+          if (more) more.addEventListener("click", () => setActiveDetail(sub.id));
+        });
+      }
+
+      // Persistent "About this step" reference panel (third column).
+      function setActiveDetail(id) {
+        state.activeDetail = id;
+        saveState();
+        renderReference();
+        // highlight the chosen card's button
+        document.querySelectorAll("[data-more]").forEach((b) => b.setAttribute("data-active", b.dataset.more === id ? "true" : "false"));
+        // On narrow screens the panel sits below the worksheet — bring it into view.
+        if (el.referencePanel && window.matchMedia("(max-width: 1279px)").matches) {
+          el.referencePanel.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      function renderReference() {
+        if (!el.referenceBody || !el.referenceTitle) return;
+        if (state.mode !== "study") {
+          el.referenceTitle.textContent = "About the steps";
+          el.referenceBody.innerHTML = `<p class="text-muted">A full reference for each step appears here as you work through a study.</p>`;
+          return;
+        }
+        let target = state.activeDetail ? subById(state.activeDetail) : null;
+        if (!target) target = { phase: currentPhase(), sub: currentPhase().substeps[0] };
+        el.referenceTitle.textContent = target.sub.title;
+        el.referenceBody.innerHTML = detailFor(target.sub) || `<p class="text-muted">The prompts on the card are the full guide for this step.</p>`;
+        el.referenceBody.scrollTop = 0;
+      }
+
+      function genreKeysPanel(genre) {
+        if (genre) {
+          return `
+            <div class="mt-5 rounded-2xl border border-amber-200 bg-amber-50/70 p-5">
+              <div class="flex items-center justify-between gap-3">
+                <h4 class="text-sm font-bold uppercase tracking-[.14em] text-navy">${escapeHtml(genre.label)} &middot; interpretive keys</h4>
+                <a class="text-xs font-bold text-navy underline underline-offset-4" href="${escapeAttribute(genre.href)}">Full guide</a>
+              </div>
+              <dl class="mt-3 grid gap-3 text-[15px] leading-7 text-slate-700">
+                <div><dt class="font-bold text-slate-900">Ask</dt><dd>${escapeHtml(genre.ask)}</dd></div>
+                <div><dt class="font-bold text-slate-900">Look for</dt><dd>${escapeHtml(genre.look)}</dd></div>
+                <div><dt class="font-bold text-slate-900">Avoid</dt><dd>${escapeHtml(genre.avoid)}</dd></div>
+              </dl>
+            </div>`;
+        }
+        return `
+          <div class="mt-5 rounded-2xl border border-line bg-slate-50 p-5 text-[15px] leading-7 text-slate-700">
+            <p class="font-bold text-slate-900">Genre not set.</p>
+            <p class="mt-1">Set the genre on the <button type="button" id="backToGenre" class="font-bold text-navy underline underline-offset-4">passage screen</button> to unlock its interpretive keys.</p>
+          </div>`;
+      }
+
+      function subStepCard(sub, i) {
+        const n = i + 1;
+        const answer = state.answers[sub.id] || "";
+        const prompts = sub.prompts.map((p) => `<li class="worksheet-q text-[15px] leading-7 text-slate-700">${escapeHtml(p)}</li>`).join("");
+        const loading = state.loadingSubs.has(sub.id);
+        return `
+          <section class="rounded-2xl border border-line bg-white p-5 shadow-sm md:p-6">
+            <div class="flex items-center gap-3">
+              <span class="grid h-7 w-7 place-items-center rounded-full bg-navy text-xs font-bold text-white">${n}</span>
+              <h4 class="text-lg font-bold text-slate-950">${escapeHtml(sub.title)}</h4>
+            </div>
+            <p class="mt-2 text-sm leading-6 text-muted">${escapeHtml(sub.guidance)}</p>
+            <ul class="mt-3 grid gap-2">${prompts}</ul>
+            ${detailFor(sub) ? `<button type="button" id="more-${sub.id}" data-more="${sub.id}" data-active="${state.activeDetail === sub.id}" class="more-link mt-3 inline-flex items-center gap-1.5 text-sm font-bold text-navy underline underline-offset-4 hover:text-navyHover"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>More about this step</button>` : ""}
+            <label for="ta-${sub.id}" class="mt-4 block text-xs font-bold uppercase tracking-[.14em] text-slate-700">Your notes</label>
+            <textarea id="ta-${sub.id}" rows="4" class="mt-2 w-full resize-y rounded-xl border border-slate-300 bg-white p-3 text-base leading-7 text-slate-950 outline-none focus:border-navy" placeholder="Write your own answer...">${escapeHtml(answer)}</textarea>
+            <div class="mt-2 flex items-center justify-end">
+              <button id="ask-${sub.id}" type="button" ${loading ? "disabled" : ""} class="inline-flex min-h-[38px] items-center gap-2 rounded-lg border border-line px-3 py-1.5 text-xs font-bold text-navy transition hover:bg-slate-50 disabled:cursor-wait disabled:opacity-70">${loading ? "Loading..." : "Ask the guide for help"}<span class="text-muted font-semibold">optional</span></button>
+            </div>
+            <div id="hint-${sub.id}">${renderHint(sub.id)}</div>
+          </section>`;
+      }
+
+      function renderHint(subId) {
+        if (state.loadingSubs.has(subId)) {
+          return `<div class="mt-2 rounded-xl border border-line bg-slate-50 px-4 py-3 text-sm text-muted"><span class="inline-block h-3 w-3 animate-spin rounded-full border-2 border-slate-300 border-t-navy align-[-1px]"></span> Loading...</div>`;
+        }
+        const hint = state.aiHints[subId];
+        if (!hint) return "";
+        return `
+          <div class="mt-2 rounded-xl border ${hint.error ? "border-amber-200 bg-amber-50" : "border-line bg-slate-50"} p-4">
+            <p class="text-xs font-bold uppercase tracking-[.12em] text-navy">${escapeHtml(hint.title || "A hint")}</p>
+            <div class="markdown-body mt-1 text-[15px] leading-7 text-slate-700">${markdownToHtml(String(hint.content || ""))}</div>
+          </div>`;
+      }
+
+      function renderHintArea(sub) {
+        const area = document.getElementById(`hint-${sub.id}`);
+        if (area) area.innerHTML = renderHint(sub.id);
+        const btn = document.getElementById(`ask-${sub.id}`);
+        if (btn) {
+          const loading = state.loadingSubs.has(sub.id);
+          btn.disabled = loading;
+          btn.innerHTML = (loading ? "Loading..." : "Ask the guide for help") + `<span class="text-muted font-semibold">optional</span>`;
+        }
+      }
+
+      function renderComposer() {
+        if (state.mode === "setup") {
+          el.composer.innerHTML = `
+            <div class="flex items-center justify-between gap-3">
+              <p class="text-sm text-muted">Ready when you are.</p>
+              <button id="beginButton" type="button" class="inline-flex min-h-[48px] items-center justify-center rounded-xl bg-navy px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-navyHover">Begin study</button>
+            </div>`;
+          document.getElementById("beginButton").addEventListener("click", beginStudy);
+          return;
+        }
+        if (state.mode === "summary") {
+          el.composer.innerHTML = `
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <button id="backToStudy" type="button" class="inline-flex min-h-[48px] items-center justify-center rounded-xl border border-line px-5 py-3 text-sm font-bold text-navy transition hover:bg-slate-50">Back to study</button>
+              <div class="flex gap-2">
+                <button id="newPassageBtn" type="button" class="inline-flex min-h-[48px] items-center justify-center rounded-xl border border-line px-5 py-3 text-sm font-bold text-navy transition hover:bg-slate-50">Study another passage</button>
+                <button id="composerExport" type="button" class="inline-flex min-h-[48px] items-center justify-center rounded-xl bg-navy px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-navyHover">Export Study</button>
+              </div>
+            </div>`;
+          document.getElementById("backToStudy").addEventListener("click", () => goToPhase(PHASES.length - 1));
+          document.getElementById("newPassageBtn").addEventListener("click", doReset);
+          document.getElementById("composerExport").addEventListener("click", exportStudy);
+          return;
+        }
+        // study mode: Back / counter / Next
+        const isLast = state.stageIndex === PHASES.length - 1;
+        el.composer.innerHTML = `
+          <div class="flex items-center justify-between gap-3">
+            <button id="backBtn" type="button" ${state.stageIndex === 0 ? "disabled" : ""} class="inline-flex min-h-[48px] items-center justify-center rounded-xl border border-line px-5 py-3 text-sm font-bold text-navy transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40">Back</button>
+            <p class="text-xs font-bold uppercase tracking-[.14em] text-muted">${escapeHtml(currentPhase().name)} &middot; ${state.stageIndex + 1} of 5</p>
+            <button id="nextBtn" type="button" class="inline-flex min-h-[48px] items-center justify-center rounded-xl bg-navy px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-navyHover">${isLast ? "Finish &amp; view summary" : "Next phase &rarr;"}</button>
+          </div>`;
+        document.getElementById("backBtn").addEventListener("click", () => goToPhase(state.stageIndex - 1));
+        document.getElementById("nextBtn").addEventListener("click", () => isLast ? finishStudy() : goToPhase(state.stageIndex + 1));
+        const backToGenre = document.getElementById("backToGenre");
+        if (backToGenre) backToGenre.addEventListener("click", () => { state.mode = "setup"; saveState(); render(); });
+      }
+
+      function renderSummary() {
+        const genre = state.genre && GENRES[state.genre];
+        const blocks = PHASES.map((phase, index) => {
+          const items = phase.substeps.map((sub) => {
+            const a = answerOf(sub.id);
+            const hint = state.aiHints[sub.id];
+            return `
+              <div class="mt-3">
+                <p class="text-sm font-bold text-slate-900">${escapeHtml(sub.title)}</p>
+                <p class="mt-1 whitespace-pre-wrap text-[15px] leading-7 text-slate-700">${a ? escapeHtml(a) : "<span class='text-muted'>—</span>"}</p>
+                ${hint && !hint.error ? `<div class="markdown-body mt-1 border-l-2 border-line pl-3 text-sm leading-6 text-muted">${markdownToHtml(String(hint.content || ""))}</div>` : ""}
+              </div>`;
+          }).join("");
+          return `
+            <section class="rounded-2xl border border-line bg-white p-5 shadow-sm">
+              <div class="flex items-center gap-3">
+                <span class="grid h-7 w-7 place-items-center rounded-full bg-navy text-xs font-bold text-white">${index + 1}</span>
+                <h4 class="text-lg font-bold text-slate-950">${escapeHtml(phase.name)}</h4>
+              </div>
+              ${items}
+            </section>`;
+        }).join("");
+        el.stage.innerHTML = `
+          <article class="mx-auto max-w-3xl">
+            <div class="rounded-2xl border border-line bg-white p-6 shadow-sm md:p-8">
+              <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-bold uppercase tracking-[.14em] text-navy">Study summary</span>
+              <h3 class="mt-4 font-serif text-3xl font-semibold tracking-[-.03em] text-slate-950">Your finished study</h3>
+              <p class="mt-3 text-base leading-7 text-muted">Your study of <span class="font-bold text-slate-900">${escapeHtml(state.passage || "your passage")}</span>${genre ? ` <span class="text-muted">(${escapeHtml(genre.label)})</span>` : ""}, phase by phase. Meaning that stays on the page has not finished its work until you live it.</p>
+              ${(state.reason || "").trim() ? `<p class="mt-3 text-sm leading-6 text-slate-700"><span class="font-bold">Why this passage:</span> ${escapeHtml(state.reason.trim())}</p>` : ""}
+            </div>
+            <div class="mt-4 grid gap-4">${blocks}</div>
+          </article>`;
+      }
+
+      // --------------------------------------------------------------------
+      // Export / reset / state
+      // --------------------------------------------------------------------
+      function exportStudy() {
+        const genre = state.genre && GENRES[state.genre];
+        const lines = [
+          "# Hermeneutics Guided Study",
+          "",
+          `Date: ${new Date().toLocaleString()}`,
+          `Passage: ${state.passage || "Not specified"}`,
+          `Genre: ${genre ? genre.label : "Not specified"}`,
+          ""
+        ];
+        if ((state.reason || "").trim()) lines.push(`Why this passage: ${state.reason.trim()}`, "");
+        PHASES.forEach((phase, index) => {
+          lines.push(`## ${index + 1}. ${phase.name}`, "");
+          phase.substeps.forEach((sub) => {
+            lines.push(`### ${sub.title}`, "", answerOf(sub.id) || "(no answer)", "");
+            const hint = state.aiHints[sub.id];
+            if (hint && !hint.error && hint.content) lines.push(`_Guide hint:_ ${String(hint.content).trim()}`, "");
+          });
+        });
+        const blob = new Blob([lines.join("\n")], { type: "text/markdown;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `hermeneutics-study-${new Date().toISOString().slice(0, 10)}.md`;
+        document.body.append(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      let resetArmed = false;
+      let resetTimer = null;
+      function handleResetClick() {
+        const hasContent = (state.passage || "").trim() || Object.values(state.answers).some((v) => (v || "").trim());
+        if (!hasContent) return doReset();
+        if (!resetArmed) {
+          resetArmed = true;
+          el.clearButton.textContent = "Confirm reset?";
+          el.clearButton.classList.add("text-red-600");
+          window.clearTimeout(resetTimer);
+          resetTimer = window.setTimeout(disarmReset, 4000);
+          return;
+        }
+        doReset();
+      }
+      function disarmReset() {
+        resetArmed = false;
+        window.clearTimeout(resetTimer);
+        el.clearButton.textContent = "Reset";
+        el.clearButton.classList.remove("text-red-600");
+      }
+      function doReset() {
+        disarmReset();
+        Object.assign(state, freshState());
+        state.loadingSubs = new Set();
+        saveState();
+        hideStatus();
+        render();
+      }
+
+      function showStatus(message) { el.statusPanel.textContent = message; el.statusPanel.classList.remove("hidden"); }
+      function hideStatus() { el.statusPanel.classList.add("hidden"); el.statusPanel.textContent = ""; }
+
+      let saveTimer = null;
+      function saveDebounced() { window.clearTimeout(saveTimer); saveTimer = window.setTimeout(saveState, 400); }
+
+      function saveState() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            mode: state.mode, passage: state.passage, reason: state.reason, genre: state.genre,
+            stageIndex: state.stageIndex, activeDetail: state.activeDetail, answers: state.answers, aiHints: state.aiHints
+          }));
+        } catch (e) { /* ignore quota errors */ }
+      }
+
+      function freshState() {
+        return { mode: "setup", passage: "", reason: "", genre: "", stageIndex: 0, activeDetail: "", answers: {}, aiHints: {} };
+      }
+
+      function loadState() {
+        const base = freshState();
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+          if (saved && typeof saved === "object") {
+            base.mode = ["setup", "study", "summary"].includes(saved.mode) ? saved.mode : "setup";
+            base.passage = typeof saved.passage === "string" ? saved.passage : "";
+            base.reason = typeof saved.reason === "string" ? saved.reason : "";
+            base.genre = typeof saved.genre === "string" && GENRES[saved.genre] ? saved.genre : "";
+            base.stageIndex = Number.isInteger(saved.stageIndex) ? Math.max(0, Math.min(PHASES.length - 1, saved.stageIndex)) : 0;
+            base.activeDetail = typeof saved.activeDetail === "string" ? saved.activeDetail : "";
+            base.answers = saved.answers && typeof saved.answers === "object" ? saved.answers : {};
+            base.aiHints = saved.aiHints && typeof saved.aiHints === "object" ? saved.aiHints : {};
+          }
+        } catch (e) { /* ignore */ }
+        if (!base.passage.trim()) base.mode = "setup";
+        return base;
+      }
+
+      // --------------------------------------------------------------------
+      // Markdown + helpers
+      // --------------------------------------------------------------------
+      function markdownToHtml(markdown) {
+        const safe = escapeHtml(markdown || "");
+        const lines = safe.split(/\n/);
+        let html = "";
+        let inList = false;
+        lines.forEach((line) => {
+          const trimmed = line.trim();
+          if (!trimmed) { if (inList) { html += "</ul>"; inList = false; } return; }
+          const listMatch = trimmed.match(/^[-*]\s+(.+)$/) || trimmed.match(/^\d+\.\s+(.+)$/);
+          if (listMatch) {
+            if (!inList) { html += "<ul>"; inList = true; }
+            html += `<li>${inlineMarkdown(listMatch[1])}</li>`;
+            return;
+          }
+          if (inList) { html += "</ul>"; inList = false; }
+          if (trimmed.startsWith("### ")) html += `<h3>${inlineMarkdown(trimmed.slice(4))}</h3>`;
+          else if (trimmed.startsWith("## ")) html += `<h2>${inlineMarkdown(trimmed.slice(3))}</h2>`;
+          else if (trimmed.startsWith("# ")) html += `<h1>${inlineMarkdown(trimmed.slice(2))}</h1>`;
+          else if (trimmed.startsWith("> ")) html += `<blockquote>${inlineMarkdown(trimmed.slice(2))}</blockquote>`;
+          else html += `<p>${inlineMarkdown(trimmed)}</p>`;
+        });
+        if (inList) html += "</ul>";
+        return html;
+      }
+
+      function inlineMarkdown(text) {
+        return text
+          .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+          .replace(/\*(.+?)\*/g, "<em>$1</em>")
+          .replace(/`(.+?)`/g, "<code>$1</code>")
+          .replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function escapeAttribute(value) { return escapeHtml(value).replace(/`/g, "&#096;"); }
+    })();
+  </script>
   <script defer src="/mbe-unified.js?v=a11y-labels-2"></script>
 </body>
 </html>
