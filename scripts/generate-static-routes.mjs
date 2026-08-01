@@ -3,8 +3,8 @@ import path from "node:path";
 
 const root = process.cwd();
 const siteUrl = "https://hermeneutics.mybibleexplorer.com";
-const assetVersion = "ask-ai-prototype-1";
-const appBundleVersion = "general-route-h1-1";
+const assetVersion = "phase-muted-4";
+const appBundleVersion = "phase-muted-4";
 const unifiedVersion = "a11y-labels-2";
 const tailwindRuntimeVersion = "self-hosted-warning-sanitized-1";
 const noGlossaryRouteIds = new Set(["ai-interpreter", "credits-sources"]);
@@ -14,7 +14,7 @@ const routes = [
     id: "intro",
     path: "/general/",
     title: "General Hermeneutics Overview | Hermeneutics Guide",
-    description: "Explore the Detective Method: a careful, inductive path for preparing, observing, interpreting, imagining, and applying Scripture."
+    description: "Explore the Inductive Method: a careful path for preparing, observing, interpreting, imagining, and applying Scripture."
   },
   {
     id: "general-preparation",
@@ -187,6 +187,8 @@ function cleanLegacyHomepageFallback(html) {
       /\/assets\/index-e932b6a7\.js\?v=[^"]+/g,
       `/assets/index-e932b6a7.js?v=${appBundleVersion}`
     )
+    .replace(/\/global-shell\.css\?v=[^"]+/g, `/global-shell.css?v=${assetVersion}`)
+    .replace(/\/guide-theme\.css\?v=[^"]+/g, `/guide-theme.css?v=${assetVersion}`)
     .replace(/\/mbe-unified\.js\?v=[^"]+/g, `/mbe-unified.js?v=${unifiedVersion}`)
     .replace(/\/vendor\/tailwind\.js\?v=[^"]+/g, `/vendor/tailwind.js?v=${tailwindRuntimeVersion}`);
 }

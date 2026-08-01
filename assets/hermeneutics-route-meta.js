@@ -20,7 +20,7 @@
       id: "intro",
       path: "/general/",
       title: "General Hermeneutics Overview | Hermeneutics Guide",
-      description: "Explore the Detective Method: a careful, inductive path for preparing, observing, interpreting, imagining, and applying Scripture."
+      description: "Explore the Inductive Method: a careful path for preparing, observing, interpreting, imagining, and applying Scripture."
     },
     {
       id: "general-preparation",

@@ -6,7 +6,7 @@ Source: Hermeneutics Guide, My Bible Explorer
 
 # General Hermeneutics: Overview
 
-### The Detective Method
+### The Inductive Method
 
 Picture a detective standing just outside a room where something has happened. Before he enters, he prepares: he slows down, notices the theory already forming in his mind, and refuses to let that hunch command the room. Then he observes, taking in both the obvious and the overlooked: what is present, what is missing, what repeats, and what seems out of place. As the evidence gathers, he begins to interpret, asking which account can carry all the facts without forcing any of them aside. He uses imagination carefully, reconstructing the scene as it must have unfolded without adding what the evidence does not give. Finally, he applies the finding: he writes the report, acts on what he has discovered, and lets the truth do its work. He did not invent the truth. He uncovered it.
 
@@ -98,7 +98,7 @@ Preparation names what you bring to the passage. Observation slows down and look
 
 # The investigator works the room before explaining it.
 
-Observation is the careful search of the scene. Before a theory is allowed to speak, the investigator records what is actually there: people, repeated words, questions, contrasts, commands, structure, tone, and anything unfamiliar. The more carefully you observe, the less you will guess when interpretation begins.
+Observation is the careful search of the scene. Before a theory is allowed to speak, the investigator slows down, studies the passage as a whole, maps its basic shape, and then records what is actually there. The more carefully you observe, the less you will guess when interpretation begins.
 
 2
 
@@ -106,7 +106,7 @@ Choose a Working Translation
 
 ### WHAT IT IS
 
-Choose one main translation to mark, outline, and study closely. A more formal or moderately formal translation usually helps observation because it preserves repeated words, connectives, sentence shape, and structure. Other translations can help, but begin with one stable working text so your notes do not scatter.
+Choose one main translation to read, mark, outline, and study closely. A more formal or moderately formal translation usually helps because it keeps you close to the wording and sentence shape of the original languages. Other translations can help, but begin with one stable working text so your notes do not scatter.
 
 ### WHY IT MATTERS
 
@@ -120,29 +120,29 @@ Compare one functional translation when the sentence feels difficult or unclear.
 
 Use a paraphrase only for freshness, not as the basis for close study or doctrine.
 
-Mark places where translations differ in repeated words, connectives, figures of speech, or unusual phrases.
+Flag meaningful translation differences for later observation instead of trying to resolve them immediately.
 
 Never rest a major conclusion on the unusual wording of one translation.
 
 ### JAMES 2 EXAMPLE
 
-In James 2, a fairly formal translation helps because the passage turns on repeated words: faith, works or deeds, and dead. Verse 14 is especially worth comparing. Some translations preserve the idea of that faith, pointing to a specific claimed faith without fruit, not faith in general. Even before a word study, translation comparison shows where the passage asks us to slow down.
+In James 2, a fairly formal translation helps because it keeps the repeated language visible. Verse 14 is especially worth comparing. Some translations preserve the idea of that faith, pointing to a specific claimed faith without fruit, not faith in general. At this stage, translation comparison simply flags places where the passage asks us to slow down.
 
 Bible Translations (Formal vs. Functional)
 
-Formal Approach: Stays close to the wording and structure of the original languages. This often helps you see repeated words, connectors, and argument flow.
+Formal Approach: Stays close to the wording and structure of the original languages. This often helps you keep the author's wording in view.
 
 Functional Approach: Communicates the thought in smoother English. This helps clarity, though it may smooth over details you need for observation.
 
 Paraphrases: Useful for hearing a passage freshly, but too interpretive to serve as the main basis for close study.
 
-Helpful habit: When translations differ, write the difference down as an observation and carry it forward as a question.
+Helpful habit: When translations differ, write the difference down as something to revisit during detailed observation.
 
 3
 
 Read and Reread the Passage
 
-Read the passage slowly more than once before analysis begins. If the book is short, read the whole book first. Then return to the smaller unit and listen for flow, mood, repeated ideas, turns in the argument, and the passage's main movement.
+Read the passage slowly more than once before analysis begins. If the book is short, read the whole book first. Then return to the smaller unit and listen for flow, mood, and the passage's main movement.
 
 The first purpose of reading is not to answer every question. It is to let the passage set its own agenda. Familiar passages are especially dangerous because we assume we already know them. Rereading helps us treat the familiar as unfamiliar again.
 
@@ -152,7 +152,7 @@ Read the selected passage several times without rushing to explain it.
 
 Read once for the big picture and mood.
 
-Read again for repeated words, questions, contrasts, commands, and structure.
+Read again for the passage's overall movement. Notice what stands out, but save detailed marking for the observation catalog.
 
 Write one rough sentence that captures how the passage seems to move.
 
@@ -162,7 +162,7 @@ Read and Reread Before Outlining
 
 Read silently first: let the passage speak as a whole before you mark details.
 
-Read aloud next: hearing the passage often reveals emphasis, repetition, contrast, and tone.
+Read aloud next: hearing the passage often clarifies emphasis, tone, and movement.
 
 Read with movement in mind: ask where the passage begins, where it turns, and where it ends.
 
@@ -170,13 +170,13 @@ Helpful habit: Write one rough sentence after rereading: This passage seems to m
 
 Map the Passage Unit
 
-Find where the passage begins and ends, then sketch how its parts fit together. A passage is not a pile of verses. It has boundaries, movement, structure, and logic. Mapping the unit means watching the author's flow before you zoom in on individual words.
+Find where the passage begins and ends, then sketch how its parts fit together. A passage is not a pile of verses. It has boundaries, movement, and a basic flow. Mapping the unit means watching the author's larger movement before you zoom in on individual details.
 
 A verse read by itself can drift away from the author's point. Mapping the unit keeps famous lines inside the argument they belong to. It also shows which statements are governing, which are supporting, and which questions need to be carried into interpretation.
 
 Find the seams: shifts in speaker, topic, setting, command, contrast, or summary.
 
-Look for repeated words or ideas that frame the unit.
+Notice any obvious framing signals, but save the detailed repeated-word inventory for the observation catalog.
 
 Divide the passage into thought movements rather than isolated phrases.
 
@@ -214,7 +214,7 @@ Common mistake: Do not force the passage into a sermon idea you already wanted t
 
 Make Your Observations
 
-This is the heart of observation: write down what the text actually says before trying to explain what it means. Work in two passes. First record the plainly visible facts. Then return for the closer details that reveal emphasis, logic, and structure.
+This is the heart of observation: write down what the text actually says before trying to explain what it means. Work in two passes. First record the plainly visible facts. Then return for the closer details - repeated words, questions, contrasts, commands, grammar, structure, patterns, and links - that reveal emphasis and logic.
 
 Careful interpretation depends on careful observation. If we skip the details now, we will usually import assumptions later. The complete catalog below is intentionally thorough. You will not find every item in every passage, but the habit trains your eye.
 
@@ -230,7 +230,7 @@ Carry unresolved questions into the question log.
 
 In James 2, basic observations name the readers, the needy brother or sister, the objector, Abraham, Rahab, and the repeated questions. Close observations then notice the repeated faith, works, dead, and justified language, the Abraham/Rahab pairing, and the body-without-spirit analogy.
 
-Make Your Observations: The Complete Catalog. Use the full catalog below as your training grid. Do not shorten the search too early; let the obvious details become the floor for everything subtler.
+Make Your Observations: The Complete Catalog. Use the full catalog below as your training grid.
 
 A. BASIC OBSERVATIONS - PLAINLY VISIBLE FACTS
 
@@ -418,10 +418,6 @@ How?
 
 By mercy, obedience, and allegiance.
 
-D. FOCUS ON THE OBVIOUS FIRST
-
-Start with obvious facts - people, places, events, and repeated words - before chasing subtle details. The obvious gives the rest of the study a stable floor.
-
 JAMES 2:14-26 SUMMARY
 
 Basic observations: James identifies the claim, the needy brother or sister, the objector, Abraham and Rahab, and the body-and-spirit analogy.
@@ -434,7 +430,7 @@ WHAT TO WRITE: Observation SUMMARY
 
 Template: This passage moves from \_\_\_\_\_\_ to \_\_\_\_\_\_. The clearest observations are \_\_\_\_\_\_. The questions I still need to answer are \_\_\_\_\_\_.
 
-A question log is a written place to hold every question the passage raises before you try to answer it. Some questions ask about definitions. Some ask about logic, background, implications, or connections to the rest of Scripture.
+A question log is a written place to hold every question you have about the passage before you try to answer it. This is different from observing questions inside the biblical text. Some of your questions will ask about definitions. Some will ask about logic, background, implications, or connections to the rest of Scripture.
 
 Good interpretation is driven by good questions. Writing them down honors your curiosity without rushing the process. It also keeps early guesses from hardening into conclusions before observation has done its work.
 
