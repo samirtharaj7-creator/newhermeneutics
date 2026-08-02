@@ -216,7 +216,7 @@ body.guide-theme > #root:empty + .mbe-global-footer{
     display:flex!important;
     align-items:center!important;
     justify-content:flex-start!important;
-    gap:clamp(18px,2.8vw,44px)!important;
+    gap:clamp(18px,2vw,30px)!important;
     width:min(100%,1320px)!important;
     max-width:1320px!important;
     margin:0 auto!important;
@@ -230,8 +230,8 @@ body.guide-theme > #root:empty + .mbe-global-footer{
     display:flex!important;
     flex:1 1 auto!important;
     align-items:center!important;
-    justify-content:space-between!important;
-    gap:clamp(16px,2.2vw,42px)!important;
+    justify-content:flex-start!important;
+    gap:clamp(18px,2.1vw,34px)!important;
     min-width:0!important;
     margin-left:0!important;
   }
@@ -922,6 +922,100 @@ body.guide-theme > #root:empty + .mbe-global-footer{
 .guide-theme #root main div[class~="md:grid-cols-2"] > article:has(span[class~="inline-flex"]):has(button) button:nth-of-type(2):hover{
   background:var(--guide-nav-hover-bg)!important;
   color:var(--guide-nav-accent-hover)!important;
+}
+
+/* Homepage hero: keep the shared guide navigation, but prevent the light guide
+   card overrides from turning the scroll hero into a gray panel. */
+.guide-theme .home-scroll-reveal-shell{
+  color:var(--guide-ink)!important;
+  background:transparent!important;
+}
+
+.guide-theme .home-scroll-reveal-shell > div{
+  border-color:transparent!important;
+  border-radius:0!important;
+  background:#f7f8f6!important;
+  box-shadow:none!important;
+}
+
+.guide-theme .home-scroll-reveal-shell [data-home-reveal-bg]{
+  border-radius:0!important;
+  background:#fff!important;
+}
+
+.guide-theme .home-scroll-reveal-shell [data-home-reveal-bg] > div{
+  opacity:0!important;
+  background:transparent!important;
+}
+
+.guide-theme .home-scroll-reveal-shell > div > div:not([data-home-reveal-bg]){
+  min-height:clamp(640px,calc(100svh - 9rem),840px)!important;
+}
+
+.guide-theme .home-scroll-reveal-shell [data-home-reveal-bg] picture{
+  bottom:clamp(5.5rem,8svh,7rem)!important;
+  filter:none!important;
+}
+
+.guide-theme .home-scroll-reveal-shell [data-home-reveal-bg] img{
+  filter:none!important;
+}
+
+.guide-theme .home-scroll-reveal-shell h1{
+  color:var(--guide-ink)!important;
+  text-shadow:none!important;
+  top:clamp(7.5rem,18svh,10rem)!important;
+}
+
+.guide-theme .home-scroll-reveal-shell [data-home-reveal-card]{
+  display:block!important;
+  border:1px solid rgba(15,43,71,.18)!important;
+  background:rgba(255,255,255,.9)!important;
+  color:var(--guide-ink)!important;
+  box-shadow:0 18px 38px -30px rgba(15,43,71,.45)!important;
+  backdrop-filter:blur(12px)!important;
+}
+
+.guide-theme .home-scroll-reveal-shell [data-home-reveal-card] span{
+  background:rgba(15,43,71,.08)!important;
+  color:var(--guide-nav-accent)!important;
+}
+
+.guide-theme .home-scroll-reveal-shell [data-home-reveal-card] strong{
+  color:var(--guide-ink)!important;
+}
+
+.guide-theme .home-scroll-reveal-shell [data-home-reveal-card] p{
+  color:var(--guide-muted)!important;
+}
+
+.guide-theme .home-scroll-reveal-shell button,
+.guide-theme .home-scroll-reveal-shell a{
+  color:var(--guide-nav-accent)!important;
+}
+
+.guide-theme .home-scroll-reveal-shell > div > div:not([data-home-reveal-bg]) > button{
+  bottom:clamp(2.95rem,4svh,3.75rem)!important;
+  border:1px solid rgba(15,43,71,.22)!important;
+  background:rgba(255,255,255,.92)!important;
+  color:var(--guide-nav-accent)!important;
+  box-shadow:0 16px 34px -24px rgba(15,43,71,.45)!important;
+  backdrop-filter:blur(10px)!important;
+}
+
+.guide-theme .home-scroll-reveal-shell [class~="bg-slate-950/45"]{
+  display:block!important;
+  bottom:clamp(.55rem,1.4svh,1rem)!important;
+  border-color:rgba(15,43,71,.18)!important;
+  background:rgba(255,255,255,.9)!important;
+  color:var(--guide-nav-accent)!important;
+  box-shadow:0 16px 34px -24px rgba(15,43,71,.45)!important;
+  backdrop-filter:blur(10px)!important;
+}
+
+.guide-theme .home-scroll-reveal-shell [class~="bg-slate-950/45"] span,
+.guide-theme .home-scroll-reveal-shell [class~="bg-slate-950/45"] svg{
+  color:var(--guide-nav-accent)!important;
 }
 
 @media (max-width:767px){

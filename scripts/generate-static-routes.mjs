@@ -3,8 +3,8 @@ import path from "node:path";
 
 const root = process.cwd();
 const siteUrl = "https://hermeneutics.mybibleexplorer.com";
-const assetVersion = "guide-brand-text-only-1";
-const appBundleVersion = "guide-brand-text-only-1";
+const assetVersion = "home-hero-controls-below-1";
+const appBundleVersion = "home-hero-controls-below-1";
 const unifiedVersion = "a11y-labels-2";
 const tailwindRuntimeVersion = "self-hosted-warning-sanitized-1";
 const noGlossaryRouteIds = new Set(["ai-interpreter", "credits-sources"]);
@@ -243,8 +243,8 @@ function routeHtml(template, route) {
   return html;
 }
 
-// The homepage has its own Path experience; use an existing app route as the
-// template so regenerating static routes never replaces them with the homepage.
+// Use an existing app route as the template so regenerated static routes share
+// the same React navigation shell.
 const template = cleanLegacyHomepageFallback(
   fs.readFileSync(path.join(root, "general", "index.html"), "utf8")
 );
