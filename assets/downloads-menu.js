@@ -26,7 +26,7 @@
     link.href = askAiHref;
     link.setAttribute("data-ask-ai-link", "desktop");
     if (isAskAiPath()) link.setAttribute("aria-current", "page");
-    link.innerHTML = `${askAiIcon}<span>Ask AI</span>`;
+    link.innerHTML = `${askAiIcon}<span>Guided Study</span>`;
 
     const downloadsItem = Array.from(nav.children).find((item) =>
       /\bDownloads\b/.test(item.textContent || ""),
@@ -79,7 +79,7 @@
     link.href = askAiHref;
     link.setAttribute("data-ask-ai-link", "mobile");
     if (isAskAiPath()) link.setAttribute("aria-current", "page");
-    link.textContent = "Ask AI";
+    link.textContent = "Guided Study";
 
     const downloadsItem = Array.from(container.children).find((item) =>
       /\bDownloads\b/.test(item.textContent || ""),

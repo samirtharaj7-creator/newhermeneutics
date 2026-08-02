@@ -12,31 +12,21 @@ Picture a detective standing just outside a room where something has happened. B
 
 The Bible reader moves the same way. In preparation, we come prayerfully, naming the assumptions, fears, hopes, and habits we bring to the passage. In observation, we slow down long enough to see what the text actually says: its words, structure, people, questions, contrasts, and repeated details. In interpretation, we ask what the author meant, testing our reading against context, genre, grammar, history, and the whole witness of Scripture. In imagination, we enter the passage's world carefully so its force can be felt without inventing meaning. In application, we bring the meaning into life through one faithful, concrete response. We are not hunting for proof of what we already think; we are receiving what God has placed in the text.
 
-He refuses to solve the case before the room has spoken.
-
 Before he studies the room, he names the theory he carried in and sets it aside. He lets the evidence correct him instead of forcing it to confirm what he already suspects.
 
 Begin with prayerful humility. Name the assumptions, hopes, fears, and habits you bring to the passage, then hold them loosely before the Spirit and the text.
-
-He lets the evidence pile up before he explains it.
 
 He moves slowly through the room, noticing what is present, repeated, missing, or out of place. These ordinary details become the clues that decide the case later.
 
 Write down what the passage actually says before explaining it. Track people, repeated words, contrasts, commands, questions, structure, and anything unfamiliar.
 
-He asks which explanation can carry all the facts.
-
 He tests every theory against the clues, not the other way around. If an explanation ignores the timeline, setting, repeated clue, or stubborn witness, it has to go.
 
 Interpretation asks which reading accounts for all the evidence. Genre, setting, context, grammar, key words, cross-references, and Scripture as a whole must fit together.
 
-He re-enters the scene without adding to the evidence.
-
 He reconstructs the scene from the evidence, letting the room regain its pressure, sound, and distance. He does not invent facts to make the story easier.
 
 Enter the passage's world carefully, as the first hearers would have received it. Feel its force, then notice the distance between their situation and ours.
-
-He closes the case by acting on what he found.
 
 He closes the case by writing what he found and acting on it. A report that never leaves the notebook has not finished serving the truth.
 

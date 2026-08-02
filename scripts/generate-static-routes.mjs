@@ -3,8 +3,8 @@ import path from "node:path";
 
 const root = process.cwd();
 const siteUrl = "https://hermeneutics.mybibleexplorer.com";
-const assetVersion = "phase-muted-4";
-const appBundleVersion = "phase-muted-4";
+const assetVersion = "guide-brand-text-only-1";
+const appBundleVersion = "guide-brand-text-only-1";
 const unifiedVersion = "a11y-labels-2";
 const tailwindRuntimeVersion = "self-hosted-warning-sanitized-1";
 const noGlossaryRouteIds = new Set(["ai-interpreter", "credits-sources"]);

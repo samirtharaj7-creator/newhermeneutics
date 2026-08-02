@@ -92,29 +92,25 @@
       width:min(100%,1320px);min-height:72px;margin:0 auto;
     }
     .guide-brand{
-      display:flex;flex:0 0 clamp(160px,16vw,214px);align-items:center;gap:11px;
-      min-height:44px;padding:6px 8px;border:1px solid transparent;border-radius:8px;
+      display:flex;flex:0 0 clamp(122px,12vw,164px);align-items:center;gap:0;
+      min-height:44px;padding:6px 10px;border:1px solid transparent;border-radius:8px;
       color:var(--ink);font-family:var(--sans);white-space:nowrap;
       transition:background .2s ease,border-color .2s ease;
     }
     .guide-brand:hover{border-color:rgba(15,43,71,.18);background:var(--nav-hover-bg);}
     .guide-brand-mark{
-      position:relative;display:grid;width:34px;height:34px;place-items:center;
-      border:1px solid rgba(15,43,71,.18);border-radius:8px;overflow:hidden;
-      background:
-        linear-gradient(var(--nav-accent),var(--nav-accent)) 11px 8px/13px 4px no-repeat,
-        linear-gradient(var(--nav-accent),var(--nav-accent)) 8px 12px/19px 3px no-repeat,
-        linear-gradient(180deg,#f4f8fa,#e7eff4);
-      color:var(--nav-accent);box-shadow:0 8px 20px rgba(15,43,71,.1);
+      display:none;
     }
     .guide-brand-mark::before{
-      content:"";position:absolute;left:8px;top:15px;width:11px;height:11px;
-      border:2px solid var(--nav-accent);border-radius:50%;background:rgba(255,255,255,.46);
+      content:"";position:absolute;left:7px;top:8px;width:18px;height:16px;
+      border:2px solid var(--nav-accent);border-radius:3px 3px 5px 5px;
+      background:
+        linear-gradient(var(--nav-accent),var(--nav-accent)) 50% 2px/2px 12px no-repeat,
+        linear-gradient(90deg,rgba(15,43,71,.06) 0 48%,transparent 49% 51%,rgba(15,43,71,.06) 52% 100%);
     }
     .guide-brand-mark::after{
-      content:"";position:absolute;left:20px;top:25px;width:10px;height:2px;
-      border-radius:999px;background:var(--nav-accent);transform:rotate(45deg);
-      transform-origin:left center;
+      content:"";position:absolute;left:19px;top:19px;width:9px;height:9px;
+      border:2px solid var(--nav-accent);border-radius:50%;background:rgba(255,255,255,.58);
     }
     .guide-brand-copy{display:grid;line-height:1;}
     .guide-brand-copy strong{color:var(--ink);font-size:14px;font-weight:700;}

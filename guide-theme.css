@@ -111,9 +111,9 @@ body.guide-theme > #root:empty + .mbe-global-footer{
 }
 
 .guide-theme #root > div > header > div > button:first-child{
-  gap:11px!important;
+  gap:0!important;
   min-height:44px!important;
-  padding:6px 8px!important;
+  padding:6px 10px!important;
   border:1px solid transparent!important;
   border-radius:8px!important;
   background:transparent!important;
@@ -127,18 +127,7 @@ body.guide-theme > #root:empty + .mbe-global-footer{
 }
 
 .guide-theme #root > div > header > div > button:first-child > span:first-child{
-  position:relative!important;
-  width:34px!important;
-  height:34px!important;
-  border:1px solid rgba(15,43,71,.18)!important;
-  border-radius:8px!important;
-  overflow:hidden!important;
-  background:
-    linear-gradient(var(--guide-nav-accent),var(--guide-nav-accent)) 11px 8px/13px 4px no-repeat,
-    linear-gradient(var(--guide-nav-accent),var(--guide-nav-accent)) 8px 12px/19px 3px no-repeat,
-    linear-gradient(180deg,#f4f8fa,#e7eff4)!important;
-  color:var(--guide-nav-accent)!important;
-  box-shadow:0 8px 20px rgba(15,43,71,.1)!important;
+  display:none!important;
 }
 
 .guide-theme #root > div > header > div > button:first-child > span:first-child svg{
@@ -148,26 +137,27 @@ body.guide-theme > #root:empty + .mbe-global-footer{
 .guide-theme #root > div > header > div > button:first-child > span:first-child::before{
   content:""!important;
   position:absolute!important;
-  left:8px!important;
-  top:15px!important;
-  width:11px!important;
-  height:11px!important;
+  left:7px!important;
+  top:8px!important;
+  width:18px!important;
+  height:16px!important;
   border:2px solid var(--guide-nav-accent)!important;
-  border-radius:50%!important;
-  background:rgba(255,255,255,.46)!important;
+  border-radius:3px 3px 5px 5px!important;
+  background:
+    linear-gradient(var(--guide-nav-accent),var(--guide-nav-accent)) 50% 2px/2px 12px no-repeat,
+    linear-gradient(90deg,rgba(15,43,71,.06) 0 48%,transparent 49% 51%,rgba(15,43,71,.06) 52% 100%)!important;
 }
 
 .guide-theme #root > div > header > div > button:first-child > span:first-child::after{
   content:""!important;
   position:absolute!important;
-  left:20px!important;
-  top:25px!important;
-  width:10px!important;
-  height:2px!important;
-  border-radius:999px!important;
-  background:var(--guide-nav-accent)!important;
-  transform:rotate(45deg)!important;
-  transform-origin:left center!important;
+  left:19px!important;
+  top:19px!important;
+  width:9px!important;
+  height:9px!important;
+  border:2px solid var(--guide-nav-accent)!important;
+  border-radius:50%!important;
+  background:rgba(255,255,255,.58)!important;
 }
 
 .guide-theme #root > div > header > div > button:first-child > span:last-child{
@@ -233,7 +223,7 @@ body.guide-theme > #root:empty + .mbe-global-footer{
   }
 
   .guide-theme #root > div > header > div > button:first-child{
-    flex:0 0 clamp(160px,16vw,214px)!important;
+    flex:0 0 clamp(122px,12vw,164px)!important;
   }
 
   .guide-theme #root > div > header nav{
@@ -328,6 +318,31 @@ body.guide-theme > #root:empty + .mbe-global-footer{
 .guide-theme #root [class~="bg-indigo-900"],
 .guide-theme #root [class~="bg-indigo-900/95"],
 .guide-theme #root [class~="bg-indigo-950"]{background-color:#e9efed!important;}
+
+.guide-theme #root [class~="bg-indigo-900"],
+.guide-theme #root [class~="bg-indigo-900/95"],
+.guide-theme #root [class~="bg-indigo-950"]{
+  border-color:rgba(15,43,71,.14)!important;
+  color:var(--guide-ink)!important;
+}
+
+.guide-theme #root [class~="bg-indigo-900"] *,
+.guide-theme #root [class~="bg-indigo-900/95"] *,
+.guide-theme #root [class~="bg-indigo-950"] *{
+  color:var(--guide-ink)!important;
+}
+
+.guide-theme #root [class~="bg-indigo-900"] [class~="text-indigo-100"],
+.guide-theme #root [class~="bg-indigo-900"] [class~="text-indigo-200"],
+.guide-theme #root [class~="bg-indigo-900"] [class~="text-indigo-300"],
+.guide-theme #root [class~="bg-indigo-900/95"] [class~="text-indigo-100"],
+.guide-theme #root [class~="bg-indigo-900/95"] [class~="text-indigo-200"],
+.guide-theme #root [class~="bg-indigo-900/95"] [class~="text-indigo-300"],
+.guide-theme #root [class~="bg-indigo-950"] [class~="text-indigo-100"],
+.guide-theme #root [class~="bg-indigo-950"] [class~="text-indigo-200"],
+.guide-theme #root [class~="bg-indigo-950"] [class~="text-indigo-300"]{
+  color:var(--guide-muted)!important;
+}
 
 .guide-theme #root [class~="bg-indigo-50"],
 .guide-theme #root [class~="bg-indigo-50/60"],
@@ -501,6 +516,41 @@ body.guide-theme > #root:empty + .mbe-global-footer{
   color:var(--guide-interpretation)!important;
   background:rgba(var(--guide-interpretation-rgb),.1)!important;
   box-shadow:inset 0 0 0 1px rgba(var(--guide-interpretation-rgb),.56)!important;
+}
+
+.guide-theme #root .gh-phase-badge{
+  display:inline;
+  border-radius:.375rem;
+  padding:0 .25rem;
+  font-weight:800;
+  box-shadow:inset 0 0 0 1px rgba(var(--phase-rgb),.34);
+  background:rgba(var(--phase-rgb),.14);
+  color:var(--phase-color);
+}
+
+.guide-theme #root .gh-phase-badge-preparation{
+  --phase-color:var(--guide-preparation);
+  --phase-rgb:var(--guide-preparation-rgb);
+}
+
+.guide-theme #root .gh-phase-badge-observation{
+  --phase-color:var(--guide-observation);
+  --phase-rgb:var(--guide-observation-rgb);
+}
+
+.guide-theme #root .gh-phase-badge-interpretation{
+  --phase-color:var(--guide-interpretation);
+  --phase-rgb:var(--guide-interpretation-rgb);
+}
+
+.guide-theme #root .gh-phase-badge-imagination{
+  --phase-color:var(--guide-imagination);
+  --phase-rgb:var(--guide-imagination-rgb);
+}
+
+.guide-theme #root .gh-phase-badge-application{
+  --phase-color:var(--guide-application);
+  --phase-rgb:var(--guide-application-rgb);
 }
 
 .guide-theme #root [class~="text-purple-600"],
