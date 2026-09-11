@@ -187,7 +187,7 @@ function cleanLegacyHomepageFallback(html) {
       /\/assets\/index-e932b6a7\.js\?v=[^"]+/g,
       `/assets/index-e932b6a7.js?v=${appBundleVersion}`
     )
-    .replace(/\/global-shell\.css\?v=[^"]+/g, `/global-shell.css?v=${assetVersion}`)
+    .replace(/\/global-shell\.css\?v=[^"]+/g, `/global-shell.css?v=mbe-20260911-1
     .replace(/\/guide-theme\.css\?v=[^"]+/g, `/guide-theme.css?v=${assetVersion}`)
     .replace(/\/mbe-unified\.js\?v=[^"]+/g, `/mbe-unified.js?v=${unifiedVersion}`)
     .replace(/\/vendor\/tailwind\.js\?v=[^"]+/g, `/vendor/tailwind.js?v=${tailwindRuntimeVersion}`);
