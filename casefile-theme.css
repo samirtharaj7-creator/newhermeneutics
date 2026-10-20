@@ -1,0 +1,206 @@
+/*
+ * Case file theme — loaded after guide-theme.css on every page.
+ *
+ * guide-theme.css restyles the compiled React pages through a set of CSS variables, so most of this
+ * file is a re-palette (paper, ink, red) plus a few structural touches: folder-tab navigation,
+ * typewriter labels, and paper cards. Remove the <link> to this file to return to the previous look.
+ */
+
+:root{
+  --cf-desk:#b98f5a;
+  --cf-desk-dark:#9c7647;
+  --cf-paper:#f3ead2;
+  --cf-card:#fbf6e6;
+  --cf-card-2:#e9dcba;
+  --cf-tab:#dfd0a6;
+  --cf-ink:#2b2418;
+  --cf-muted:#6b5a3e;
+  --cf-line:#c9b88f;
+  --cf-edge:#a98f5e;
+  --cf-red:#a33a2a;
+  --cf-red-dark:#7d2a1e;
+  --cf-sticky:#f7e98e;
+  --cf-mono:"Courier New",Courier,"Liberation Mono",monospace;
+
+  /* guide-theme.css variables */
+  --guide-night:var(--cf-paper);
+  --guide-night-2:var(--cf-card);
+  --guide-night-3:var(--cf-card-2);
+  --guide-ink:var(--cf-ink);
+  --guide-muted:var(--cf-muted);
+  --guide-line:var(--cf-line);
+  --guide-gold:var(--cf-red);
+  --guide-gold-ink:#fff7ea;
+  --guide-nav-accent:var(--cf-red);
+  --guide-nav-accent-hover:var(--cf-red-dark);
+  --guide-nav-hover-bg:rgba(163,58,42,.08);
+
+  /* phase colours: warmer, still distinct */
+  --guide-overview:#7a6f5a;
+  --guide-preparation:#8a5a3c;       --guide-preparation-rgb:138,90,60;
+  --guide-observation:#4f7a73;       --guide-observation-rgb:79,122,115;
+  --guide-interpretation:#5f6590;    --guide-interpretation-rgb:95,101,144;
+  --guide-imagination:#8b5a78;       --guide-imagination-rgb:139,90,120;
+  --guide-application:#667a45;       --guide-application-rgb:102,122,69;
+
+  /* guide-nav.js variables */
+  --gn-ink:var(--cf-ink);
+  --gn-line:var(--cf-edge);
+  --gn-card:var(--cf-desk);
+  --gn-accent:var(--cf-red);
+  --gn-accent-hover:var(--cf-red-dark);
+  --gn-hover:rgba(43,36,24,.08);
+  --gn-active:var(--cf-paper);
+}
+
+body.guide-theme{ background:var(--cf-paper); }
+
+/* ---------- Folder-tab navigation ---------- */
+.guide-theme .guide-nav{
+  background:var(--cf-desk);
+  border-bottom:1px solid var(--cf-edge);
+  font-family:var(--cf-mono);
+}
+.guide-theme .guide-nav .guide-nav-wrap{padding-bottom:0;align-items:flex-end;}
+.guide-theme .guide-nav .guide-brand{
+  align-self:center;margin-bottom:6px;border:0;border-radius:2px;
+  background:rgba(255,253,244,.55);padding:5px 10px;
+}
+.guide-theme .guide-nav .guide-brand:hover{background:rgba(255,253,244,.85);border-color:transparent;}
+.guide-theme .guide-nav .guide-brand-mark{display:none;}
+.guide-theme .guide-nav .guide-brand-copy{display:flex;align-items:baseline;gap:6px;}
+.guide-theme .guide-nav .guide-brand-copy strong{font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;}
+.guide-theme .guide-nav .guide-brand-copy small{margin:0;color:var(--cf-red);font-size:10px;}
+.guide-theme .guide-nav .guide-links{justify-content:flex-start;gap:3px;align-items:flex-end;}
+.guide-theme .guide-nav .guide-link{
+  min-height:38px;padding:8px 14px;border:1px solid var(--cf-edge);border-bottom:0;
+  border-radius:6px 6px 0 0;background:var(--cf-tab);color:var(--cf-ink);
+  font-size:12px;font-weight:700;letter-spacing:.03em;
+}
+.guide-theme .guide-nav .guide-link .nav-icon{display:none;}
+.guide-theme .guide-nav .guide-link:hover{background:#ead9ac;color:var(--cf-ink);}
+.guide-theme .guide-nav .guide-link[aria-current="page"]{
+  background:var(--cf-paper);color:var(--cf-red);
+  margin-bottom:-1px;padding-bottom:9px;
+}
+.guide-theme .guide-nav .guide-link-copy small{font-size:8px;opacity:.7;}
+.guide-theme .guide-nav .guide-menu{align-self:center;margin-bottom:6px;}
+.guide-theme .guide-nav .guide-menu summary{border-color:var(--cf-edge);background:var(--cf-card);border-radius:3px;}
+.guide-theme .guide-nav .guide-menu-panel{background:var(--cf-card);border-color:var(--cf-edge);border-radius:3px;font-family:var(--cf-mono);}
+
+/* ---------- Typewriter labels ---------- */
+.guide-theme #root [class~="uppercase"]{font-family:var(--cf-mono)!important;}
+
+/* ---------- Paper cards ---------- */
+.guide-theme #root main section[class*="rounded-"],
+.guide-theme #root main article[class*="rounded-"]{
+  border:1px solid var(--cf-edge)!important;
+  border-radius:3px!important;
+  background-color:var(--cf-card)!important;
+  box-shadow:3px 4px 0 rgba(107,90,62,.16)!important;
+}
+.guide-theme #root main [class~="shadow-sm"],
+.guide-theme #root main [class~="shadow-md"],
+.guide-theme #root main [class~="shadow-lg"],
+.guide-theme #root main [class~="shadow-xl"],
+.guide-theme #root main [class~="shadow-2xl"]{box-shadow:3px 4px 0 rgba(107,90,62,.16)!important;}
+
+.guide-theme #root blockquote{
+  border-color:var(--cf-red)!important;
+  background:var(--cf-sticky)!important;
+  border-radius:0!important;
+}
+.guide-theme #root code,
+.guide-theme #root pre{background:var(--cf-card-2)!important;border-color:var(--cf-edge)!important;font-family:var(--cf-mono)!important;}
+.guide-theme #root table{background:var(--cf-card)!important;}
+.guide-theme #root th{color:var(--cf-red)!important;font-family:var(--cf-mono)!important;}
+
+/* Buttons and inputs: square-ish, like labels and forms in a file */
+.guide-theme #root input:not([type="checkbox"]):not([type="radio"]),
+.guide-theme #root textarea,
+.guide-theme #root select{
+  border-color:var(--cf-edge)!important;border-radius:2px!important;background:#fffdf6!important;
+}
+.guide-theme #root button[class~="bg-indigo-600"],
+.guide-theme #root button[class~="bg-indigo-700"]{border-radius:2px!important;}
+.guide-theme #root input[type="checkbox"]{accent-color:var(--cf-red);}
+
+.guide-theme #root main a:not([class]){color:var(--cf-red);text-decoration-color:rgba(163,58,42,.4);}
+.guide-theme #root :focus-visible{outline-color:var(--cf-red)!important;}
+
+/* Selected text, like a highlighter */
+.guide-theme ::selection{background:var(--cf-sticky);color:var(--cf-ink);}
+
+/* Any remaining large rounded corners (Resources cards, icon tiles) */
+.guide-theme #root main [class*="rounded-3xl"],
+.guide-theme #root main [class*="rounded-2xl"],
+.guide-theme #root main [class*="rounded-xl"]{border-radius:3px!important;}
+
+/* ---------- Secondary rails (genre tabs, phase rail) ---------- */
+.guide-theme #root > div > div.sticky,
+.guide-theme #root > div > div.sticky:has(nav.no-print),
+.guide-theme #root > div > div.sticky > div{
+  background:var(--cf-card)!important;
+  border-color:var(--cf-edge)!important;
+  box-shadow:none!important;
+}
+.guide-theme #root > div > div.sticky button{font-family:var(--cf-mono)!important;border-radius:2px!important;}
+.guide-theme #root > div > div.sticky button:hover,
+.guide-theme #root > div > div.sticky button[class~="bg-indigo-50"]{
+  border-color:var(--cf-edge)!important;background:rgba(163,58,42,.08)!important;color:var(--cf-red-dark)!important;
+}
+.guide-theme #root > div > div.sticky button[class~="bg-indigo-600"]{
+  border-color:var(--cf-red)!important;background:var(--cf-red)!important;color:#fff7ea!important;
+}
+.guide-theme #root nav.no-print{background:var(--cf-card)!important;border-color:var(--cf-edge)!important;box-shadow:none!important;}
+.guide-theme #root nav.no-print > .grid-cols-6 > button{
+  background:var(--cf-card)!important;border-color:var(--cf-edge)!important;font-family:var(--cf-mono)!important;
+  box-shadow:inset 0 4px 0 var(--phase)!important;
+}
+.guide-theme #root nav.no-print > .grid-cols-6 > button:hover{background:color-mix(in srgb,var(--phase) 12%,var(--cf-card))!important;}
+.guide-theme #root nav.no-print > .grid-cols-6 > button.shadow-inner{
+  background:var(--phase)!important;border-color:var(--phase)!important;
+  box-shadow:inset 0 4px 0 rgba(255,255,255,.25)!important;
+}
+.guide-theme #root nav.no-print > .grid-cols-6 > button > span > span:first-child{box-shadow:0 0 0 2px var(--cf-card)!important;}
+
+/* ---------- Special landing cards ---------- */
+.guide-theme #root main div[class*="grid-cols-2"] > article:has(button){
+  border-color:var(--cf-edge)!important;background:var(--cf-card)!important;
+}
+.guide-theme #root main div[class*="grid-cols-2"] > article:has(button) svg{color:var(--cf-red)!important;}
+.guide-theme #root main div[class*="grid-cols-2"] > article:has(button) button{border-radius:2px!important;font-family:var(--cf-mono)!important;}
+.guide-theme #root main div[class*="grid-cols-2"] > article:has(button) button:first-of-type{
+  border-color:var(--cf-ink)!important;background:var(--cf-ink)!important;color:var(--cf-paper)!important;
+}
+.guide-theme #root main div[class*="grid-cols-2"] > article:has(button) button:first-of-type:hover{
+  border-color:var(--cf-red)!important;background:var(--cf-red)!important;
+}
+.guide-theme #root main div[class*="grid-cols-2"] > article:has(button) button:nth-of-type(2){
+  border-color:var(--cf-ink)!important;color:var(--cf-ink)!important;
+}
+.guide-theme #root main div[class*="grid-cols-2"] > article:has(button) button:nth-of-type(2):hover{
+  background:rgba(163,58,42,.08)!important;color:var(--cf-red-dark)!important;
+}
+
+/* ---------- Home hero ---------- */
+.guide-theme #root .home-scroll-reveal-shell > div,
+.guide-theme #root .home-scroll-reveal-shell [data-home-reveal-bg]{background:var(--cf-paper)!important;}
+/* The Bible photos have white backgrounds; multiply them into the parchment. */
+.guide-theme #root .home-scroll-reveal-shell [data-home-reveal-bg] picture{mix-blend-mode:multiply;}
+.guide-theme #root .home-scroll-reveal-shell [data-home-reveal-card],
+.guide-theme #root .home-scroll-reveal-shell [class~="bg-slate-950/45"],
+.guide-theme #root .home-scroll-reveal-shell > div > div:not([data-home-reveal-bg]) > button{
+  background:var(--cf-card)!important;border:1px solid var(--cf-edge)!important;border-radius:3px!important;
+  box-shadow:3px 4px 0 rgba(107,90,62,.2)!important;backdrop-filter:none!important;
+}
+.guide-theme #root .home-scroll-reveal-shell [data-home-reveal-card] span{background:rgba(163,58,42,.1)!important;color:var(--cf-red)!important;font-family:var(--cf-mono)!important;}
+.guide-theme #root .home-scroll-reveal-shell button,
+.guide-theme #root .home-scroll-reveal-shell a,
+.guide-theme #root .home-scroll-reveal-shell [class~="bg-slate-950/45"] span,
+.guide-theme #root .home-scroll-reveal-shell [class~="bg-slate-950/45"] svg{color:var(--cf-ink)!important;font-family:var(--cf-mono);}
+.guide-theme .general-detective-picture{border-color:var(--cf-edge)!important;border-radius:3px!important;background:var(--cf-card)!important;box-shadow:3px 4px 0 rgba(107,90,62,.16)!important;}
+
+@media print{
+  .guide-theme .guide-nav{display:none!important;}
+}

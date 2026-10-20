@@ -819,7 +819,8 @@ body.guide-theme > #root:empty + .mbe-global-footer{
   .guide-theme #root main h1{font-size:2.25rem!important;}
   .guide-theme #root main h2{font-size:1.85rem!important;}
   .guide-theme #root main h3{font-size:1.35rem!important;}
-  .guide-theme #root nav.no-print > .grid-cols-6 > button{min-height:4.6rem!important;padding:6px 3px!important;font-size:8px!important;}
+  .guide-theme #root nav.no-print > .grid-cols-6{grid-template-columns:repeat(3,minmax(0,1fr))!important;}
+  .guide-theme #root nav.no-print > .grid-cols-6 > button{min-height:3.5rem!important;padding:8px 6px!important;font-size:12px!important;line-height:1.25!important;white-space:normal!important;}
   .guide-theme #root nav.no-print > .grid-cols-6 > button > span > span:first-child{width:28px!important;height:28px!important;}
 }
 
