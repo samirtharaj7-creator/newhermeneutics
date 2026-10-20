@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f4f6f5">
   <title>Guided Study | Hermeneutics Guide</title>
-  <meta name="description" content="A step-by-step, AI-guided walk through the inductive method: Preparation, Observation, Interpretation, Imagination, and Application, with genre-specific keys and an exportable study.">
+  <meta name="description" content="A step-by-step, guided walk through the inductive method: Preparation, Observation, Interpretation, Imagination, and Application, with genre-specific keys and an exportable study.">
   <link rel="canonical" href="https://hermeneutics.mybibleexplorer.com/ask-ai/">
   <meta property="og:title" content="Guided Study | Hermeneutics Guide">
-  <meta property="og:description" content="A step-by-step, AI-guided walk through the inductive method: Preparation, Observation, Interpretation, Imagination, and Application.">
+  <meta property="og:description" content="A step-by-step, guided walk through the inductive method: Preparation, Observation, Interpretation, Imagination, and Application.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://hermeneutics.mybibleexplorer.com/ask-ai/">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Guided Study | Hermeneutics Guide">
-  <meta name="twitter:description" content="A step-by-step, AI-guided walk through the inductive method, with genre-specific keys and an exportable study.">
+  <meta name="twitter:description" content="A step-by-step, guided walk through the inductive method, with genre-specific keys and an exportable study.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
@@ -226,9 +226,12 @@
     </div>
   </footer>
 
+  <script src="/ask-ai/books.js?v=1"></script>
   <script>
     (function () {
-      const API_URL = "https://hermeneutics-backend.onrender.com/api/v1/next-step";
+      // The AI coach is switched off until the new backend exists. The worksheet works fully without it.
+      const AI_COACH_ENABLED = false;
+      const API_URL ="https://hermeneutics-backend.onrender.com/api/v1/next-step";
       const STORAGE_KEY = "hermeneuticsGuidedStudy:v3";
 
       const GENRES = {
@@ -296,6 +299,172 @@
           avoid: "Reading proverbs as unconditional guarantees.",
           href: "/special/wisdom/"
         }
+      };
+
+      // --------------------------------------------------------------------
+      // Book lookup + genre suggestion (no AI). Data: /ask-ai/books.js
+      // --------------------------------------------------------------------
+      const BOOK_ALIASES = {
+        phil: "Philippians", php: "Philippians", phm: "Philemon", philem: "Philemon",
+        jn: "John", jas: "James", ps: "Psalms", psa: "Psalms", pss: "Psalms", psalm: "Psalms",
+        song: "Song of Solomon", songs: "Song of Solomon", "song of songs": "Song of Solomon", sos: "Song of Solomon",
+        mt: "Matthew", mk: "Mark", lk: "Luke", rev: "Revelation", revelations: "Revelation", ex: "Exodus"
+      };
+
+      const GENRE_BY_BOOK = (() => {
+        const map = {};
+        const set = (names, genre, note) => names.forEach((n) => { map[n] = { genre, note: note || "" }; });
+        set(["Genesis"], "historical-narrative", "Mostly narrative, with some poetry (such as the blessings in chapter 49).");
+        set(["Exodus", "Numbers"], "historical-narrative", "Narrative and law are mixed here. If your passage is a set of commands, choose Law instead.");
+        set(["Leviticus"], "law");
+        set(["Deuteronomy"], "law", "Covenant sermons built on the law, with narrative and poetry near the end.");
+        set(["Joshua", "Judges", "Ruth", "1 & 2 Samuel", "1 & 2 Kings", "1 & 2 Chronicles", "Ezra", "Nehemiah", "Esther"], "historical-narrative");
+        set(["Job"], "wisdom", "The speeches are mostly poetry.");
+        set(["Psalms"], "poetry", "Some psalms are wisdom psalms or royal psalms; the Wisdom guide may help with those.");
+        set(["Proverbs", "Ecclesiastes", "Song of Solomon"], "wisdom");
+        set(["Lamentations"], "poetry");
+        set(["Isaiah", "Jeremiah", "Ezekiel", "Hosea", "Joel", "Amos", "Obadiah", "Micah", "Nahum", "Habakkuk", "Zephaniah", "Haggai", "Zechariah", "Malachi"], "prophecy", "Prophetic books also contain a lot of poetry and some narrative.");
+        set(["Jonah"], "prophecy", "Jonah is mostly narrative; Historical Narrative may fit your passage better.");
+        set(["Daniel"], "prophecy", "Chapters 1-6 are narrative; chapters 7-12 are apocalyptic prophecy.");
+        set(["Matthew", "Mark", "Luke", "John"], "gospels-acts", "If your passage is one of Jesus' parables, choose Parables instead.");
+        set(["Acts"], "gospels-acts");
+        set(["Romans", "1 Corinthians", "2 Corinthians", "Galatians", "Ephesians", "Philippians", "Colossians", "1 Thessalonians", "2 Thessalonians", "1 Timothy", "2 Timothy", "Titus", "Philemon", "Hebrews", "James", "1 Peter", "2 Peter", "1 John", "2 John", "3 John", "Jude"], "epistles");
+        set(["Revelation"], "prophecy", "Apocalyptic prophecy, with letters to seven churches in chapters 2-3.");
+        return map;
+      })();
+
+      // Passage-level exceptions to the book default. Each entry: [chapterFrom, chapterTo, verseFrom, verseTo, genre, note].
+      // A reader who gives no verse matches any entry for that chapter.
+      // Entries for the paired books are keyed "1 Samuel", "2 Kings", etc.
+      const GENRE_OVERRIDES = (() => {
+        const map = {};
+        const add = (book, ch, genre, note, vFrom, vTo) => {
+          const [c1, c2] = Array.isArray(ch) ? ch : [ch, ch];
+          (map[book] = map[book] || []).push([c1, c2, vFrom || 1, vTo || 999, genre, note || ""]);
+        };
+        add("Genesis", 49, "poetry", "Jacob's blessing of his sons is poetry.");
+        add("Exodus", 15, "poetry", "The Song of the Sea (verses 1-21) is poetry.", 1, 21);
+        add("Exodus", [20, 23], "law", "The Ten Commandments and the covenant laws.");
+        add("Exodus", [25, 31], "law", "Instructions for the tabernacle, priesthood, and Sabbath.");
+        add("Leviticus", [8, 10], "historical-narrative", "The ordination of the priests is told as narrative.");
+        add("Numbers", [5, 6], "law");
+        add("Numbers", 15, "law");
+        add("Numbers", [18, 19], "law");
+        add("Numbers", [28, 30], "law");
+        add("Numbers", 35, "law");
+        add("Deuteronomy", [32, 33], "poetry", "The Song of Moses and Moses' blessing are poetry.");
+        add("Judges", 5, "poetry", "The Song of Deborah is poetry.");
+        add("1 Samuel", 2, "poetry", "Hannah's prayer (verses 1-10) is a poem; the rest is narrative.", 1, 10);
+        add("2 Samuel", 1, "poetry", "David's lament for Saul and Jonathan (verses 17-27) is a poem.", 17, 27);
+        add("2 Samuel", 22, "poetry", "David's song of deliverance, also found as Psalm 18.");
+        add("2 Samuel", 23, "poetry", "David's last words (verses 1-7) are poetry.", 1, 7);
+        add("1 Chronicles", [1, 9], "historical-narrative", "Mostly genealogies and lists. Ask who is included, who is left out, and why.");
+        add("1 Chronicles", 16, "poetry", "David's psalm of thanksgiving (verses 8-36) is poetry.", 8, 36);
+        add("Job", [1, 2], "historical-narrative", "The prologue is narrative; the speeches that follow are poetry.");
+        [1, 37, 49, 73, 112, 127, 128, 133].forEach((n) => add("Psalms", n, "wisdom", "Usually classed as a wisdom psalm. Poetry rules still apply."));
+        add("Isaiah", [36, 39], "historical-narrative", "These chapters are historical narrative, parallel to 2 Kings 18-20.");
+        add("Jeremiah", 26, "historical-narrative", "Mostly narrative.");
+        add("Jeremiah", 28, "historical-narrative", "Mostly narrative.");
+        add("Jeremiah", [36, 44], "historical-narrative", "Mostly narrative about Jeremiah and the fall of Jerusalem.");
+        add("Daniel", 1, "historical-narrative");
+        add("Daniel", [3, 6], "historical-narrative", "Court narratives.");
+        add("Jonah", 1, "historical-narrative", "Jonah is told as narrative.");
+        add("Jonah", 2, "poetry", "Jonah's prayer (verses 2-9) is a psalm-like poem; the rest is narrative.");
+        add("Jonah", [3, 4], "historical-narrative", "Jonah is told as narrative.");
+        add("Habakkuk", 3, "poetry", "A prayer-psalm.");
+        add("Matthew", 13, "parables", "A collection of parables (verses 1-52).", 1, 52);
+        add("Matthew", 18, "parables", "The lost sheep (12-14) and the unforgiving servant (21-35) are parables.", 12, 14);
+        add("Matthew", 18, "parables", "The unforgiving servant.", 21, 35);
+        add("Matthew", 20, "parables", "The workers in the vineyard.", 1, 16);
+        add("Matthew", 21, "parables", "The two sons and the tenants.", 28, 46);
+        add("Matthew", 22, "parables", "The wedding feast.", 1, 14);
+        add("Matthew", 25, "parables", "The ten virgins and the talents.", 1, 30);
+        add("Mark", 4, "parables", "A collection of parables (verses 1-34).", 1, 34);
+        add("Mark", 12, "parables", "The tenants.", 1, 12);
+        add("Luke", 8, "parables", "The sower.", 4, 18);
+        add("Luke", 10, "parables", "The good Samaritan.", 25, 37);
+        add("Luke", 12, "parables", "The rich fool.", 13, 21);
+        add("Luke", 13, "parables", "The barren fig tree.", 6, 9);
+        add("Luke", 14, "parables", "The great banquet.", 15, 24);
+        add("Luke", 15, "parables", "The lost sheep, lost coin, and lost sons.");
+        add("Luke", 16, "parables", "The shrewd manager (1-13) and the rich man and Lazarus (19-31).", 1, 13);
+        add("Luke", 16, "parables", "The rich man and Lazarus.", 19, 31);
+        add("Luke", 18, "parables", "The persistent widow and the Pharisee and tax collector.", 1, 14);
+        add("Luke", 19, "parables", "The ten minas.", 11, 27);
+        add("Revelation", [2, 3], "epistles", "Letters to the seven churches, inside a prophecy. Read them as letters.");
+        return map;
+      })();
+
+      // Chapter and (optional) starting verse from the part of a reference after the book name.
+      function chapterVerse(rest) {
+        const m = String(rest || "").match(/^(\d+)(?:\s*[:.]\s*(\d+))?/);
+        return m ? { ch: Number(m[1]), v: m[2] ? Number(m[2]) : null } : null;
+      }
+
+      // Match a typed reference ("Phil 2:5-11", "1 john 3", "Psalm 23") to an entry in MBE_BOOKS.
+      function parsePassage(ref) {
+        const books = window.MBE_BOOKS || [];
+        const m = String(ref || "").trim().match(/^(?:([1-3])\s*|(first|second|third)\s+)?([a-z][a-z .]*?)\s*(\d[\d:.,\-–—\s]*)?$/i);
+        if (!m || !books.length) return null;
+        const num = m[1] || ({ first: "1", second: "2", third: "3" })[(m[2] || "").toLowerCase()] || "";
+        const name = m[3].toLowerCase().replace(/\./g, "").replace(/\s+/g, " ").trim();
+        const byName = (n) => books.find((b) => b.name === n) || null;
+        const aliased = BOOK_ALIASES[num ? num + " " + name : name] || (!num && BOOK_ALIASES[name]);
+        if (aliased) { const b = byName(aliased); if (b) return { book: b, rest: (m[4] || "").trim(), num }; }
+        const candidates = books.map((b) => {
+          const canon = b.name.toLowerCase();
+          const combined = canon.match(/^1 & 2 (.+)$/);
+          const single = canon.match(/^([1-3]) (.+)$/);
+          if (combined) return { b, base: combined[1], nums: ["1", "2"] };
+          if (single) return { b, base: single[2], nums: [single[1]] };
+          return { b, base: canon, nums: [] };
+        }).filter((c) => num ? c.nums.includes(num) : (c.nums.length === 0 || c.nums.length === 2));
+        let hits = candidates.filter((c) => c.base === name);
+        if (!hits.length && name.length >= 3) hits = candidates.filter((c) => c.base.startsWith(name));
+        return hits.length === 1 ? { book: hits[0].b, rest: (m[4] || "").trim(), num } : null;
+      }
+
+      function suggestGenre(ref) {
+        const parsed = parsePassage(ref);
+        if (!parsed) return null;
+        const cv = chapterVerse(parsed.rest);
+        // 1 & 2 Samuel, Kings and Chronicles share one book entry; use the number the reader typed.
+        const combined = parsed.book.name.match(/^1 & 2 (.+)$/);
+        const specific = combined && parsed.num ? `${parsed.num} ${combined[1]}` : parsed.book.name;
+        const exception = cv && (GENRE_OVERRIDES[specific] || []).find((o) => cv.ch >= o[0] && cv.ch <= o[1] && (cv.v === null || (cv.v >= o[2] && cv.v <= o[3])));
+        if (exception && GENRES[exception[4]]) {
+          return { key: exception[4], note: exception[5], book: parsed.book, label: `${specific} ${cv.ch}${cv.v ? ":" + cv.v : ""}` };
+        }
+        const hit = GENRE_BY_BOOK[parsed.book.name];
+        return hit && GENRES[hit.genre] ? { key: hit.genre, note: hit.note, book: parsed.book, label: combined ? specific : parsed.book.name } : null;
+      }
+
+      // Reader-facing finish line for each step (shown as "Before you move on").
+      const FINISH = {
+        "prep-assumptions": "I have written at least one specific assumption, hope, fear, or inherited argument I bring to this passage.",
+        "prep-prayer": "I have prayed, and I know what I asked for.",
+        "prep-loosely": "I have written my first guess about the meaning and I am holding it as something to test.",
+        "prep-obey": "I have finished the sentence “If this passage confronts me, I am willing to …” with something specific.",
+        "obs-translation": "I have named my main translation and noted at least one place where translations differ, as a question.",
+        "obs-read": "I have read it more than once, and I can say “This passage moves from ___ to ___.”",
+        "obs-map": "I know where the passage begins and ends, and I have labelled its main movements.",
+        "obs-observe": "I have recorded what the text says (people, repeated words, contrasts, connectives, commands, questions) without explaining what it means yet.",
+        "obs-questions": "I have a list of questions sorted by kind, and I have marked the strongest ones to carry forward.",
+        "int-genre": "I have named the genre, pointed to a clue in the wording, and written one reading rule it gives me.",
+        "int-setting": "I can state the author, audience, date, and occasion, and what the author wanted this audience to do.",
+        "int-context": "I have written one sentence of local meaning that names the author, the main idea, and the paragraph it sits in.",
+        "int-keywords": "I have studied one to three key words and can say which sense fits here, and why.",
+        "int-scripture": "I have traced at least one cross-reference and can say what it clarifies while this passage still controls the meaning.",
+        "int-theology": "I have named the theological subject and where the passage sits in the Bible's story, building on my local meaning.",
+        "int-resources": "I wrote my own interpretation first, and I can say what a resource confirmed, corrected, or sharpened.",
+        "int-statement": "My statement says the problem, the author's main point, and a key clarification, and it covers the whole passage.",
+        "img-picture": "I have pictured the scene, and every detail comes from the text or my background study.",
+        "img-force": "I have named what would have struck the first hearers hardest, tied to specific wording.",
+        "img-distance": "I have written at least one difference between their world and mine, and one thing that is the same.",
+        "app-first": "I have written one past-tense sentence about what this meant for its first hearers.",
+        "app-principle": "My principle comes from the text, is timeless, fits the rest of Scripture, and is true for them and for us.",
+        "app-home": "I have filled at least two items in the S.P.A.C.E.P.E.T.S. search from the text, and I know which circle presses first.",
+        "app-step": "I have one specific, checkable action with a time frame that follows from my interpretation statement."
       };
 
       // Each phase carries its fixed, vetted sub-steps. Guidance and prompts are static
@@ -1080,6 +1249,7 @@
               <div>
                 <label for="genreSelect" class="block text-sm font-bold text-slate-800">Genre</label>
                 <select id="genreSelect" class="mt-2 w-full rounded-xl border border-slate-300 bg-white p-3 text-base font-medium text-slate-950 outline-none focus:border-navy">${genreOptions}</select>
+                <div id="genreSuggest" class="mt-2 text-sm leading-6 text-slate-700" aria-live="polite"></div>
               </div>
             </div>
           </article>`;
@@ -1087,9 +1257,47 @@
         const refInput = document.getElementById("passageRef");
         const reasonInput = document.getElementById("reasonInput");
         const genreSelect = document.getElementById("genreSelect");
-        refInput.addEventListener("input", () => { state.passage = refInput.value; saveDebounced(); });
+        const suggestBox = document.getElementById("genreSuggest");
+        function updateGenreSuggest() {
+          const s = suggestGenre(state.passage);
+          if (!s) { suggestBox.innerHTML = ""; return; }
+          const note = s.note ? ` <span class="text-muted">${escapeHtml(s.note)}</span>` : "";
+          if (state.genre === s.key) {
+            suggestBox.innerHTML = `<span class="font-bold text-navy">&#10003;</span> This matches how ${escapeHtml(s.label)} is usually read.${note}`;
+          } else if (state.genre && GENRES[state.genre]) {
+            suggestBox.innerHTML = `Using <strong>${escapeHtml(GENRES[state.genre].label)}</strong>, as you chose. ${escapeHtml(s.label)} is usually read as ${escapeHtml(GENRES[s.key].label)}. <button type="button" id="useGenre" class="font-bold text-navy underline underline-offset-4">Switch to ${escapeHtml(GENRES[s.key].label)}</button>${note}`;
+            document.getElementById("useGenre").addEventListener("click", () => {
+              state.genre = s.key; genreSelect.value = s.key; saveState(); updateGenreSuggest();
+            });
+          } else {
+            suggestBox.innerHTML = `${escapeHtml(s.label)} is usually read as <strong>${escapeHtml(GENRES[s.key].label)}</strong>. <button type="button" id="useGenre" class="font-bold text-navy underline underline-offset-4">Use this</button>${note}`;
+            document.getElementById("useGenre").addEventListener("click", () => {
+              state.genre = s.key; genreSelect.value = s.key; saveState(); updateGenreSuggest();
+            });
+          }
+        }
+        refInput.addEventListener("input", () => { state.passage = refInput.value; saveDebounced(); updateGenreSuggest(); });
         reasonInput.addEventListener("input", () => { state.reason = reasonInput.value; saveDebounced(); });
-        genreSelect.addEventListener("change", () => { state.genre = genreSelect.value; saveState(); });
+        genreSelect.addEventListener("change", () => { state.genre = genreSelect.value; saveState(); updateGenreSuggest(); });
+        updateGenreSuggest();
+      }
+
+      function bookPanel() {
+        const parsed = parsePassage(state.passage);
+        if (!parsed) return "";
+        const b = parsed.book;
+        const row = (label, value) => value ? `<div><dt class="font-bold text-slate-900">${label}</dt><dd>${escapeHtml(value)}</dd></div>` : "";
+        return `
+          <div class="mt-5 rounded-2xl border border-line bg-white p-5 shadow-sm">
+            <div class="flex items-center justify-between gap-3">
+              <h4 class="text-sm font-bold uppercase tracking-[.14em] text-navy">Setting &middot; ${escapeHtml(b.name)}</h4>
+              <span class="text-xs font-semibold text-muted">${escapeHtml(b.group || "")}</span>
+            </div>
+            <dl class="mt-3 grid gap-3 text-[15px] leading-7 text-slate-700">
+              ${row("Author", b.author)}${row("Audience", b.audience)}${row("Date", b.date)}${row("Occasion &amp; purpose", b.occasion)}${row("Theme", b.theme)}
+            </dl>
+            <p class="mt-3 text-xs leading-5 text-muted">A starting point for the whole book. Check it against the book itself and a study Bible introduction, and note anything specific to your passage.</p>
+          </div>`;
       }
 
       function renderStudy() {
@@ -1099,7 +1307,9 @@
           state.activeDetail = phase.substeps[0].id;
         }
         const genre = state.genre && GENRES[state.genre];
-        const genrePanel = (phase.id === "interpretation") ? genreKeysPanel(genre) : "";
+        let genrePanel = "";
+        if (phase.id === "interpretation") genrePanel = genreKeysPanel(genre) + bookPanel();
+        else if (phase.id === "observation" && genre) genrePanel = genreKeysPanel(genre, true);
         const cards = phase.substeps.map((sub, i) => subStepCard(sub, i)).join("");
         el.stage.innerHTML = `
           <article class="mx-auto max-w-3xl">
@@ -1121,6 +1331,8 @@
           if (btn) btn.addEventListener("click", () => askHint(phase, sub));
           const more = document.getElementById(`more-${sub.id}`);
           if (more) more.addEventListener("click", () => setActiveDetail(sub.id));
+          const chk = document.getElementById(`chk-${sub.id}`);
+          if (chk) chk.addEventListener("change", () => { state.checks[sub.id] = chk.checked; saveState(); });
         });
       }
 
@@ -1151,13 +1363,23 @@
         el.referenceBody.scrollTop = 0;
       }
 
-      function genreKeysPanel(genre) {
+      function genreKeysPanel(genre, compact) {
+        if (genre && compact) {
+          return `
+            <div class="mt-5 rounded-2xl border border-amber-200 bg-amber-50/70 p-5">
+              <div class="flex items-center justify-between gap-3">
+                <h4 class="text-sm font-bold uppercase tracking-[.14em] text-navy">${escapeHtml(genre.label)} &middot; what to look for</h4>
+                <span class="flex gap-3"><button type="button" data-change-genre class="text-xs font-bold text-navy underline underline-offset-4">Change genre</button><a class="text-xs font-bold text-navy underline underline-offset-4" href="${escapeAttribute(genre.href)}">Full guide</a></span>
+              </div>
+              <p class="mt-3 text-[15px] leading-7 text-slate-700">${escapeHtml(genre.look)}</p>
+            </div>`;
+        }
         if (genre) {
           return `
             <div class="mt-5 rounded-2xl border border-amber-200 bg-amber-50/70 p-5">
               <div class="flex items-center justify-between gap-3">
                 <h4 class="text-sm font-bold uppercase tracking-[.14em] text-navy">${escapeHtml(genre.label)} &middot; interpretive keys</h4>
-                <a class="text-xs font-bold text-navy underline underline-offset-4" href="${escapeAttribute(genre.href)}">Full guide</a>
+                <span class="flex gap-3"><button type="button" data-change-genre class="text-xs font-bold text-navy underline underline-offset-4">Change genre</button><a class="text-xs font-bold text-navy underline underline-offset-4" href="${escapeAttribute(genre.href)}">Full guide</a></span>
               </div>
               <dl class="mt-3 grid gap-3 text-[15px] leading-7 text-slate-700">
                 <div><dt class="font-bold text-slate-900">Ask</dt><dd>${escapeHtml(genre.ask)}</dd></div>
@@ -1189,10 +1411,14 @@
             ${detailFor(sub) ? `<button type="button" id="more-${sub.id}" data-more="${sub.id}" data-active="${state.activeDetail === sub.id}" class="more-link mt-3 inline-flex items-center gap-1.5 text-sm font-bold text-navy underline underline-offset-4 hover:text-navyHover"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>More about this step</button>` : ""}
             <label for="ta-${sub.id}" class="mt-4 block text-xs font-bold uppercase tracking-[.14em] text-slate-700">Your notes</label>
             <textarea id="ta-${sub.id}" rows="4" class="mt-2 w-full resize-y rounded-xl border border-slate-300 bg-white p-3 text-base leading-7 text-slate-950 outline-none focus:border-navy" placeholder="Write your own answer...">${escapeHtml(answer)}</textarea>
-            <div class="mt-2 flex items-center justify-end">
+            ${AI_COACH_ENABLED ? `<div class="mt-2 flex items-center justify-end">
               <button id="ask-${sub.id}" type="button" ${loading ? "disabled" : ""} class="inline-flex min-h-[38px] items-center gap-2 rounded-lg border border-line px-3 py-1.5 text-xs font-bold text-navy transition hover:bg-slate-50 disabled:cursor-wait disabled:opacity-70">${loading ? "Loading..." : "Ask the guide for help"}<span class="text-muted font-semibold">optional</span></button>
             </div>
-            <div id="hint-${sub.id}">${renderHint(sub.id)}</div>
+            <div id="hint-${sub.id}">${renderHint(sub.id)}</div>` : ""}
+            ${FINISH[sub.id] ? `<label for="chk-${sub.id}" class="mt-4 flex cursor-pointer items-start gap-3 rounded-xl border border-line bg-slate-50 p-3 text-sm leading-6 text-slate-700">
+              <input id="chk-${sub.id}" type="checkbox" class="mt-1 h-4 w-4 flex-none accent-[#0f2a4a]" ${state.checks[sub.id] ? "checked" : ""}>
+              <span><span class="font-bold text-slate-900">Before you move on:</span> ${escapeHtml(FINISH[sub.id])}</span>
+            </label>` : ""}
           </section>`;
       }
 
@@ -1256,6 +1482,7 @@
         document.getElementById("nextBtn").addEventListener("click", () => isLast ? finishStudy() : goToPhase(state.stageIndex + 1));
         const backToGenre = document.getElementById("backToGenre");
         if (backToGenre) backToGenre.addEventListener("click", () => { state.mode = "setup"; saveState(); render(); });
+        document.querySelectorAll("[data-change-genre]").forEach((b) => b.addEventListener("click", () => { state.mode = "setup"; saveState(); render(); }));
       }
 
       function renderSummary() {
@@ -1263,7 +1490,7 @@
         const blocks = PHASES.map((phase, index) => {
           const items = phase.substeps.map((sub) => {
             const a = answerOf(sub.id);
-            const hint = state.aiHints[sub.id];
+            const hint = AI_COACH_ENABLED ? state.aiHints[sub.id] : null;
             return `
               <div class="mt-3">
                 <p class="text-sm font-bold text-slate-900">${escapeHtml(sub.title)}</p>
@@ -1310,7 +1537,7 @@
           lines.push(`## ${index + 1}. ${phase.name}`, "");
           phase.substeps.forEach((sub) => {
             lines.push(`### ${sub.title}`, "", answerOf(sub.id) || "(no answer)", "");
-            const hint = state.aiHints[sub.id];
+            const hint = AI_COACH_ENABLED ? state.aiHints[sub.id] : null;
             if (hint && !hint.error && hint.content) lines.push(`_Guide hint:_ ${String(hint.content).trim()}`, "");
           });
         });
@@ -1365,13 +1592,13 @@
         try {
           localStorage.setItem(STORAGE_KEY, JSON.stringify({
             mode: state.mode, passage: state.passage, reason: state.reason, genre: state.genre,
-            stageIndex: state.stageIndex, activeDetail: state.activeDetail, answers: state.answers, aiHints: state.aiHints
+            stageIndex: state.stageIndex, activeDetail: state.activeDetail, answers: state.answers, checks: state.checks, aiHints: state.aiHints
           }));
         } catch (e) { /* ignore quota errors */ }
       }
 
       function freshState() {
-        return { mode: "setup", passage: "", reason: "", genre: "", stageIndex: 0, activeDetail: "", answers: {}, aiHints: {} };
+        return { mode: "setup", passage: "", reason: "", genre: "", stageIndex: 0, activeDetail: "", answers: {}, checks: {}, aiHints: {} };
       }
 
       function loadState() {
@@ -1386,6 +1613,7 @@
             base.stageIndex = Number.isInteger(saved.stageIndex) ? Math.max(0, Math.min(PHASES.length - 1, saved.stageIndex)) : 0;
             base.activeDetail = typeof saved.activeDetail === "string" ? saved.activeDetail : "";
             base.answers = saved.answers && typeof saved.answers === "object" ? saved.answers : {};
+            base.checks = saved.checks && typeof saved.checks === "object" ? saved.checks : {};
             base.aiHints = saved.aiHints && typeof saved.aiHints === "object" ? saved.aiHints : {};
           }
         } catch (e) { /* ignore */ }
