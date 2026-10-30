@@ -4,7 +4,7 @@ import path from "node:path";
 const root = process.cwd();
 const siteUrl = "https://hermeneutics.mybibleexplorer.com";
 const assetVersion = "home-hero-controls-below-1";
-const appBundleVersion = "general-ten-steps-1";
+const appBundleVersion = "translation-spectrum-1";
 const unifiedVersion = "a11y-labels-2";
 const tailwindRuntimeVersion = "self-hosted-warning-sanitized-1";
 const noGlossaryRouteIds = new Set(["ai-interpreter", "credits-sources"]);
