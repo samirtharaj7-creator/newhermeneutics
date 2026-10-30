@@ -155,9 +155,9 @@ export const STEPS = {
   },
   "int-resources": {
     phase: "interpretation",
-    title: "Consult trusted resources last",
-    goal: "Check the reader's own interpretation against trusted resources.",
-    coach: "Confirm the reader has already written their own interpretation. Then suggest the order: Ellen White where she comments on the passage or principle, Adventist study helps (SDA Bible Commentary, study Bible notes), then broader conservative commentaries. Ask of each: does it confirm, correct or sharpen my reading?",
+    title: "Check with trusted resources and others",
+    goal: "Test the reader's own interpretation statement against trusted resources and other believers.",
+    coach: "Confirm the reader has already written their own interpretation statement. Then suggest the order: Ellen White where she comments on the passage or principle, Adventist study helps (SDA Bible Commentary, study Bible notes), then broader conservative commentaries. Ask of each: does it confirm, correct or sharpen my reading? Encourage them to talk it through with another believer as well; a reading no one else has seen is usually wrong.",
     avoid: "Borrowing a conclusion before understanding the evidence; quoting a commentary as a shortcut.",
     done: "The reader names what a resource confirmed, corrected or sharpened.",
     needsNotes: true
@@ -213,9 +213,9 @@ export const STEPS = {
   },
   "app-principle": {
     phase: "application",
-    title: "Timeless principle",
+    title: "Enduring principle",
     goal: "Lift the enduring truth beneath the original situation.",
-    coach: "Help the reader separate the setting from the principle. A good principle is drawn from the text, timeless, consistent with the rest of Scripture and true for both audiences. Check whether the principle is too literal (trapped in the setting) or too broad (could mean anything). If the passage is narrative, ask whether the example is merely recorded or is taught elsewhere.",
+    coach: "First ask whether the passage applies directly: if the reader's situation truly matches the original, the command applies as written. If not, help them find why it was given and test whether it is cultural or lasting (rooted in creation or God's character? treated the same way by the rest of Scripture? only the outward form tied to its culture?). A good principle is drawn from the text, enduring, consistent with the rest of Scripture and true for both audiences. Check whether the principle is too literal (trapped in the setting) or too broad (could mean anything). If the passage is narrative, ask whether the example is merely recorded or is taught elsewhere.",
     avoid: "A principle so literal it stays ancient, or so broad it floats free of the text.",
     done: "A one-sentence principle passes the four tests and the reader says how.",
     needsNotes: true
@@ -232,10 +232,10 @@ export const STEPS = {
   "app-step": {
     phase: "application",
     title: "One concrete step",
-    goal: "Turn meaning into one checkable act of obedience.",
-    coach: "Use the form 'This week, because this passage shows me ___, I will ___.' Test it: is it specific, personal, measurable, time-bound, and does it grow directly from the interpretation sentence?",
+    goal: "Turn meaning into one concrete response: usually an act of obedience, sometimes a truth to trust or a sin to confess.",
+    coach: "Use the form 'This week, because this passage shows me ___, I will ___.' Test it: is it specific and personal, does the reader's situation truly match the one the passage addressed, and does it grow directly from the interpretation sentence? If a promise is involved, check who it was given to and on what conditions.",
     avoid: "'Be more loving' vagueness; an action that cannot be checked or remembered; self-salvation or self-excuse.",
-    done: "A single specific action with a time frame that follows from the interpretation statement.",
+    done: "A single specific response that follows from the interpretation statement and fits a situation that truly matches.",
     needsNotes: true
   }
 };

@@ -494,15 +494,15 @@
         "int-keywords": "I have studied one to three key words and can say which sense fits here, and why.",
         "int-scripture": "I have traced at least one cross-reference and can say what it clarifies while this passage still controls the meaning.",
         "int-theology": "I have named the theological subject and where the passage sits in the Bible's story, building on my local meaning.",
-        "int-resources": "I wrote my own interpretation first, and I can say what a resource confirmed, corrected, or sharpened.",
+        "int-resources": "I tested my own statement with resources or another believer, and I can say what they confirmed, corrected, or sharpened.",
         "int-statement": "My statement says the problem, the author's main point, and a key clarification, and it covers the whole passage.",
         "img-picture": "I have pictured the scene, and every detail comes from the text or my background study.",
         "img-force": "I have named what would have struck the first hearers hardest, tied to specific wording.",
         "img-distance": "I have written at least one difference between their world and mine, and one thing that is the same.",
         "app-first": "I have written one past-tense sentence about what this meant for its first hearers.",
-        "app-principle": "My principle comes from the text, is timeless, fits the rest of Scripture, and is true for them and for us.",
+        "app-principle": "I checked whether it applies directly, and my principle comes from the text, fits the rest of Scripture, and is true for them and for us.",
         "app-home": "I have filled at least two items in the S.P.A.C.E.P.E.T.S. search from the text, and I know which circle presses first.",
-        "app-step": "I have one specific, checkable action with a time frame that follows from my interpretation statement."
+        "app-step": "I have one specific, personal response that follows from my interpretation statement and fits a situation that truly matches."
       };
 
       // Each phase carries its fixed, vetted sub-steps. Guidance and prompts are static
@@ -722,19 +722,20 @@
               ]
             },
             {
-              id: "int-resources",
-              title: "Consult resources last",
-              guidance: "Only after your own study, check trusted commentaries to confirm, correct, or sharpen your findings.",
+              id: "int-statement",
+              title: "Write the interpretation",
+              guidance: "State the author's intended meaning in one clear sentence, in your own words, before you open a commentary.",
               prompts: [
-                "What do trusted resources add or correct in your reading?"
+                "Fill in: “In [passage], [author] teaches [main meaning] by [evidence], so that [purpose].”"
               ]
             },
             {
-              id: "int-statement",
-              title: "Write the interpretation",
-              guidance: "State the author's intended meaning in one clear sentence.",
+              id: "int-resources",
+              title: "Check with resources and others",
+              guidance: "Now test your statement: check trusted commentaries, and talk it through with other believers, to confirm, correct, or sharpen it.",
               prompts: [
-                "Fill in: “In [passage], [author] teaches [main meaning] by [evidence], so that [purpose].”"
+                "What do trusted resources add or correct in your reading?",
+                "What did another believer notice that you missed?"
               ]
             }
           ]
@@ -785,10 +786,12 @@
             },
             {
               id: "app-principle",
-              title: "Timeless principle",
-              guidance: "Lift the enduring truth that crosses from their world to ours.",
+              title: "Enduring principle",
+              guidance: "First ask whether the passage applies directly. If not, lift the enduring truth that crosses from their world to ours.",
               prompts: [
-                "What timeless principle stands behind the passage?"
+                "Does our situation truly match theirs? If so, the command applies as written.",
+                "If not: why was it given? Is it rooted in creation or God's character? Does the rest of Scripture treat it the same way?",
+                "What enduring principle stands behind the passage?"
               ]
             },
             {
@@ -796,16 +799,17 @@
               title: "Bring it home",
               guidance: "Search where this truth touches your life.",
               prompts: [
-                "Is there a sin to forsake, promise to claim, attitude to change, command to obey, example to follow, or truth to believe?",
+                "Is there a sin to forsake, promise to trust (check who it was given to and on what conditions), attitude to change, command to obey, example to follow, or truth to believe?",
                 "Where does it apply — personally, in your family, church, and world?"
               ]
             },
             {
               id: "app-step",
               title: "One concrete step",
-              guidance: "Turn meaning into one checkable act of obedience.",
+              guidance: "Turn meaning into one concrete response: usually an act of obedience, sometimes a truth to trust or a sin to confess.",
               prompts: [
-                "Write ONE specific, personal, checkable, time-bound step for this week."
+                "Check that your situation truly matches the one the passage addressed.",
+                "Write ONE specific, personal response for this week."
               ]
             }
           ]

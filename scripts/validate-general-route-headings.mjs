@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 const scriptDirectory = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(scriptDirectory, "..");
 const errors = [];
-const appBundleVersion = "general-route-h1-1";
+const appBundleVersion = "general-ten-steps-1";
 const phaseRoutes = [
   ["general-preparation", "general/preparation/index.html"],
   ["general-observation", "general/observation/index.html"],
