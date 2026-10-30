@@ -518,6 +518,18 @@ body.guide-theme > #root:empty + .mbe-global-footer{
   border-right:0!important;
 }
 
+/* Keep the phase rail pinned under the folder-tab nav while scrolling (not on phones,
+   where the rail wraps to two rows and would cover too much of the screen). */
+@media (min-width:768px){
+  .guide-theme #root nav.no-print{
+    position:sticky!important;
+    top:calc(var(--mbe-ribbon-height) + 60px)!important;
+    left:auto!important;
+    margin-left:calc(50% - 50vw)!important;
+    z-index:40!important;
+  }
+}
+
 .guide-theme #root .guide-content-shell:has(nav.no-print){
   padding-top:0!important;
 }
