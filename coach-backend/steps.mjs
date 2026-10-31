@@ -1,5 +1,5 @@
-// Per-step coaching specs. Keys match the step ids in ask-ai/index.html (PHASES), so the page can
-// send { passage, genre, stepId, notes } and the backend looks up the rest here.
+// Per-part coaching specs. Keys match the part ids in ask-ai/index.html (STEPS[].parts), so the page
+// sends { passage, genre, stepId / partId, notes } and the backend looks up the rest here.
 //
 // Each spec distils the corresponding section of "General Hermeneutics" (General Hermeneuics.pdf).
 // Genre-specific rules come from "Special Hermeneutics" via the GENRES table.
@@ -11,6 +11,21 @@
 //   needsNotes — whether feedback on written notes makes sense at this step
 
 export const PHASE_ORDER = ["preparation", "observation", "interpretation", "imagination", "application"];
+
+// The ten steps of the General Hermeneutics guide. Each step groups one or more parts (the
+// keys of STEPS below). Lettered parts (2a, 2b ...) follow the order of `parts`.
+export const STEP_GROUPS = [
+  { n: 1, id: "step-1", phase: "preparation", title: "Pray, Submit, and Name What You Bring", parts: ["prep-assumptions", "prep-prayer", "prep-loosely", "prep-obey"] },
+  { n: 2, id: "step-2", phase: "observation", title: "Read and Observe", parts: ["obs-translation", "obs-read", "obs-map", "obs-observe", "obs-questions"], lettered: true },
+  { n: 3, id: "step-3", phase: "interpretation", title: "Identify the Genre", parts: ["int-genre"] },
+  { n: 4, id: "step-4", phase: "interpretation", title: "Context: History and the Book", parts: ["int-setting", "int-context"], lettered: true },
+  { n: 5, id: "step-5", phase: "interpretation", title: "Study the Key Words", parts: ["int-keywords"] },
+  { n: 6, id: "step-6", phase: "interpretation", title: "Scripture with Scripture", parts: ["int-scripture", "int-theology"], lettered: true },
+  { n: 7, id: "step-7", phase: "interpretation", title: "State the Meaning, Then Check It", parts: ["int-statement", "int-resources"], lettered: true },
+  { n: 8, id: "step-8", phase: "imagination", title: "Enter the Scene", parts: ["img-picture", "img-force", "img-distance"] },
+  { n: 9, id: "step-9", phase: "application", title: "Find the Principle", parts: ["app-first", "app-principle"], lettered: true },
+  { n: 10, id: "step-10", phase: "application", title: "Respond", parts: ["app-home", "app-step"] }
+];
 
 export const STEPS = {
   // ------------------------------------------------------------ Preparation

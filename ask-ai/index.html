@@ -211,7 +211,7 @@
         <div class="border-b border-line p-5">
           <p class="text-xs font-bold uppercase tracking-[.18em] text-navy">Case file</p>
           <h1 class="mt-2 font-serif text-3xl font-semibold tracking-[-.03em] text-slate-950">Guided Study</h1>
-          <p class="mt-3 text-sm leading-6 text-muted">Walk the inductive method one phase at a time. You do the studying; the guide coaches each step.</p>
+          <p class="mt-3 text-sm leading-6 text-muted">Walk the ten steps of the inductive method one at a time. You do the studying; the guide tells you what to do next and which questions to ask.</p>
           <div id="passageSummary" class="mt-4 hidden rounded-xl border border-line bg-slate-50 p-3 text-sm">
             <p class="font-bold text-slate-900" id="passageSummaryRef"></p>
             <p class="mt-1 text-xs font-semibold uppercase tracking-[.12em] text-navy" id="passageSummaryGenre"></p>
@@ -222,7 +222,7 @@
             <h2 class="text-sm font-bold uppercase tracking-[.14em] text-slate-700">Case progress</h2>
             <button id="clearHistory" type="button" class="text-xs font-bold text-navy hover:underline">Reset</button>
           </div>
-          <ol id="progressList" class="mt-4 grid gap-1.5 text-sm" aria-label="Study phases"></ol>
+          <ol id="progressList" class="mt-4 grid gap-1.5 text-sm" aria-label="Study steps"></ol>
         </div>
       </aside>
 
@@ -267,10 +267,21 @@
   <script src="/ask-ai/books.js?v=1"></script>
   <script>
     (function () {
-      // The AI coach is switched off until the new backend exists. The worksheet works fully without it.
-      const AI_COACH_ENABLED = false;
-      const API_URL ="https://hermeneutics-backend.onrender.com/api/v1/next-step";
-      const STORAGE_KEY = "hermeneuticsGuidedStudy:v3";
+      // AI guide: a Cloudflare Worker (coach-backend/worker) that calls Claude. Leave COACH_URL empty
+      // to switch the guide off; the worksheet works fully without it. For local testing, open the
+      // page with ?coach=http://localhost:8787 (remembered in this browser; ?coach=off clears it).
+      const COACH_URL = "https://hermeneutics-coach.mybibleexplorer.workers.dev";
+      const COACH_ENDPOINT = (() => {
+        try {
+          const q = new URLSearchParams(location.search).get("coach");
+          if (q === "off") localStorage.removeItem("hermeneuticsCoachUrl");
+          else if (q && /^https?:\/\//.test(q)) localStorage.setItem("hermeneuticsCoachUrl", q.replace(/\/$/, ""));
+          return (localStorage.getItem("hermeneuticsCoachUrl") || COACH_URL || "").replace(/\/$/, "");
+        } catch (e) { return COACH_URL; }
+      })();
+      const AI_COACH_ENABLED = !!COACH_ENDPOINT;
+      const STORAGE_KEY = "hermeneuticsGuidedStudy:v4";
+      const OLD_STORAGE_KEY = "hermeneuticsGuidedStudy:v3";
 
       const GENRES = {
         "historical-narrative": {
@@ -505,9 +516,10 @@
         "app-step": "I have one specific, personal response that follows from my interpretation statement and fits a situation that truly matches."
       };
 
-      // Each phase carries its fixed, vetted sub-steps. Guidance and prompts are static
-      // (no AI needed) and always send the reader to their own Bible — never quoting it.
-      const PHASES = [
+      // Part definitions, grouped by the five phases. Guidance and prompts are static (no AI
+      // needed) and always send the reader to their own Bible — never quoting it. The study itself
+      // walks the ten steps in STEP_PLAN below, which regroups these parts.
+      const PART_PHASES = [
         {
           id: "preparation",
           name: "Preparation",
@@ -816,6 +828,25 @@
         }
       ];
 
+      // The ten steps of the General Hermeneutics guide (same as coach-backend/steps.mjs).
+      const STEP_PLAN = [
+        { n: 1, id: "step-1", phase: "Preparation", title: "Pray, Submit, and Name What You Bring", kicker: "Come humble and willing, and bring what you carry into the light.", parts: ["prep-assumptions", "prep-prayer", "prep-loosely", "prep-obey"] },
+        { n: 2, id: "step-2", phase: "Observation", title: "Read and Observe", kicker: "See what the text actually says before explaining it.", parts: ["obs-translation", "obs-read", "obs-map", "obs-observe", "obs-questions"], lettered: true },
+        { n: 3, id: "step-3", phase: "Interpretation", title: "Identify the Genre", kicker: "Read the passage by the rules of its kind of writing.", parts: ["int-genre"] },
+        { n: 4, id: "step-4", phase: "Interpretation", title: "Context: History and the Book", kicker: "Put the passage back in its world and its book.", parts: ["int-setting", "int-context"], lettered: true },
+        { n: 5, id: "step-5", phase: "Interpretation", title: "Study the Key Words", kicker: "Test the meaning on the words that carry the weight.", parts: ["int-keywords"] },
+        { n: 6, id: "step-6", phase: "Interpretation", title: "Scripture with Scripture", kicker: "Let clearer passages and the Bible's story shed light.", parts: ["int-scripture", "int-theology"], lettered: true },
+        { n: 7, id: "step-7", phase: "Interpretation", title: "State the Meaning, Then Check It", kicker: "Write what the author meant, then test it with others.", parts: ["int-statement", "int-resources"], lettered: true },
+        { n: 8, id: "step-8", phase: "Imagination", title: "Enter the Scene", kicker: "Enter the passage's world without adding to it.", parts: ["img-picture", "img-force", "img-distance"] },
+        { n: 9, id: "step-9", phase: "Application", title: "Find the Principle", kicker: "What it meant for them, and what carries over to us.", parts: ["app-first", "app-principle"], lettered: true },
+        { n: 10, id: "step-10", phase: "Application", title: "Respond", kicker: "Bring the meaning home and act on it.", parts: ["app-home", "app-step"] }
+      ];
+      const PART_BY_ID = Object.fromEntries(PART_PHASES.flatMap((p) => p.substeps.map((s) => [s.id, s])));
+      const PHASES = STEP_PLAN.map((st) => ({
+        id: st.id, n: st.n, name: st.title, phaseName: st.phase, kicker: st.kicker,
+        substeps: st.parts.map((id, i) => ({ ...PART_BY_ID[id], label: st.lettered ? `${st.n}${"abcde"[i]}` : "" }))
+      }));
+
       // Full "More about this step" reference content for every sub-step. (obs-observe and
       // int-setting also carry inline `details`; detailFor() prefers this map.)
       const DETAILS = {
@@ -1036,7 +1067,7 @@
       }
 
       const state = loadState();
-      state.loadingSubs = new Set(); // transient: sub-step ids awaiting an AI hint
+      const busy = { brief: false, guide: new Set(), check: new Set() }; // transient: AI requests in flight
 
       const el = {
         progressList: document.getElementById("progressList"),
@@ -1079,6 +1110,7 @@
         saveState();
         render();
         el.stage.scrollTop = 0;
+        loadBrief();
       }
 
       function goToPhase(index) {
@@ -1102,92 +1134,84 @@
       function answerOf(id) { return (state.answers[id] || "").trim(); }
 
       // --------------------------------------------------------------------
-      // Optional AI hint (non-blocking; the worksheet works without it)
+      // AI guide (optional; the worksheet works without it)
       // --------------------------------------------------------------------
-      async function askHint(phase, sub) {
-        if (state.loadingSubs.has(sub.id)) return;
-        state.loadingSubs.add(sub.id);
-        renderHintArea(sub);
-        try {
-          const data = await callGuide(phase.id, buildHintHistory(phase, sub));
-          state.aiHints[sub.id] = { title: "A hint", content: data.content, sources: data.sources, error: false };
-          hideStatus();
-        } catch (error) {
-          state.aiHints[sub.id] = {
-            title: "Guide unavailable",
-            content: `I could not reach the study guide right now. ${error.message || "Please try again."} Your worksheet is unaffected — keep going.`,
-            sources: [], error: true
-          };
-        } finally {
-          state.loadingSubs.delete(sub.id);
-          saveState();
-          renderHintArea(sub);
-        }
-      }
-
-      function buildHintHistory(phase, sub) {
-        const genre = state.genre && GENRES[state.genre];
-        const note = answerOf(sub.id);
-        let msg = `I am studying ${state.passage} and working on the "${sub.title}" step of the ${phase.name} phase.`;
-        if (genre) msg += ` The genre is ${genre.label}.`;
-        msg += ` Here is what I have written so far: "${note || "(nothing yet)"}".`;
-        msg += " Please give me a short, encouraging hint for THIS step only — a few concrete cues or one guiding question to help me do the work myself. Do not do the work for me, do not quote the Bible text, and do not move on to other steps.";
-        return [{ role: "user", content: msg }];
-      }
-
-      // --------------------------------------------------------------------
-      // Backend (resilient: retry + the server's own model fallback)
-      // --------------------------------------------------------------------
-      async function callGuide(stageId, history) {
-        const payload = JSON.stringify({ passage: (state.passage || "").trim(), current_stage: stageId, history });
-        const maxAttempts = 4;
-        const backoffs = [2000, 5000, 10000];
+      async function coachCall(body) {
+        const payload = JSON.stringify({ passage: (state.passage || "").trim(), genre: state.genre || "", reason: state.reason || "", notes: state.answers, ...body });
         let lastErr = null;
-        for (let attempt = 0; attempt < maxAttempts; attempt++) {
-          let response;
+        for (let attempt = 0; attempt < 2; attempt++) {
           try {
-            response = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: payload });
-          } catch (networkErr) {
-            lastErr = new Error("It may be waking up or briefly redeploying — please try again in a moment.");
-            if (attempt < maxAttempts - 1) { await delay(backoffs[attempt] || 10000); continue; }
-            throw lastErr;
+            const response = await fetch(`${COACH_ENDPOINT}/api/coach`, { method: "POST", headers: { "Content-Type": "application/json" }, body: payload });
+            const data = await response.json().catch(() => ({}));
+            if (response.ok) return data;
+            lastErr = new Error(data.error || `The guide returned ${response.status}.`);
+            if (![502, 503, 504].includes(response.status)) break;
+          } catch (e) {
+            lastErr = new Error("The guide could not be reached.");
           }
-          const text = await response.text();
-          let data = {};
-          try { data = text ? JSON.parse(text) : {}; } catch { data = { content: text }; }
-          if (!response.ok) {
-            const transient = [502, 503, 504, 429].includes(response.status);
-            if (transient && attempt < maxAttempts - 1) { lastErr = new Error(extractError(data, response.status)); await delay(backoffs[attempt] || 10000); continue; }
-            throw new Error(extractError(data, response.status));
-          }
-          return normalizeAssistant(data, stageId);
+          await delay(2500);
         }
-        throw lastErr || new Error("The request did not complete.");
+        throw lastErr || new Error("The guide could not answer just now.");
       }
 
       function delay(ms) { return new Promise((resolve) => setTimeout(resolve, ms)); }
 
-      function extractError(data, status) {
-        const detail = data && data.detail;
-        if (Array.isArray(detail)) return detail.map((e) => (e && e.msg) ? e.msg : JSON.stringify(e)).join("; ");
-        if (typeof detail === "string") return detail;
-        return (data && (data.error || data.message)) || `The service returned ${status}.`;
+      // Case brief: genre, unit check, and the big questions for the whole study.
+      async function loadBrief(force) {
+        if (!AI_COACH_ENABLED || busy.brief) return;
+        const passage = (state.passage || "").trim();
+        if (!passage) return;
+        if (!force && state.brief && state.brief.passage === passage && !state.brief.error) return;
+        busy.brief = true; rerenderBrief();
+        try {
+          const data = await coachCall({ task: "case_brief" });
+          state.brief = { ...data, passage };
+          if (!state.genre && data.genre && GENRES[data.genre]) { state.genre = data.genre; state.brief.genreSet = true; }
+        } catch (e) {
+          state.brief = { passage, error: e.message };
+        } finally {
+          busy.brief = false; saveState(); renderPassageSummary(); rerenderBrief();
+        }
       }
 
-      function normalizeAssistant(data, stageId) {
-        const payload = data && typeof data === "object" && data.data && typeof data.data === "object" ? data.data : data;
-        const content = payload.content || payload.response || payload.answer || payload.message || payload.output || payload.text || "";
-        let contentStr = typeof content === "string" ? content : JSON.stringify(content, null, 2);
-        contentStr = contentStr.replace(/\[\[\s*PHASE[_\s]?COMPLETE\s*\]\]/ig, "").replace(/\n{3,}/g, "\n\n").trim();
-        const sources = payload.sources || payload.excerpts || payload.context || [];
-        return { content: contentStr, sources: normalizeSources(sources) };
+      // Step guide: what to do now, questions for this passage, what to look for, and a pitfall, for every part of the step.
+      async function loadGuide(step, force) {
+        if (!AI_COACH_ENABLED || busy.guide.has(step.id)) return;
+        const passage = (state.passage || "").trim();
+        const cached = state.guides[step.id];
+        if (!force && cached && cached.passage === passage && !cached.error) return;
+        busy.guide.add(step.id); rerenderGuides(step);
+        try {
+          const data = await coachCall({ task: "step_guide", stepId: step.id });
+          const parts = {};
+          (data.parts || []).forEach((p) => { if (p && p.id) parts[p.id] = p; });
+          state.guides[step.id] = { passage, parts };
+        } catch (e) {
+          state.guides[step.id] = { passage, parts: {}, error: e.message };
+        } finally {
+          busy.guide.delete(step.id); saveState(); rerenderGuides(step);
+        }
       }
 
-      function normalizeSources(sources) {
-        if (!sources) return [];
-        if (typeof sources === "string") return [{ title: sources }];
-        if (!Array.isArray(sources)) return Object.entries(sources).map(([title]) => ({ title }));
-        return sources.map((s, i) => (typeof s === "string" ? { title: s } : (s || {})));
+      async function checkWork(sub) {
+        if (!AI_COACH_ENABLED || busy.check.has(sub.id)) return;
+        saveState();
+        if (!answerOf(sub.id)) {
+          state.feedback[sub.id] = { error: "Write your notes in the evidence log first, then ask for a check." };
+          rerenderFeedback(sub); return;
+        }
+        busy.check.add(sub.id); rerenderFeedback(sub);
+        try {
+          const data = await coachCall({ task: "check_work", partId: sub.id });
+          state.feedback[sub.id] = { did_well: data.did_well, next_move: data.next_move, ready: !!data.ready };
+          if (data.ready && !state.checks[sub.id]) state.checks[sub.id] = true;
+        } catch (e) {
+          state.feedback[sub.id] = { error: e.message };
+        } finally {
+          busy.check.delete(sub.id); saveState(); rerenderFeedback(sub);
+          const chk = document.getElementById(`chk-${sub.id}`);
+          if (chk) chk.checked = !!state.checks[sub.id];
+        }
       }
 
       // --------------------------------------------------------------------
@@ -1217,7 +1241,7 @@
       }
 
       function renderProgress() {
-        const rows = [{ id: "setup", name: "Open the case" }].concat(PHASES.map((p) => ({ id: p.id, name: p.name, phase: p })));
+        const rows = [{ id: "setup", name: "Open the case" }].concat(PHASES.map((p) => ({ id: p.id, name: p.name, phase: p, phaseName: p.phaseName })));
         el.progressList.innerHTML = rows.map((row, index) => {
           let stateName = "todo";
           const phaseIdx = index - 1;
@@ -1229,8 +1253,9 @@
             stateName = "done";
           }
           const label = stateName === "done" ? "&#10003;" : (row.id === "setup" ? "○" : String(index));
+          const phaseHead = row.phaseName && (index === 1 || rows[index - 1].phaseName !== row.phaseName) ? `<li class="mt-2 px-3 text-[10px] font-bold uppercase tracking-[.16em] text-muted">${escapeHtml(row.phaseName)}</li>` : "";
           const subs = (stateName === "active" && row.phase) ? renderRailSubSteps(row.phase) : "";
-          return `<li>
+          return `${phaseHead}<li>
             <button type="button" class="phase-step" data-state="${stateName}" data-goto="${row.id === "setup" ? "setup" : phaseIdx}" ${(row.id !== "setup" && !(state.passage || "").trim()) ? "disabled" : ""}>
               <span class="dot" aria-hidden="true">${label}</span>
               <span>${escapeHtml(row.name)}</span>
@@ -1253,7 +1278,7 @@
           let st = "todo";
           if (answerOf(s.id)) st = "done";
           else if (i === firstUndone) st = "active";
-          return `<li class="substep" data-state="${st}"><span class="sub-dot" aria-hidden="true"></span><span>${escapeHtml(s.title)}</span></li>`;
+          return `<li class="substep" data-state="${st}"><span class="sub-dot" aria-hidden="true"></span><span>${s.label ? `<b>${s.label}</b> ` : ""}${escapeHtml(s.title)}</span></li>`;
         }).join("") + `</ul>`;
       }
 
@@ -1262,7 +1287,7 @@
       }
 
       function renderSetup() {
-        const genreOptions = [`<option value="">Not sure yet - help me identify it</option>`]
+        const genreOptions = [`<option value="">Not sure yet${AI_COACH_ENABLED ? " - the guide will suggest one" : " - help me identify it"}</option>`]
           .concat(Object.entries(GENRES).map(([key, g]) => `<option value="${key}" ${state.genre === key ? "selected" : ""}>${escapeHtml(g.label)}</option>`))
           .join("");
         el.stage.innerHTML = `
@@ -1270,7 +1295,7 @@
             <span class="stamp">OPEN</span>
             <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-bold uppercase tracking-[.14em] text-navy">Open a case</span>
             <h3 class="mt-4 font-serif text-3xl font-semibold tracking-[-.03em] text-slate-950">What passage will you study?</h3>
-            <p class="mt-3 text-base leading-7 text-muted">We begin with the passage itself. Name it, choose its genre if you know it, and you'll work through the method one phase at a time — writing your own answers as you go.</p>
+            <p class="mt-3 text-base leading-7 text-muted">We begin with the passage itself. Name it, and you'll work through the ten steps of the method one at a time, writing your own answers as you go.${AI_COACH_ENABLED ? " At each step the guide tells you what to do next and which questions to ask this passage. It points you to the evidence; it won't do the study for you." : ""}</p>
             <div class="mt-6 grid gap-5">
               <div>
                 <label for="passageRef" class="block text-sm font-bold text-slate-800">Passage reference</label>
@@ -1351,15 +1376,21 @@
         }
         const genre = state.genre && GENRES[state.genre];
         let genrePanel = "";
-        if (phase.id === "interpretation") genrePanel = genreKeysPanel(genre) + bookPanel();
-        else if (phase.id === "observation" && genre) genrePanel = genreKeysPanel(genre, true);
+        if (phase.id === "step-3") genrePanel = genreKeysPanel(genre);
+        else if (phase.id === "step-4") genrePanel = (genre ? genreKeysPanel(genre, true) : "") + bookPanel();
+        else if (phase.id === "step-2" && genre) genrePanel = genreKeysPanel(genre, true);
+        const brief = phase.n === 1 ? `<div id="briefArea">${briefPanel()}</div>` : "";
+        const guideBar = AI_COACH_ENABLED ? `<div id="guideBar">${guideBarHtml(phase)}</div>` : "";
         const cards = phase.substeps.map((sub, i) => subStepCard(sub, i)).join("");
         el.stage.innerHTML = `
           <article class="mx-auto max-w-3xl">
             <div class="text-center">
-              <span class="inline-flex rounded-full bg-navy px-3 py-1 text-xs font-bold uppercase tracking-[.14em] text-white">Phase ${state.stageIndex + 1} of 5 &middot; ${escapeHtml(phase.name)}</span>
-              <p class="mt-2 font-serif text-lg italic text-navy">${escapeHtml(phase.kicker)}</p>
+              <span class="inline-flex rounded-full bg-navy px-3 py-1 text-xs font-bold uppercase tracking-[.14em] text-white">Step ${phase.n} of 10 &middot; ${escapeHtml(phase.phaseName)}</span>
+              <h3 class="mt-3 font-serif text-3xl font-semibold tracking-[-.03em] text-slate-950">${escapeHtml(phase.name)}</h3>
+              <p class="mt-1 font-serif text-lg italic text-navy">${escapeHtml(phase.kicker)}</p>
             </div>
+            ${brief}
+            ${guideBar}
             ${genrePanel}
             <div class="mt-5 grid gap-4">${cards}</div>
           </article>`;
@@ -1370,13 +1401,120 @@
             ta.addEventListener("input", () => { state.answers[sub.id] = ta.value; saveDebounced(); });
             ta.addEventListener("blur", () => { saveState(); renderProgress(); });
           }
-          const btn = document.getElementById(`ask-${sub.id}`);
-          if (btn) btn.addEventListener("click", () => askHint(phase, sub));
+          const btn = document.getElementById(`check-${sub.id}`);
+          if (btn) btn.addEventListener("click", () => checkWork(sub));
           const more = document.getElementById(`more-${sub.id}`);
           if (more) more.addEventListener("click", () => setActiveDetail(sub.id));
           const chk = document.getElementById(`chk-${sub.id}`);
           if (chk) chk.addEventListener("change", () => { state.checks[sub.id] = chk.checked; saveState(); });
         });
+        bindGuideBar(phase);
+        bindBrief();
+        if (phase.n === 1) loadBrief();
+        loadGuide(phase);
+      }
+
+      // ---- AI guide rendering ----
+      function guideBarHtml(step) {
+        const g = state.guides[step.id];
+        const loading = busy.guide.has(step.id);
+        let msg = "Your guide for this step is ready. Questions are written for this passage.";
+        if (loading) msg = `<span class="inline-block h-3 w-3 animate-spin rounded-full border-2 border-slate-300 border-t-navy align-[-1px]"></span> Reading ${escapeHtml(state.passage)} and preparing this step...`;
+        else if (g && g.error) msg = `The guide could not answer just now (${escapeHtml(g.error)}). The standard questions below still work.`;
+        else if (!g) msg = "The guide will prepare questions for this passage.";
+        return `<div class="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-line bg-white px-4 py-3 text-sm leading-6 text-slate-700 shadow-sm">
+            <span><span class="font-bold text-navy">Guide &middot; </span>${msg}</span>
+            <button id="regenGuide" type="button" ${loading ? "disabled" : ""} class="text-xs font-bold text-navy underline underline-offset-4 disabled:opacity-50">${g && !g.error ? "Refresh using my notes" : "Try again"}</button>
+          </div>`;
+      }
+      function bindGuideBar(step) {
+        const r = document.getElementById("regenGuide");
+        if (r) r.addEventListener("click", () => { saveState(); loadGuide(step, true); });
+      }
+      function rerenderGuides(step) {
+        if (state.mode !== "study" || currentPhase().id !== step.id) return;
+        const bar = document.getElementById("guideBar");
+        if (bar) { bar.innerHTML = guideBarHtml(step); bindGuideBar(step); }
+        step.substeps.forEach((sub) => {
+          const box = document.getElementById(`guide-${sub.id}`);
+          if (box) box.innerHTML = guideBody(sub, step);
+        });
+      }
+
+      // The part's guidance: AI questions for this passage when ready, the standard prompts otherwise.
+      function guideBody(sub, step) {
+        const g = AI_COACH_ENABLED ? state.guides[step.id] : null;
+        const part = g && !g.error && g.parts ? g.parts[sub.id] : null;
+        const loading = AI_COACH_ENABLED && busy.guide.has(step.id);
+        const staticPrompts = sub.prompts.map((p) => `<li class="worksheet-q text-[15px] leading-7 text-slate-700">${escapeHtml(p)}</li>`).join("");
+        if (!part) {
+          const wait = loading ? `<p class="mt-3 text-sm text-muted"><span class="inline-block h-3 w-3 animate-spin rounded-full border-2 border-slate-300 border-t-navy align-[-1px]"></span> Writing questions for ${escapeHtml(state.passage)}...</p>` : "";
+          return `<p class="mt-2 text-sm leading-6 text-muted">${escapeHtml(sub.guidance)}</p><ul class="mt-3 grid gap-2">${staticPrompts}</ul>${wait}`;
+        }
+        const list = (items) => (items || []).map((t) => `<li class="worksheet-q text-[15px] leading-7 text-slate-700">${escapeHtml(t)}</li>`).join("");
+        return `
+          <div class="mt-3 rounded-xl border border-navy/15 bg-slate-50 p-4">
+            <p class="text-xs font-bold uppercase tracking-[.14em] text-navy">What to do now</p>
+            <p class="mt-1 text-[15px] leading-7 text-slate-800">${escapeHtml(part.do_now || sub.guidance)}</p>
+            <p class="mt-4 text-xs font-bold uppercase tracking-[.14em] text-navy">Questions to ask this passage</p>
+            <ul class="mt-2 grid gap-2">${list(part.questions)}</ul>
+            ${(part.look_for || []).length ? `<p class="mt-4 text-xs font-bold uppercase tracking-[.14em] text-navy">What to look for</p><ul class="mt-2 grid gap-2">${list(part.look_for)}</ul>` : ""}
+            ${part.watch_out ? `<p class="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm leading-6 text-amber-950"><span class="font-bold">Watch out:</span> ${escapeHtml(part.watch_out)}</p>` : ""}
+          </div>
+          <details class="mt-3 text-sm text-muted"><summary class="cursor-pointer font-bold text-navy">Standard questions for this step</summary><ul class="mt-2 grid gap-2">${staticPrompts}</ul></details>`;
+      }
+
+      function feedbackHtml(subId) {
+        if (busy.check.has(subId)) return `<div class="mt-2 rounded-xl border border-line bg-slate-50 px-4 py-3 text-sm text-muted"><span class="inline-block h-3 w-3 animate-spin rounded-full border-2 border-slate-300 border-t-navy align-[-1px]"></span> Reading your notes...</div>`;
+        const f = state.feedback[subId];
+        if (!f) return "";
+        if (f.error) return `<div class="mt-2 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-950">${escapeHtml(f.error)}</div>`;
+        return `<div class="mt-2 rounded-xl border ${f.ready ? "border-emerald-200 bg-emerald-50/70" : "border-line bg-slate-50"} p-4 text-[15px] leading-7 text-slate-700">
+            <p class="text-xs font-bold uppercase tracking-[.12em] text-navy">${f.ready ? "Ready to file" : "Guide's check"}</p>
+            ${f.did_well ? `<p class="mt-1"><span class="font-bold text-slate-900">Good:</span> ${escapeHtml(f.did_well)}</p>` : ""}
+            ${f.next_move ? `<p class="mt-1"><span class="font-bold text-slate-900">${f.ready ? "To sharpen it:" : "Next:"}</span> ${escapeHtml(f.next_move)}</p>` : ""}
+          </div>`;
+      }
+      function rerenderFeedback(sub) {
+        const box = document.getElementById(`fb-${sub.id}`);
+        if (box) box.innerHTML = feedbackHtml(sub.id);
+        const btn = document.getElementById(`check-${sub.id}`);
+        if (btn) { btn.disabled = busy.check.has(sub.id); btn.textContent = busy.check.has(sub.id) ? "Checking..." : "Check my work"; }
+      }
+
+      function briefPanel() {
+        if (!AI_COACH_ENABLED) return "";
+        const b = state.brief;
+        const passage = (state.passage || "").trim();
+        if (busy.brief) return `<div class="mt-5 rounded-2xl border border-line bg-white p-5 text-sm text-muted shadow-sm"><span class="inline-block h-3 w-3 animate-spin rounded-full border-2 border-slate-300 border-t-navy align-[-1px]"></span> Opening the case file on ${escapeHtml(passage)}...</div>`;
+        if (!b || b.passage !== passage) return "";
+        if (b.error) return `<div class="mt-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-950">The guide could not open the case file (${escapeHtml(b.error)}). <button type="button" id="retryBrief" class="font-bold underline underline-offset-4">Try again</button></div>`;
+        const genre = b.genre && GENRES[b.genre];
+        const qs = (b.case_questions || []).map((q) => `<li class="worksheet-q text-[15px] leading-7 text-slate-800">${escapeHtml(q)}</li>`).join("");
+        return `
+          <div class="relative mt-5 rounded-2xl border border-line bg-white p-5 shadow-sm md:p-6">
+            <span class="stamp">BRIEF</span>
+            <p class="text-xs font-bold uppercase tracking-[.16em] text-navy">Case brief &middot; ${escapeHtml(passage)}</p>
+            ${b.reference_note ? `<p class="mt-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm leading-6 text-amber-950">${escapeHtml(b.reference_note)}</p>` : ""}
+            <p class="mt-4 text-sm font-bold text-slate-900">The questions this case must answer</p>
+            <ul class="mt-2 grid gap-2">${qs}</ul>
+            <dl class="mt-4 grid gap-3 text-[15px] leading-7 text-slate-700">
+              ${b.unit_note ? `<div><dt class="font-bold text-slate-900">The passage unit</dt><dd>${escapeHtml(b.unit_note)}</dd></div>` : ""}
+              ${genre ? `<div><dt class="font-bold text-slate-900">Likely genre: ${escapeHtml(genre.label)}</dt><dd>${escapeHtml(b.genre_reason || "")} ${state.genre === b.genre ? (b.genreSet ? `<span class="text-muted">Set for you. You can change it on the passage screen.</span>` : "") : `<button type="button" id="useBriefGenre" class="font-bold text-navy underline underline-offset-4">Use ${escapeHtml(genre.label)}</button>`}</dd></div>` : ""}
+            </dl>
+            <p class="mt-3 text-xs leading-5 text-muted">These are questions, not answers. You will find the answers in the text as you work through the steps.</p>
+          </div>`;
+      }
+      function bindBrief() {
+        const r = document.getElementById("retryBrief");
+        if (r) r.addEventListener("click", () => loadBrief(true));
+        const u = document.getElementById("useBriefGenre");
+        if (u) u.addEventListener("click", () => { state.genre = state.brief.genre; saveState(); render(); });
+      }
+      function rerenderBrief() {
+        const area = document.getElementById("briefArea");
+        if (area) { area.innerHTML = briefPanel(); bindBrief(); }
+        renderPassageSummary();
       }
 
       // Persistent "About this step" reference panel (third column).
@@ -1443,53 +1581,27 @@
         const exhibit = PHASES.slice(0, state.stageIndex).reduce((t, p) => t + p.substeps.length, 0) + n;
         const exhibitTotal = PHASES.reduce((t, p) => t + p.substeps.length, 0);
         const answer = state.answers[sub.id] || "";
-        const prompts = sub.prompts.map((p) => `<li class="worksheet-q text-[15px] leading-7 text-slate-700">${escapeHtml(p)}</li>`).join("");
-        const loading = state.loadingSubs.has(sub.id);
+        const checking = busy.check.has(sub.id);
         return `
           <section class="rounded-2xl border border-line bg-white p-5 shadow-sm md:p-6">
             <div class="flex items-center gap-3">
-              <span class="grid h-7 w-7 place-items-center rounded-full bg-navy text-xs font-bold text-white">${n}</span>
+              <span class="grid h-7 min-w-[1.75rem] place-items-center rounded-full bg-navy px-1.5 text-xs font-bold text-white">${sub.label || n}</span>
               <h4 class="text-lg font-bold text-slate-950">${escapeHtml(sub.title)}</h4>
               <span class="ml-auto text-xs font-bold uppercase tracking-[.1em] text-navy">Exhibit ${exhibit} of ${exhibitTotal}</span>
             </div>
-            <p class="mt-2 text-sm leading-6 text-muted">${escapeHtml(sub.guidance)}</p>
-            <ul class="mt-3 grid gap-2">${prompts}</ul>
+            <div id="guide-${sub.id}">${guideBody(sub, currentPhase())}</div>
             ${detailFor(sub) ? `<button type="button" id="more-${sub.id}" data-more="${sub.id}" data-active="${state.activeDetail === sub.id}" class="more-link mt-3 inline-flex items-center gap-1.5 text-sm font-bold text-navy underline underline-offset-4 hover:text-navyHover"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>More about this step</button>` : ""}
             <label for="ta-${sub.id}" class="mt-4 block text-xs font-bold uppercase tracking-[.14em] text-slate-700">Evidence log</label>
             <textarea id="ta-${sub.id}" rows="4" class="mt-2 w-full resize-y rounded-xl border border-slate-300 bg-white p-3 text-base leading-7 text-slate-950 outline-none focus:border-navy" placeholder="Write your own answer...">${escapeHtml(answer)}</textarea>
             ${AI_COACH_ENABLED ? `<div class="mt-2 flex items-center justify-end">
-              <button id="ask-${sub.id}" type="button" ${loading ? "disabled" : ""} class="inline-flex min-h-[38px] items-center gap-2 rounded-lg border border-line px-3 py-1.5 text-xs font-bold text-navy transition hover:bg-slate-50 disabled:cursor-wait disabled:opacity-70">${loading ? "Loading..." : "Ask the guide for help"}<span class="text-muted font-semibold">optional</span></button>
+              <button id="check-${sub.id}" type="button" ${checking ? "disabled" : ""} class="inline-flex min-h-[38px] items-center gap-2 rounded-lg border border-line px-3 py-1.5 text-xs font-bold text-navy transition hover:bg-slate-50 disabled:cursor-wait disabled:opacity-70">${checking ? "Checking..." : "Check my work"}</button>
             </div>
-            <div id="hint-${sub.id}">${renderHint(sub.id)}</div>` : ""}
+            <div id="fb-${sub.id}">${feedbackHtml(sub.id)}</div>` : ""}
             ${FINISH[sub.id] ? `<label for="chk-${sub.id}" class="mt-4 flex cursor-pointer items-start gap-3 rounded-xl border border-line bg-slate-50 p-3 text-sm leading-6 text-slate-700">
               <input id="chk-${sub.id}" type="checkbox" class="mt-1 h-4 w-4 flex-none accent-[#0f2a4a]" ${state.checks[sub.id] ? "checked" : ""}>
               <span><span class="font-bold text-slate-900">Before you file this step:</span> ${escapeHtml(FINISH[sub.id])}</span>
             </label>` : ""}
           </section>`;
-      }
-
-      function renderHint(subId) {
-        if (state.loadingSubs.has(subId)) {
-          return `<div class="mt-2 rounded-xl border border-line bg-slate-50 px-4 py-3 text-sm text-muted"><span class="inline-block h-3 w-3 animate-spin rounded-full border-2 border-slate-300 border-t-navy align-[-1px]"></span> Loading...</div>`;
-        }
-        const hint = state.aiHints[subId];
-        if (!hint) return "";
-        return `
-          <div class="mt-2 rounded-xl border ${hint.error ? "border-amber-200 bg-amber-50" : "border-line bg-slate-50"} p-4">
-            <p class="text-xs font-bold uppercase tracking-[.12em] text-navy">${escapeHtml(hint.title || "A hint")}</p>
-            <div class="markdown-body mt-1 text-[15px] leading-7 text-slate-700">${markdownToHtml(String(hint.content || ""))}</div>
-          </div>`;
-      }
-
-      function renderHintArea(sub) {
-        const area = document.getElementById(`hint-${sub.id}`);
-        if (area) area.innerHTML = renderHint(sub.id);
-        const btn = document.getElementById(`ask-${sub.id}`);
-        if (btn) {
-          const loading = state.loadingSubs.has(sub.id);
-          btn.disabled = loading;
-          btn.innerHTML = (loading ? "Loading..." : "Ask the guide for help") + `<span class="text-muted font-semibold">optional</span>`;
-        }
       }
 
       function renderComposer() {
@@ -1521,8 +1633,8 @@
         el.composer.innerHTML = `
           <div class="flex items-center justify-between gap-3">
             <button id="backBtn" type="button" ${state.stageIndex === 0 ? "disabled" : ""} class="inline-flex min-h-[48px] items-center justify-center rounded-xl border border-line px-5 py-3 text-sm font-bold text-navy transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40">Back</button>
-            <p class="text-xs font-bold uppercase tracking-[.14em] text-muted">${escapeHtml(currentPhase().name)} &middot; ${state.stageIndex + 1} of 5</p>
-            <button id="nextBtn" type="button" class="inline-flex min-h-[48px] items-center justify-center rounded-xl bg-navy px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-navyHover">${isLast ? "Finish &amp; view summary" : "Next phase &rarr;"}</button>
+            <p class="hidden text-xs font-bold uppercase tracking-[.14em] text-muted sm:block">Step ${state.stageIndex + 1} of 10</p>
+            <button id="nextBtn" type="button" class="inline-flex min-h-[48px] items-center justify-center rounded-xl bg-navy px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-navyHover">${isLast ? "Finish &amp; view summary" : "Next step &rarr;"}</button>
           </div>`;
         document.getElementById("backBtn").addEventListener("click", () => goToPhase(state.stageIndex - 1));
         document.getElementById("nextBtn").addEventListener("click", () => isLast ? finishStudy() : goToPhase(state.stageIndex + 1));
@@ -1536,12 +1648,10 @@
         const blocks = PHASES.map((phase, index) => {
           const items = phase.substeps.map((sub) => {
             const a = answerOf(sub.id);
-            const hint = AI_COACH_ENABLED ? state.aiHints[sub.id] : null;
             return `
               <div class="mt-3">
-                <p class="text-sm font-bold text-slate-900">${escapeHtml(sub.title)}</p>
+                <p class="text-sm font-bold text-slate-900">${sub.label ? `${sub.label} ` : ""}${escapeHtml(sub.title)}</p>
                 <p class="mt-1 whitespace-pre-wrap text-[15px] leading-7 text-slate-700">${a ? escapeHtml(a) : "<span class='text-muted'>—</span>"}</p>
-                ${hint && !hint.error ? `<div class="markdown-body mt-1 border-l-2 border-line pl-3 text-sm leading-6 text-muted">${markdownToHtml(String(hint.content || ""))}</div>` : ""}
               </div>`;
           }).join("");
           return `
@@ -1549,18 +1659,22 @@
               <div class="flex items-center gap-3">
                 <span class="grid h-7 w-7 place-items-center rounded-full bg-navy text-xs font-bold text-white">${index + 1}</span>
                 <h4 class="text-lg font-bold text-slate-950">${escapeHtml(phase.name)}</h4>
+                <span class="ml-auto text-xs font-bold uppercase tracking-[.1em] text-muted">${escapeHtml(phase.phaseName)}</span>
               </div>
               ${items}
             </section>`;
         }).join("");
+        const brief = state.brief && !state.brief.error && state.brief.passage === (state.passage || "").trim() ? state.brief : null;
+        const caseQs = brief && (brief.case_questions || []).length ? `<div class="mt-4 rounded-xl border border-line bg-slate-50 p-4"><p class="text-sm font-bold text-slate-900">The questions this case set out to answer</p><ul class="mt-2 grid gap-1.5 text-[15px] leading-7 text-slate-700">${brief.case_questions.map((q) => `<li class="worksheet-q">${escapeHtml(q)}</li>`).join("")}</ul><p class="mt-2 text-xs text-muted">Can you answer each one now from your own notes?</p></div>` : "";
         el.stage.innerHTML = `
           <article class="mx-auto max-w-3xl">
             <div class="rounded-2xl border border-line bg-white p-6 shadow-sm md:p-8">
               <span class="stamp">FILED</span>
               <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-bold uppercase tracking-[.14em] text-navy">Study summary</span>
               <h3 class="mt-4 font-serif text-3xl font-semibold tracking-[-.03em] text-slate-950">Your finished study</h3>
-              <p class="mt-3 text-base leading-7 text-muted">Your study of <span class="font-bold text-slate-900">${escapeHtml(state.passage || "your passage")}</span>${genre ? ` <span class="text-muted">(${escapeHtml(genre.label)})</span>` : ""}, phase by phase. Meaning that stays on the page has not finished its work until you live it.</p>
+              <p class="mt-3 text-base leading-7 text-muted">Your study of <span class="font-bold text-slate-900">${escapeHtml(state.passage || "your passage")}</span>${genre ? ` <span class="text-muted">(${escapeHtml(genre.label)})</span>` : ""}, step by step. Meaning that stays on the page has not finished its work until you live it.</p>
               ${(state.reason || "").trim() ? `<p class="mt-3 text-sm leading-6 text-slate-700"><span class="font-bold">Why this passage:</span> ${escapeHtml(state.reason.trim())}</p>` : ""}
+              ${caseQs}
             </div>
             <div class="mt-4 grid gap-4">${blocks}</div>
           </article>`;
@@ -1580,12 +1694,13 @@
           ""
         ];
         if ((state.reason || "").trim()) lines.push(`Why this passage: ${state.reason.trim()}`, "");
+        if (state.brief && !state.brief.error && (state.brief.case_questions || []).length) {
+          lines.push("## Case questions", "", ...state.brief.case_questions.map((q) => `- ${q}`), "");
+        }
         PHASES.forEach((phase, index) => {
-          lines.push(`## ${index + 1}. ${phase.name}`, "");
+          lines.push(`## Step ${index + 1}. ${phase.name}`, "");
           phase.substeps.forEach((sub) => {
-            lines.push(`### ${sub.title}`, "", answerOf(sub.id) || "(no answer)", "");
-            const hint = AI_COACH_ENABLED ? state.aiHints[sub.id] : null;
-            if (hint && !hint.error && hint.content) lines.push(`_Guide hint:_ ${String(hint.content).trim()}`, "");
+            lines.push(`### ${sub.label ? sub.label + " " : ""}${sub.title}`, "", answerOf(sub.id) || "(no answer)", "");
           });
         });
         const blob = new Blob([lines.join("\n")], { type: "text/markdown;charset=utf-8" });
@@ -1623,7 +1738,6 @@
       function doReset() {
         disarmReset();
         Object.assign(state, freshState());
-        state.loadingSubs = new Set();
         saveState();
         hideStatus();
         render();
@@ -1639,19 +1753,24 @@
         try {
           localStorage.setItem(STORAGE_KEY, JSON.stringify({
             mode: state.mode, passage: state.passage, reason: state.reason, genre: state.genre,
-            stageIndex: state.stageIndex, activeDetail: state.activeDetail, answers: state.answers, checks: state.checks, aiHints: state.aiHints
+            stageIndex: state.stageIndex, activeDetail: state.activeDetail, answers: state.answers, checks: state.checks, brief: state.brief, guides: state.guides, feedback: state.feedback
           }));
         } catch (e) { /* ignore quota errors */ }
       }
 
       function freshState() {
-        return { mode: "setup", passage: "", reason: "", genre: "", stageIndex: 0, activeDetail: "", answers: {}, checks: {}, aiHints: {} };
+        return { mode: "setup", passage: "", reason: "", genre: "", stageIndex: 0, activeDetail: "", answers: {}, checks: {}, brief: null, guides: {}, feedback: {} };
       }
 
       function loadState() {
         const base = freshState();
         try {
-          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+          let saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+          if (!saved) {
+            // Carry answers over from the five-phase version; part ids did not change.
+            const old = JSON.parse(localStorage.getItem(OLD_STORAGE_KEY) || "null");
+            if (old && typeof old === "object") saved = { ...old, stageIndex: 0, aiHints: undefined };
+          }
           if (saved && typeof saved === "object") {
             base.mode = ["setup", "study", "summary"].includes(saved.mode) ? saved.mode : "setup";
             base.passage = typeof saved.passage === "string" ? saved.passage : "";
@@ -1661,7 +1780,9 @@
             base.activeDetail = typeof saved.activeDetail === "string" ? saved.activeDetail : "";
             base.answers = saved.answers && typeof saved.answers === "object" ? saved.answers : {};
             base.checks = saved.checks && typeof saved.checks === "object" ? saved.checks : {};
-            base.aiHints = saved.aiHints && typeof saved.aiHints === "object" ? saved.aiHints : {};
+            base.brief = saved.brief && typeof saved.brief === "object" ? saved.brief : null;
+            base.guides = saved.guides && typeof saved.guides === "object" ? saved.guides : {};
+            base.feedback = saved.feedback && typeof saved.feedback === "object" ? saved.feedback : {};
           }
         } catch (e) { /* ignore */ }
         if (!base.passage.trim()) base.mode = "setup";

@@ -1,0 +1,26 @@
+name = "hermeneutics-coach"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Let the worker import the coach prompt as plain text.
+[[rules]]
+type = "Text"
+globs = ["**/*.md"]
+fallthrough = true
+
+[vars]
+MODEL = "claude-sonnet-5-5"
+EFFORT = "medium"
+ALLOWED_ORIGINS = "https://hermeneutics.mybibleexplorer.com,http://localhost:8000"
+
+# Per-visitor limit: 20 coach requests a minute per IP address.
+[[ratelimits]]
+name = "LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 20
+  period = 60
+
+# The API key is a secret, set with:  npx wrangler secret put ANTHROPIC_API_KEY
